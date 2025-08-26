@@ -1,10 +1,15 @@
-Shinra Meter (Evervyn Fork)
-============================
+Shinra Meter (Evervyn + EU Classic)
+===================================
 
-**This is a fork of ShinraMeter that applies a bandaid fix for compatibility with the Evervyn server.**
+This repository now maintains two actively built variants of ShinraMeter:
+
+- Evervyn Server variant (branch: `Evervyn`)
+- EU Classic variant (branch: `EU-Classic`)
+
+Releases are produced separately for each variant. See “Releases” below.
 
 Shinra Meter
-==============
+============
 
 [<img src="https://img.shields.io/badge/rating-4%2B%20stars-brightgreen.svg">](https://recordnotfound.com/ShinraMeter-neowutran-9937)
 
@@ -14,11 +19,32 @@ ShinraMeter is a DPS Meter for TERA based off https://github.com/gothos-folly/Te
 
 Wiki: https://github.com/neowutran/TeraDamageMeter/wiki
 
-Download: https://neowutran.ovh/updates/
+Download (legacy upstream): https://neowutran.ovh/updates/
 
 TERADATA: https://github.com/neowutran/TeraDpsMeterData
 
 https://neowutran.ovh/teraDB/
+
+
+Variants and Branches
+----------------------
+
+- Evervyn variant lives on the `Evervyn` branch and is tailored for the Evervyn server.
+- EU Classic variant lives on the `EU-Classic` branch and is tailored for EU Classic.
+
+Each branch may carry server-specific opcodes, data, and fixes.
+
+Local Build
+-----------
+
+Prereqs: .NET 8 SDK and Windows build tools.
+
+Steps:
+
+1. Checkout the desired branch: `Evervyn` or `EU-Classic`.
+2. Restore and build the solution: `dotnet restore Tera.sln` then `dotnet build -c Release Tera.sln`.
+3. Publish the UI project: `dotnet publish DamageMeter.UI/DamageMeter.UI.csproj -c Release -f net8-windows -o ./publish/ShinraMeter`.
+4. Copy `resources/` into the publish dir if needed.
 
 ShinraMeter is dev by Gl0 and Yukikoo/Neowutran
  
