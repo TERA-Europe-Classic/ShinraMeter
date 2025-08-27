@@ -311,6 +311,14 @@ namespace DamageMeter.Sniffing
         public int ClientProxyOverhead;
         public int ServerProxyOverhead;
 
+        // Unencrypted socket mode fields
+        private readonly bool _unencryptedMode;
+        private readonly string _socketHost = "127.0.0.1";
+        private readonly int _socketPort = 7802;
+        private readonly bool _isUnencrypted = true; // reserved for future toggles
+        private CancellationTokenSource _socketCts;
+        private Task _socketTask;
+
         private bool _connected;
         public override bool Connected
         {
@@ -350,19 +358,80 @@ namespace DamageMeter.Sniffing
             tcpSniffer.EndConnection += HandleEndConnection;
         }
 
+        // Unencrypted socket constructor - if unencryptedMode is true, skip raw sniffer setup
+        public TeraSniffer(bool unencryptedMode, string socketHost = "127.0.0.1", int socketPort = 7802, bool isUnencrypted = true)
+        {
+            _unencryptedMode = unencryptedMode;
+            _socketHost = socketHost;
+            _socketPort = socketPort;
+            _isUnencrypted = isUnencrypted;
+
+            var servers = BasicTeraData.Instance.Servers;
+            _serversByIp = servers.GetServersByIp();
+
+            if (!_unencryptedMode)
+            {
+                BasicTeraData.Instance.WindowData.CaptureMode = CaptureMode.Npcap;
+                if (BasicTeraData.Instance.WindowData.CaptureMode == CaptureMode.Npcap)
+                {
+                    var netmasks = _serversByIp.Keys.Select(s => string.Join(".", s.Split('.').Take(3)) + ".0/24").Distinct().ToArray();
+
+                    var filter = string.Join(" or ", netmasks.Select(x => $"(net {x})"));
+                    filter = "tcp and (" + filter + ")";
+
+                    try //fallback to raw sockets if no winpcap available
+                    {
+                        _ipSniffer = new IpSnifferWinPcap(filter);
+                        ((IpSnifferWinPcap)_ipSniffer).Warning += OnWarning;
+                    }
+                    catch { _ipSniffer = new IpSnifferRawSocketMultipleInterfaces(); }
+                }
+                else { _ipSniffer = new IpSnifferRawSocketMultipleInterfaces(); }
+
+                var tcpSniffer = new TcpSniffer(_ipSniffer);
+                tcpSniffer.NewConnection += HandleNewConnection;
+                tcpSniffer.EndConnection += HandleEndConnection;
+            }
+        }
+
         //public static TeraSniffer Instance => _instance ?? (_instance = new TeraSniffer());
 
         // IpSniffer has its own locking, so we need no lock here.
         public override bool Enabled
         {
-            get => _ipSniffer.Enabled;
-            set => _ipSniffer.Enabled = value;
+            get => _unencryptedMode ? (_socketTask != null && !_socketTask.IsCompleted) : _ipSniffer.Enabled;
+            set
+            {
+                if (_unencryptedMode)
+                {
+                    if (value)
+                    {
+                        if (_socketTask == null || _socketTask.IsCompleted)
+                        {
+                            _socketCts = new CancellationTokenSource();
+                            _socketTask = Task.Run(() => UnencryptedSocketLoopAsync(_socketCts.Token));
+                        }
+                    }
+                    else
+                    {
+                        _socketCts?.Cancel();
+                    }
+                }
+                else
+                {
+                    _ipSniffer.Enabled = value;
+                }
+            }
         }
 
         public override void CleanupForcefully()
         {
             _clientToServer?.RemoveCallback();
             _serverToClient?.RemoveCallback();
+            if (_unencryptedMode)
+            {
+                try { _socketCts?.Cancel(); } catch { }
+            }
             base.CleanupForcefully();
             //_instance.Enabled = false;
             //_instance = null;
@@ -484,6 +553,106 @@ namespace DamageMeter.Sniffing
         private void HandleClientToServerDecrypted(byte[] data)
         {
             _messageSplitter.ClientToServer(DateTime.UtcNow, data);
+        }
+
+        // Unencrypted socket mode: connect to a socket and feed decrypted frames
+        private async Task UnencryptedSocketLoopAsync(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                TcpClient client = null;
+                try
+                {
+                    client = new TcpClient();
+                    await client.ConnectAsync(_socketHost, _socketPort);
+                    Connected = true;
+                    var stream = client.GetStream();
+                    int packets = 0;
+
+                    var lenBuf = new byte[2];
+                    while (!token.IsCancellationRequested)
+                    {
+                        if (!ReadExact(stream, lenBuf, 2)) break;
+                        var totalLen = BitConverter.ToUInt16(lenBuf, 0);
+                        if (totalLen < 5) continue; // minimal sane frame size
+
+                        var dirBuf = new byte[1];
+                        if (!ReadExact(stream, dirBuf, 1)) break;
+                        byte direction = dirBuf[0];
+
+                        int frameLen = totalLen;
+                        int teraPacketLen = frameLen - 1;
+                        var dataBuf = new byte[teraPacketLen];
+                        if (!ReadExact(stream, dataBuf, teraPacketLen)) break;
+
+                        packets++;
+                        if (packets == 1)
+                        {
+                            var server = new Tera.Game.Server("Unencrypted Socket", "EU", _socketHost);
+                            _messageSplitter = new MessageSplitter();
+                            _messageSplitter.MessageReceived += HandleMessageReceived;
+                            // Wire Resync diagnostics in unencrypted mode for visibility into framing issues
+                            _messageSplitter.Resync += OnResync;
+                            OnNewConnection(server);
+                        }
+
+                        // Validate direction marker explicitly (1=C2S, 2=S2C)
+                        MessageDirection msgDir;
+                        if (direction == 1) msgDir = MessageDirection.ClientToServer;
+                        else if (direction == 2) msgDir = MessageDirection.ServerToClient;
+                        else
+                        {
+                            OnWarning($"[Unencrypted] Unknown direction byte={direction}, skipping frame of totalLen={totalLen}");
+                            continue;
+                        }
+
+                        // Validate inner TERA length matches the data buffer we pass to the splitter
+                        if (dataBuf.Length >= 2)
+                        {
+                            var innerLen = BitConverter.ToUInt16(dataBuf, 0);
+                            if (innerLen != dataBuf.Length)
+                            {
+                                OnWarning($"[Unencrypted] Inner TERA len mismatch: innerLen={innerLen} dataLen={dataBuf.Length} (totalLen={totalLen}, dir={direction}). Possible framing mismatch.");
+                                // Fallback: if innerLen looks sane and smaller than dataLen, trim to innerLen to try to recover this frame
+                                if (innerLen >= 4 && innerLen <= dataBuf.Length)
+                                {
+                                    var trimmed = new byte[innerLen];
+                                    Buffer.BlockCopy(dataBuf, 0, trimmed, 0, innerLen);
+                                    dataBuf = trimmed;
+                                }
+                            }
+                        }
+
+                        if (msgDir == MessageDirection.ClientToServer) _messageSplitter.ClientToServer(DateTime.UtcNow, dataBuf);
+                        else _messageSplitter.ServerToClient(DateTime.UtcNow, dataBuf);
+                    }
+                }
+                catch { }
+                finally
+                {
+                    try { client?.Close(); } catch { }
+                    if (Connected)
+                    {
+                        Connected = false;
+                        OnEndConnection();
+                    }
+                }
+                if (!token.IsCancellationRequested) await Task.Delay(2000, token).ContinueWith(_ => { });
+            }
+        }
+
+        private static bool ReadExact(NetworkStream stream, byte[] buffer, int length)
+        {
+            int progress = 0;
+            while (progress < length)
+            {
+                var read = 0;
+                try { read = stream.Read(buffer, progress, length - progress); }
+                catch { return false; }
+                if (read <= 0) return false;
+                progress += read;
+            }
+            return true;
         }
     }
 }
