@@ -3,4 +3,4 @@
 	url = https://github.com/LukasTD/TeraCore
 [submodule "TeraDpsMeterData"]
 	path = resources/data
-	url = https://github.com/LukasTD/TeraDpsMeterData
+	url = https://github.com/neowutran/TeraDpsMeterData
