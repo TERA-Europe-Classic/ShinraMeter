@@ -3,8 +3,6 @@
 
 //#define SERVER
 
-using Data;
-using NetworkSniffer;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -15,6 +13,8 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Data;
+using NetworkSniffer;
 using Tera;
 using Tera.Game;
 using Tera.Sniffing;
@@ -28,10 +28,12 @@ namespace DamageMeter.Sniffing
         /// </summary>
         public static bool IsConnected(this TcpClient client)
         {
-            if (!client.Client.Poll(0, SelectMode.SelectRead)) return false;
+            if (!client.Client.Poll(0, SelectMode.SelectRead))
+                return false;
             return client.Client.Receive(new byte[1], SocketFlags.Peek) != 0;
         }
     }
+
     public class BaseSniffer : ITeraSniffer
     {
         public event Action<Message> MessageReceived;
@@ -40,7 +42,8 @@ namespace DamageMeter.Sniffing
 
         public virtual bool Enabled { get; set; }
 
-        public ConcurrentQueue<Message> Packets { get; private set; } = new ConcurrentQueue<Message>();
+        public ConcurrentQueue<Message> Packets { get; private set; } =
+            new ConcurrentQueue<Message>();
         public virtual bool Connected { get; set; }
 
         public void ClearPackets()
@@ -67,7 +70,6 @@ namespace DamageMeter.Sniffing
 
         private Queue<Message> PacketsCopyStorage;
 
-
         private bool _enableMessageStorage;
         public bool EnableMessageStorage
         {
@@ -75,7 +77,10 @@ namespace DamageMeter.Sniffing
             set
             {
                 _enableMessageStorage = value;
-                if (!_enableMessageStorage) { PacketsCopyStorage = null; }
+                if (!_enableMessageStorage)
+                {
+                    PacketsCopyStorage = null;
+                }
             }
         }
 
@@ -83,7 +88,6 @@ namespace DamageMeter.Sniffing
         {
             PacketsCopyStorage = EnableMessageStorage ? new Queue<Message>() : null;
             NewConnection?.Invoke(server);
-
         }
 
         protected virtual void OnMessageReceived(Message message)
@@ -102,6 +106,7 @@ namespace DamageMeter.Sniffing
             Warning?.Invoke(obj);
         }
     }
+
     public class ToolboxSniffer : BaseSniffer
     {
         private readonly bool _failed;
@@ -119,7 +124,8 @@ namespace DamageMeter.Sniffing
             get => _enabled;
             set
             {
-                if (_enabled == value) return;
+                if (_enabled == value)
+                    return;
                 _enabled = value;
                 if (_enabled)
                 {
@@ -138,10 +144,11 @@ namespace DamageMeter.Sniffing
             get => _connected;
             set
             {
-                if (_connected == value) return;
+                if (_connected == value)
+                    return;
                 _connected = value;
-                if (!_connected) OnEndConnection();
-
+                if (!_connected)
+                    OnEndConnection();
             }
         }
 #if SERVER
@@ -161,7 +168,6 @@ namespace DamageMeter.Sniffing
             ControlConnection = new ToolboxControlInterface("http://127.0.0.61:5300");
 
             try
-
             {
 #if SERVER
                 _dataConnection.Start();
@@ -174,10 +180,12 @@ namespace DamageMeter.Sniffing
                 _failed = true;
             }
         }
+
 #if SERVER
         private async void Listen()
         {
-            if (_failed) return;
+            if (_failed)
+                return;
             while (Enabled)
             {
                 var client = await _dataConnection.AcceptTcpClientAsync();
@@ -218,8 +226,13 @@ namespace DamageMeter.Sniffing
                             progress += stream.Read(dataBuf, progress, length - progress);
                         }
                         //MessageReceived?.Invoke(new Message(DateTime.Now, dataBuf));
-                        OnMessageReceived(new Message(DateTime.UtcNow, MessageDirection.Unspecified, new ArraySegment<byte>(dataBuf)));
-
+                        OnMessageReceived(
+                            new Message(
+                                DateTime.UtcNow,
+                                MessageDirection.Unspecified,
+                                new ArraySegment<byte>(dataBuf)
+                            )
+                        );
                     }
                     catch
                     {
@@ -233,7 +246,8 @@ namespace DamageMeter.Sniffing
 #else
         private async Task ReceiveAsync()
         {
-            if (_failed) return;
+            if (_failed)
+                return;
 
             while (Enabled)
             {
@@ -279,8 +293,13 @@ namespace DamageMeter.Sniffing
                         {
                             progress += stream.Read(dataBuf, progress, length - progress);
                         }
-                        OnMessageReceived(new Message(DateTime.UtcNow, MessageDirection.Unspecified, new ArraySegment<byte>(dataBuf)));
-
+                        OnMessageReceived(
+                            new Message(
+                                DateTime.UtcNow,
+                                MessageDirection.Unspecified,
+                                new ArraySegment<byte>(dataBuf)
+                            )
+                        );
                     }
                     catch
                     {
@@ -292,6 +311,7 @@ namespace DamageMeter.Sniffing
         }
 #endif
     }
+
     public class TeraSniffer : BaseSniffer
     {
         //private static TeraSniffer _instance;
@@ -301,9 +321,22 @@ namespace DamageMeter.Sniffing
         //private readonly object _eventLock = new object();
         private readonly IpSniffer _ipSniffer;
 
-        private readonly ConcurrentDictionary<TcpConnection, byte> _isNew = new ConcurrentDictionary<TcpConnection, byte>();
+        private readonly ConcurrentDictionary<TcpConnection, byte> _isNew =
+            new ConcurrentDictionary<TcpConnection, byte>();
 
         private readonly Dictionary<string, Server> _serversByIp;
+        private readonly bool _debugLogPackets = true;
+        private void DebugLogPacket(MessageDirection direction, byte[] dataBuf)
+        {
+            try
+            {
+                // TERA packet layout: uint16 len, uint16 opcode (little-endian)
+                if (dataBuf == null || dataBuf.Length < 4) return;
+                var op = BitConverter.ToUInt16(dataBuf, 2);
+                System.Diagnostics.Debug.WriteLine($"[Shinra][Unencrypted] dir={direction} len={dataBuf.Length} op=0x{op:X4}");
+            }
+            catch { /* best-effort debug logging */ }
+        }
         private TcpConnection _clientToServer;
         private ConnectionDecrypter _decrypter;
         private MessageSplitter _messageSplitter;
@@ -339,7 +372,10 @@ namespace DamageMeter.Sniffing
             BasicTeraData.Instance.WindowData.CaptureMode = CaptureMode.Npcap;
             if (BasicTeraData.Instance.WindowData.CaptureMode == CaptureMode.Npcap)
             {
-                var netmasks = _serversByIp.Keys.Select(s => string.Join(".", s.Split('.').Take(3)) + ".0/24").Distinct().ToArray();
+                var netmasks = _serversByIp
+                    .Keys.Select(s => string.Join(".", s.Split('.').Take(3)) + ".0/24")
+                    .Distinct()
+                    .ToArray();
 
                 var filter = string.Join(" or ", netmasks.Select(x => $"(net {x})"));
                 filter = "tcp and (" + filter + ")";
@@ -349,9 +385,15 @@ namespace DamageMeter.Sniffing
                     _ipSniffer = new IpSnifferWinPcap(filter);
                     ((IpSnifferWinPcap)_ipSniffer).Warning += OnWarning;
                 }
-                catch { _ipSniffer = new IpSnifferRawSocketMultipleInterfaces(); }
+                catch
+                {
+                    _ipSniffer = new IpSnifferRawSocketMultipleInterfaces();
+                }
             }
-            else { _ipSniffer = new IpSnifferRawSocketMultipleInterfaces(); }
+            else
+            {
+                _ipSniffer = new IpSnifferRawSocketMultipleInterfaces();
+            }
 
             var tcpSniffer = new TcpSniffer(_ipSniffer);
             tcpSniffer.NewConnection += HandleNewConnection;
@@ -359,7 +401,12 @@ namespace DamageMeter.Sniffing
         }
 
         // Unencrypted socket constructor - if unencryptedMode is true, skip raw sniffer setup
-        public TeraSniffer(bool unencryptedMode, string socketHost = "127.0.0.1", int socketPort = 7802, bool isUnencrypted = true)
+        public TeraSniffer(
+            bool unencryptedMode,
+            string socketHost = "127.0.0.1",
+            int socketPort = 7802,
+            bool isUnencrypted = true
+        )
         {
             _unencryptedMode = unencryptedMode;
             _socketHost = socketHost;
@@ -374,7 +421,10 @@ namespace DamageMeter.Sniffing
                 BasicTeraData.Instance.WindowData.CaptureMode = CaptureMode.Npcap;
                 if (BasicTeraData.Instance.WindowData.CaptureMode == CaptureMode.Npcap)
                 {
-                    var netmasks = _serversByIp.Keys.Select(s => string.Join(".", s.Split('.').Take(3)) + ".0/24").Distinct().ToArray();
+                    var netmasks = _serversByIp
+                        .Keys.Select(s => string.Join(".", s.Split('.').Take(3)) + ".0/24")
+                        .Distinct()
+                        .ToArray();
 
                     var filter = string.Join(" or ", netmasks.Select(x => $"(net {x})"));
                     filter = "tcp and (" + filter + ")";
@@ -384,9 +434,15 @@ namespace DamageMeter.Sniffing
                         _ipSniffer = new IpSnifferWinPcap(filter);
                         ((IpSnifferWinPcap)_ipSniffer).Warning += OnWarning;
                     }
-                    catch { _ipSniffer = new IpSnifferRawSocketMultipleInterfaces(); }
+                    catch
+                    {
+                        _ipSniffer = new IpSnifferRawSocketMultipleInterfaces();
+                    }
                 }
-                else { _ipSniffer = new IpSnifferRawSocketMultipleInterfaces(); }
+                else
+                {
+                    _ipSniffer = new IpSnifferRawSocketMultipleInterfaces();
+                }
 
                 var tcpSniffer = new TcpSniffer(_ipSniffer);
                 tcpSniffer.NewConnection += HandleNewConnection;
@@ -399,7 +455,10 @@ namespace DamageMeter.Sniffing
         // IpSniffer has its own locking, so we need no lock here.
         public override bool Enabled
         {
-            get => _unencryptedMode ? (_socketTask != null && !_socketTask.IsCompleted) : _ipSniffer.Enabled;
+            get =>
+                _unencryptedMode
+                    ? (_socketTask != null && !_socketTask.IsCompleted)
+                    : _ipSniffer.Enabled;
             set
             {
                 if (_unencryptedMode)
@@ -409,7 +468,9 @@ namespace DamageMeter.Sniffing
                         if (_socketTask == null || _socketTask.IsCompleted)
                         {
                             _socketCts = new CancellationTokenSource();
-                            _socketTask = Task.Run(() => UnencryptedSocketLoopAsync(_socketCts.Token));
+                            _socketTask = Task.Run(() =>
+                                UnencryptedSocketLoopAsync(_socketCts.Token)
+                            );
                         }
                     }
                     else
@@ -430,7 +491,11 @@ namespace DamageMeter.Sniffing
             _serverToClient?.RemoveCallback();
             if (_unencryptedMode)
             {
-                try { _socketCts?.Cancel(); } catch { }
+                try
+                {
+                    _socketCts?.Cancel();
+                }
+                catch { }
             }
             base.CleanupForcefully();
             //_instance.Enabled = false;
@@ -446,7 +511,8 @@ namespace DamageMeter.Sniffing
                 Connected = false;
                 OnEndConnection();
             }
-            else connection.RemoveCallback();
+            else
+                connection.RemoveCallback();
             connection.DataReceived -= HandleTcpDataReceived;
         }
 
@@ -454,8 +520,14 @@ namespace DamageMeter.Sniffing
         private void HandleNewConnection(TcpConnection connection)
         {
             {
-                if (Connected || !_serversByIp.ContainsKey(connection.Destination.Address.ToString()) &&
-                    !_serversByIp.ContainsKey(connection.Source.Address.ToString())) { return; }
+                if (
+                    Connected
+                    || !_serversByIp.ContainsKey(connection.Destination.Address.ToString())
+                        && !_serversByIp.ContainsKey(connection.Source.Address.ToString())
+                )
+                {
+                    return;
+                }
                 _isNew.TryAdd(connection, 1);
                 connection.DataReceived += HandleTcpDataReceived;
             }
@@ -467,13 +539,27 @@ namespace DamageMeter.Sniffing
             {
                 if (data.Length == 0)
                 {
-                    if (needToSkip == 0 || !(connection == _clientToServer || connection == _serverToClient)) { return; }
-                    _decrypter?.Skip(connection == _clientToServer ? MessageDirection.ClientToServer : MessageDirection.ServerToClient, needToSkip);
+                    if (
+                        needToSkip == 0
+                        || !(connection == _clientToServer || connection == _serverToClient)
+                    )
+                    {
+                        return;
+                    }
+                    _decrypter?.Skip(
+                        connection == _clientToServer
+                            ? MessageDirection.ClientToServer
+                            : MessageDirection.ServerToClient,
+                        needToSkip
+                    );
                     return;
                 }
                 if (!Connected && _isNew.ContainsKey(connection))
                 {
-                    if (_serversByIp.ContainsKey(connection.Source.Address.ToString()) && data.Take(4).SequenceEqual(new byte[] { 1, 0, 0, 0 }))
+                    if (
+                        _serversByIp.ContainsKey(connection.Source.Address.ToString())
+                        && data.Take(4).SequenceEqual(new byte[] { 1, 0, 0, 0 })
+                    )
                     {
                         byte q;
                         _isNew.TryRemove(connection, out q);
@@ -490,8 +576,12 @@ namespace DamageMeter.Sniffing
                         _messageSplitter.MessageReceived += HandleMessageReceived;
                         _messageSplitter.Resync += OnResync;
                     }
-                    if (_serverToClient != null && _clientToServer == null && _serverToClient.Destination.Equals(connection.Source) &&
-                        _serverToClient.Source.Equals(connection.Destination))
+                    if (
+                        _serverToClient != null
+                        && _clientToServer == null
+                        && _serverToClient.Destination.Equals(connection.Source)
+                        && _serverToClient.Source.Equals(connection.Destination)
+                    )
                     {
                         ClientProxyOverhead = (int)connection.BytesReceived;
                         byte q;
@@ -510,15 +600,27 @@ namespace DamageMeter.Sniffing
                     }
                 }
 
-                if (!(connection == _clientToServer || connection == _serverToClient)) { return; }
-                if (_decrypter == null) { return; }
+                if (!(connection == _clientToServer || connection == _serverToClient))
+                {
+                    return;
+                }
+                if (_decrypter == null)
+                {
+                    return;
+                }
 
                 if (!_decrypter.Initialized)
                 {
                     try
                     {
-                        if (connection == _clientToServer) { _decrypter.ClientToServer(data, needToSkip); }
-                        else { _decrypter.ServerToClient(data, needToSkip); }
+                        if (connection == _clientToServer)
+                        {
+                            _decrypter.ClientToServer(data, needToSkip);
+                        }
+                        else
+                        {
+                            _decrypter.ServerToClient(data, needToSkip);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -527,14 +629,24 @@ namespace DamageMeter.Sniffing
                     }
                     return;
                 }
-                if (connection == _clientToServer) { _decrypter.ClientToServer(data, needToSkip); }
-                else { _decrypter.ServerToClient(data, needToSkip); }
+                if (connection == _clientToServer)
+                {
+                    _decrypter.ClientToServer(data, needToSkip);
+                }
+                else
+                {
+                    _decrypter.ServerToClient(data, needToSkip);
+                }
             }
         }
 
         private void OnResync(MessageDirection direction, int skipped, int size)
         {
-            BasicTeraData.LogError("Resync occured " + direction + ", skipped:" + skipped + ", block size:" + size, false, true);
+            BasicTeraData.LogError(
+                "Resync occured " + direction + ", skipped:" + skipped + ", block size:" + size,
+                false,
+                true
+            );
         }
 
         // called indirectly from HandleTcpDataReceived, so the current thread already holds the lock
@@ -572,37 +684,69 @@ namespace DamageMeter.Sniffing
                     var lenBuf = new byte[2];
                     while (!token.IsCancellationRequested)
                     {
-                        if (!ReadExact(stream, lenBuf, 2)) break;
+                        if (!ReadExact(stream, lenBuf, 2))
+                            break;
                         var totalLen = BitConverter.ToUInt16(lenBuf, 0);
-                        if (totalLen < 5) continue; // minimal sane frame size
+                        if (totalLen < 5)
+                            continue; // minimal sane frame size
 
                         var dirBuf = new byte[1];
-                        if (!ReadExact(stream, dirBuf, 1)) break;
+                        if (!ReadExact(stream, dirBuf, 1))
+                            break;
                         byte direction = dirBuf[0];
 
-                        int frameLen = totalLen;
-                        int teraPacketLen = frameLen - 1;
+                        int frameLen = totalLen; // equals (1 + teraLen) by spec
+                        // Read the inner TERA length field as provided by the mirror
+                        var lenField = new byte[2];
+                        if (!ReadExact(stream, lenField, 2))
+                            break;
+                        var teraPacketLen = BitConverter.ToUInt16(lenField, 0);
+                        // Sanity: transportLen should be 1 (dir) + teraPacketLen
+                        if (teraPacketLen < 4 || 1 + teraPacketLen != frameLen)
+                        {
+                            OnWarning($"[Unencrypted] transport/tera length mismatch: transportLen={frameLen}, teraLen={teraPacketLen}");
+                        }
+
+                        // Read opcode+payload (teraLen includes its own 2 bytes of length)
+                        var restLen = teraPacketLen - 2;
+                        var restBuf = new byte[restLen];
+                        if (!ReadExact(stream, restBuf, restLen))
+                            break;
+
+                        // Reconstruct full TERA packet [len(2)][opcode(2)][payload...]
                         var dataBuf = new byte[teraPacketLen];
-                        if (!ReadExact(stream, dataBuf, teraPacketLen)) break;
+                        Buffer.BlockCopy(lenField, 0, dataBuf, 0, 2);
+                        if (restLen > 0)
+                            Buffer.BlockCopy(restBuf, 0, dataBuf, 2, restLen);
 
                         packets++;
                         if (packets == 1)
                         {
-                            var server = new Tera.Game.Server("Unencrypted Socket", "EU", _socketHost);
+                            var server = new Tera.Game.Server("Yurian", "EUC", _socketHost);
                             _messageSplitter = new MessageSplitter();
                             _messageSplitter.MessageReceived += HandleMessageReceived;
                             // Wire Resync diagnostics in unencrypted mode for visibility into framing issues
                             _messageSplitter.Resync += OnResync;
                             OnNewConnection(server);
+
+                            // MessageFactory will be initialized on the Core side (PacketProcessor.HandleNewConnection)
                         }
 
                         // Validate direction marker explicitly (1=C2S, 2=S2C)
                         MessageDirection msgDir;
-                        if (direction == 1) msgDir = MessageDirection.ClientToServer;
-                        else if (direction == 2) msgDir = MessageDirection.ServerToClient;
+                        if (direction == 1)
+                        {
+                            msgDir = MessageDirection.ClientToServer;
+                        }
+                        else if (direction == 2)
+                        {
+                            msgDir = MessageDirection.ServerToClient;
+                        }
                         else
                         {
-                            OnWarning($"[Unencrypted] Unknown direction byte={direction}, skipping frame of totalLen={totalLen}");
+                            OnWarning(
+                                $"[Unencrypted] Unknown direction byte={direction}, skipping frame of totalLen={totalLen}"
+                            );
                             continue;
                         }
 
@@ -612,7 +756,9 @@ namespace DamageMeter.Sniffing
                             var innerLen = BitConverter.ToUInt16(dataBuf, 0);
                             if (innerLen != dataBuf.Length)
                             {
-                                OnWarning($"[Unencrypted] Inner TERA len mismatch: innerLen={innerLen} dataLen={dataBuf.Length} (totalLen={totalLen}, dir={direction}). Possible framing mismatch.");
+                                OnWarning(
+                                    $"[Unencrypted] Inner TERA len mismatch: innerLen={innerLen} dataLen={dataBuf.Length} (totalLen={totalLen}, dir={direction}). Possible framing mismatch."
+                                );
                                 // Fallback: if innerLen looks sane and smaller than dataLen, trim to innerLen to try to recover this frame
                                 if (innerLen >= 4 && innerLen <= dataBuf.Length)
                                 {
@@ -623,21 +769,29 @@ namespace DamageMeter.Sniffing
                             }
                         }
 
-                        if (msgDir == MessageDirection.ClientToServer) _messageSplitter.ClientToServer(DateTime.UtcNow, dataBuf);
-                        else _messageSplitter.ServerToClient(DateTime.UtcNow, dataBuf);
+                        // if (_debugLogPackets) DebugLogPacket(msgDir, dataBuf);
+                        if (msgDir == MessageDirection.ClientToServer)
+                            _messageSplitter.ClientToServer(DateTime.UtcNow, dataBuf);
+                        else
+                            _messageSplitter.ServerToClient(DateTime.UtcNow, dataBuf);
                     }
                 }
                 catch { }
                 finally
                 {
-                    try { client?.Close(); } catch { }
+                    try
+                    {
+                        client?.Close();
+                    }
+                    catch { }
                     if (Connected)
                     {
                         Connected = false;
                         OnEndConnection();
                     }
                 }
-                if (!token.IsCancellationRequested) await Task.Delay(2000, token).ContinueWith(_ => { });
+                if (!token.IsCancellationRequested)
+                    await Task.Delay(2000, token).ContinueWith(_ => { });
             }
         }
 
@@ -647,9 +801,16 @@ namespace DamageMeter.Sniffing
             while (progress < length)
             {
                 var read = 0;
-                try { read = stream.Read(buffer, progress, length - progress); }
-                catch { return false; }
-                if (read <= 0) return false;
+                try
+                {
+                    read = stream.Read(buffer, progress, length - progress);
+                }
+                catch
+                {
+                    return false;
+                }
+                if (read <= 0)
+                    return false;
                 progress += read;
             }
             return true;
