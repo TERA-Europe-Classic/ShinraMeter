@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,7 +7,6 @@ using System.Management;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using DamageMeter.AutoUpdate;
 using log4net;
 using log4net.Config;
 using Lang;
@@ -121,7 +120,7 @@ namespace Data
                     name = name + " CPU:" + ((from x in new ManagementObjectSearcher("SELECT * FROM Win32_Processor").Get().Cast<ManagementObject>()
                                                  select x.GetPropertyValue("Name") + " load:" + x.GetPropertyValue("LoadPercentage") + "%").FirstOrDefault() ??
                                              "processor unknown");
-                    error = $"##### (version={UpdateManager.Version} Region={_region}) running on {name}:\r\n" + (debug ? "##### Debug: " : "") + error;
+                    error = $"##### (version={Shinra.MeterVersion.Value} Region={_region}) running on {name}:\r\n" + (debug ? "##### Debug: " : "") + error;
 
                     using (var client = new HttpClient())
                     {

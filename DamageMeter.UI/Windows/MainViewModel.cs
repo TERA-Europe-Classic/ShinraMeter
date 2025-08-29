@@ -1,6 +1,5 @@
-﻿using DamageMeter.AutoUpdate;
-using DamageMeter.UI.Windows;
 using Data;
+using DamageMeter.UI.Windows;
 using Lang;
 using Nostrum;
 using Nostrum.Factories;
@@ -381,7 +380,7 @@ namespace DamageMeter.UI
 
             App.Setup();
 
-            WindowTitle = "Shinra Meter v" + UpdateManager.Version;
+            WindowTitle = "Shinra Meter v" + Shinra.MeterVersion.Value;
             GraphData = new RealtimeChartViewModel();
             ToastData = new ToastViewModel();
             Encounters = new SynchronizedObservableCollection<NpcEntity>();

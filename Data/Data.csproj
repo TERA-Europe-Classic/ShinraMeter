@@ -34,7 +34,6 @@
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DamageMeter.AutoUpdate\DamageMeter.AutoUpdate.csproj" />
     <ProjectReference Include="..\Lang\Lang.csproj" />
     <ProjectReference Include="..\TeraCommon\Tera.Core.csproj" />
   </ItemGroup>

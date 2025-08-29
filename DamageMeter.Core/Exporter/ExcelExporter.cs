@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using DamageMeter.AutoUpdate;
 using DamageMeter.TeraDpsApi;
 using Data;
 using Lang;
@@ -366,7 +365,7 @@ namespace DamageMeter
                     details.Hidden = eWorkSheetHidden.Hidden;
                     package.Workbook.View.ActiveTab = 1;
                     package.Workbook.Properties.Title = Boss.Name;
-                    package.Workbook.Properties.Author = "ShinraMeter " + UpdateManager.Version;
+                    package.Workbook.Properties.Author = "ShinraMeter " + Shinra.MeterVersion.Value;
                     package.Workbook.Properties.Company = "github.com/neowutran & github.com/Gl0";
                     package.Save();
                 }

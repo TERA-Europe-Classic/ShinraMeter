@@ -1,4 +1,3 @@
-﻿using DamageMeter.AutoUpdate;
 using DamageMeter.D3D9Render;
 using DamageMeter.TeraDpsApi;
 using DamageMeter.UI.EntityStats;
@@ -56,7 +55,7 @@ namespace DamageMeter.UI
 
         private void OnConnected(string servername)
         {
-            TrayIcon.Text = $"Shinra Meter v{UpdateManager.Version}: {servername}";
+            TrayIcon.Text = $"Shinra Meter v{Shinra.MeterVersion.Value}: {servername}";
         }
 
         private void OnGuildIconChanged(Bitmap icon)
