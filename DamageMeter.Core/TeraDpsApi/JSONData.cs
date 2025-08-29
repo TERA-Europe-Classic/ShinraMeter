@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using DamageMeter.AutoUpdate;
+using System.Collections.Generic;
+ 
 
 namespace DamageMeter.TeraDpsApi
 {
@@ -9,7 +9,7 @@ namespace DamageMeter.TeraDpsApi
         public string bossId;
         public string encounterUnixEpoch;
         public string fightDuration; //seconds
-        public string meterVersion = UpdateManager.Version;
+        public string meterVersion = Shinra.MeterVersion.Value;
         public string partyDps; // for main boss only, same as in moongourd uploads
         public List<JsonMob> mobs = new List<JsonMob>();
         public List<JsonMember> players = new List<JsonMember>();

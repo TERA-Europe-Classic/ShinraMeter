@@ -82,7 +82,6 @@
 		<None Include="app.manifest" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\DamageMeter.AutoUpdate\DamageMeter.AutoUpdate.csproj" />
 		<ProjectReference Include="..\DamageMeter.Core\DamageMeter.Core.csproj" />
 		<ProjectReference Include="..\DamageMeter.D3D9Render\DamageMeter.D3D9Render.csproj" />
 		<ProjectReference Include="..\Data\Data.csproj" />

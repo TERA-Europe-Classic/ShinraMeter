@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using DamageMeter.AutoUpdate;
+using System.Collections.Generic;
+ 
 
 namespace DamageMeter.TeraDpsApi
 {
@@ -13,7 +13,7 @@ namespace DamageMeter.TeraDpsApi
         public string fightDuration;
         public List<Members> members = new List<Members>();
         public string meterName = "ShinraMeter";
-        public string meterVersion = UpdateManager.Version;
+        public string meterVersion = Shinra.MeterVersion.Value;
         public string partyDps;
         public string uploader; //zero-based index of uploader in members list
     }

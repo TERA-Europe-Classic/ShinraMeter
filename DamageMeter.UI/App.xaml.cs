@@ -1,6 +1,5 @@
-﻿//#define DX_ENABLED
+//#define DX_ENABLED
 
-using DamageMeter.AutoUpdate;
 using DamageMeter.Sniffing;
 using DamageMeter.UI.Windows;
 using Data;
@@ -71,7 +70,7 @@ namespace DamageMeter.UI
                     SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
                     SplashScreen = new SplashScreen();
                     SplashScreen.SetText("Initializing...");
-                    SplashScreen.SetVer(UpdateManager.Version);
+                    SplashScreen.SetVer(global::Shinra.MeterVersion.Value);
                     SplashScreen.Show();
                     waiting = false;
                     Dispatcher.Run();
@@ -86,29 +85,9 @@ namespace DamageMeter.UI
                     Thread.Sleep(1);
                 }
                 DeleteTmp();
-                UpdateManager.ReadDbVersion();
                 if (!BasicTeraData.Instance.WindowData.AllowTransparency) { RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly; }
                 FormatHelpers.Instance.CultureInfo = LP.Culture;
-                if (!BasicTeraData.Instance.WindowData.AutoUpdate) { return; }
-                var shutdown = false;
-                try
-                {
-                    shutdown = await CheckUpdate();
-                }
-                catch (Exception ex)
-                {
-                    var log = LogManager.GetLogger(typeof(Program)); //Log4NET
-                    log.Error("##### UPDATE EXCEPTION (version=" + UpdateManager.Version + "): #####\r\n" + ex.Message + "\r\n" + ex.StackTrace + "\r\n" +
-                              ex.Source + "\r\n" + ex + "\r\n" + ex.Data + "\r\n" + ex.InnerException + "\r\n" + ex.TargetSite);
-                    SplashScreen.SetText(LP.App_Unable_to_contact_update_server);
-                    //MessageBox.Show(LP.App_Unable_to_contact_update_server);
-                }
-                UpdateManager.ClearHash();
-                if (!shutdown) { return; }
-                SplashScreen.SetText("Shutting down...");
-                Current.Shutdown();
-                Process.GetCurrentProcess().Kill();
-                Environment.Exit(0);
+                // Updater removed; proceed without update checks
             }
             else
             {
@@ -158,22 +137,7 @@ namespace DamageMeter.UI
             Environment.Exit(0);
         }
 
-        private static async Task<bool> CheckUpdate()
-        {
-            SplashScreen.SetText("Checking for updates...");
-            return false; //TODO: re-enable
-            var isUpToDate = await UpdateManager.IsUpToDate().ConfigureAwait(false);
-            if (isUpToDate) { return false; }
-
-            WindowsServices.SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
-            var result = App.Current.Dispatcher.Invoke(() =>
-              {
-                  var patchnotes = new UpdatePopup();
-                  patchnotes.ShowDialog();
-                  return (patchnotes.DialogResult ?? false) && UpdateManager.Update();
-              });
-            return result;
-        }
+        // Updater removed; CheckUpdate no longer used
 
 
         public static void Setup()
@@ -220,7 +184,7 @@ namespace DamageMeter.UI
         {
             if (!noConfirm)
             {
-                if (MessageBox.Show(LP.MainWindow_Do_you_want_to_close_the_application, LP.MainWindow_Close_Shinra_Meter_V + UpdateManager.Version,
+                if (MessageBox.Show(LP.MainWindow_Do_you_want_to_close_the_application, LP.MainWindow_Close_Shinra_Meter_V + global::Shinra.MeterVersion.Value,
                     MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) { return; }
             }
 

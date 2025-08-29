@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using DamageMeter.AutoUpdate;
+using System.Drawing;
 using DamageMeter.UI.Windows;
 using Data;
 
@@ -25,7 +24,7 @@ namespace DamageMeter.UI
             {
                 Visible = true,
                 Icon = BasicTeraData.Instance.ImageDatabase.Tray,
-                Text = "Shinra Meter v" + UpdateManager.Version
+                Text = "Shinra Meter v" + Shinra.MeterVersion.Value
 
             };
 
