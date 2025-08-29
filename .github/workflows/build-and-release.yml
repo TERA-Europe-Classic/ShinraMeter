@@ -25,6 +25,10 @@ on:
         options:
           - Evervyn
           - EU-Classic
+      tag:
+        description: 'Tag to release when manually dispatched (e.g. evervyn-1.2.3)'
+        required: false
+        type: string
 
 jobs:
   build:
@@ -54,20 +58,39 @@ jobs:
       id: variant
       shell: pwsh
       run: |
+        $ref = "${{ github.ref }}"
         $refName = "${{ github.ref_name }}"
         $eventName = "${{ github.event_name }}"
-        $manualVariant = "${{ inputs.variant }}"
+        $manualVariant = "${{ github.event.inputs.variant }}"
+        $manualTag = "${{ github.event.inputs.tag }}"
         $variant = ""
-        if ($eventName -eq 'workflow_dispatch' -and $manualVariant) {
-          $variant = $manualVariant
-        } elseif ($refName -like 'Evervyn-*' -or "${{ github.ref }}" -like 'refs/heads/Evervyn') {
-          $variant = 'Evervyn'
-        } elseif ($refName -like 'EU-Classic-*' -or "${{ github.ref }}" -like 'refs/heads/EU-Classic') {
-          $variant = 'EU-Classic'
-        } else {
-          $variant = 'Unknown'
+        $tagName = ""
+
+        if ($eventName -eq 'workflow_dispatch' -and $manualTag) {
+          $tagName = $manualTag
+        } elseif ($ref -like 'refs/tags/*') {
+          $tagName = $refName
         }
+
+        if ($tagName) {
+          if ($tagName -match '(?i)^evervyn-') { $variant = 'Evervyn' }
+          elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)') { $variant = 'EU-Classic' }
+        }
+
+        if (-not $variant) {
+          if ($eventName -eq 'workflow_dispatch' -and $manualVariant) {
+            $variant = $manualVariant
+          } elseif ($ref -like 'refs/heads/Evervyn') {
+            $variant = 'Evervyn'
+          } elseif ($ref -like 'refs/heads/EU-Classic') {
+            $variant = 'EU-Classic'
+          } else {
+            $variant = 'Unknown'
+          }
+        }
+
         "variant=$variant" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+        "tag_name=$tagName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
     - name: Restore dependencies
       run: dotnet restore Tera.sln
@@ -92,7 +115,7 @@ jobs:
   release:
     needs: build
     runs-on: windows-latest
-    if: startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.create_release)
+    if: startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && github.event.inputs.create_release == 'true')
     
     steps:
     - name: Checkout
@@ -108,31 +131,55 @@ jobs:
       id: variant
       shell: pwsh
       run: |
+        $ref = "${{ github.ref }}"
         $refName = "${{ github.ref_name }}"
         $eventName = "${{ github.event_name }}"
-        $manualVariant = "${{ inputs.variant }}"
+        $manualVariant = "${{ github.event.inputs.variant }}"
+        $manualTag = "${{ github.event.inputs.tag }}"
         $variant = ""
-        if ($eventName -eq 'workflow_dispatch' -and $manualVariant) {
-          $variant = $manualVariant
-        } elseif ($refName -like 'Evervyn-*' -or "${{ github.ref }}" -like 'refs/heads/Evervyn') {
-          $variant = 'Evervyn'
-        } elseif ($refName -like 'EU-Classic-*' -or "${{ github.ref }}" -like 'refs/heads/EU-Classic') {
-          $variant = 'EU-Classic'
-        } else {
-          $variant = 'Unknown'
+        $tagName = ""
+
+        if ($eventName -eq 'workflow_dispatch' -and $manualTag) {
+          $tagName = $manualTag
+        } elseif ($ref -like 'refs/tags/*') {
+          $tagName = $refName
         }
+
+        if ($tagName) {
+          if ($tagName -match '(?i)^evervyn-') { $variant = 'Evervyn' }
+          elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)') { $variant = 'EU-Classic' }
+        }
+
+        if (-not $variant) {
+          if ($eventName -eq 'workflow_dispatch' -and $manualVariant) {
+            $variant = $manualVariant
+          } elseif ($ref -like 'refs/heads/Evervyn') {
+            $variant = 'Evervyn'
+          } elseif ($ref -like 'refs/heads/EU-Classic') {
+            $variant = 'EU-Classic'
+          } else {
+            $variant = 'Unknown'
+          }
+        }
+
         "variant=$variant" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+        "tag_name=$tagName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
     - name: Create ZIP archive
+      shell: pwsh
       run: |
         $variant = "${{ steps.variant.outputs.variant }}"
-        if ($variant -eq 'Unknown') { throw "Unable to determine variant from ref name '${{ github.ref_name }}'. Use workflow_dispatch with 'variant' input or push a variant-tag (Evervyn-*, EU-Classic-*)." }
-        Compress-Archive -Path ./downloaded-artifacts/* -DestinationPath ShinraMeter-$variant-${{ github.ref_name }}.zip
+        if ($variant -eq 'Unknown') { throw "Unable to determine variant. Provide 'variant' or use a variant tag." }
+        $tag = "${{ steps.variant.outputs.tag_name }}"
+        if (-not $tag) { $tag = "${{ github.ref_name }}" }
+        Compress-Archive -Path ./downloaded-artifacts/* -DestinationPath "ShinraMeter-$variant-$tag.zip"
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ github.ref_name }}.zip
+        tag_name: ${{ steps.variant.outputs.tag_name != '' && steps.variant.outputs.tag_name || github.ref_name }}
+        target_commitish: ${{ github.sha }}
+        files: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ steps.variant.outputs.tag_name != '' && steps.variant.outputs.tag_name || github.ref_name }}.zip
         draft: false
         prerelease: false
         generate_release_notes: true
