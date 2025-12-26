@@ -8,6 +8,8 @@ on:
       - "evervyn-*"
       - "euclassic-*"
       - "eu-classic-*"
+      - "v*-Evervyn"
+      - "v*-Yurian"
   pull_request:
     branches: [ "Evervyn", "EU-Classic" ]
   workflow_dispatch:
@@ -77,6 +79,8 @@ jobs:
         if ($tagName) {
           if ($tagName -match '(?i)^evervyn-(.+)$') { $variant = 'Evervyn'; $version = $Matches[1] }
           elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)(.+)$') { $variant = 'EU-Classic'; $version = $Matches[2] }
+          elseif ($tagName -match '(?i)^v(.+)-evervyn$') { $variant = 'Evervyn'; $version = $Matches[1] }
+          elseif ($tagName -match '(?i)^v(.+)-yurian$') { $variant = 'EU-Classic'; $version = $Matches[1] }
         }
 
         if (-not $variant) {
@@ -155,6 +159,8 @@ jobs:
         if ($tagName) {
           if ($tagName -match '(?i)^evervyn-(.+)$') { $variant = 'Evervyn'; $version = $Matches[1] }
           elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)(.+)$') { $variant = 'EU-Classic'; $version = $Matches[2] }
+          elseif ($tagName -match '(?i)^v(.+)-evervyn$') { $variant = 'Evervyn'; $version = $Matches[1] }
+          elseif ($tagName -match '(?i)^v(.+)-yurian$') { $variant = 'EU-Classic'; $version = $Matches[1] }
         }
 
         if (-not $variant) {
