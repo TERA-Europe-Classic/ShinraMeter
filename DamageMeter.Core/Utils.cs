@@ -52,20 +52,6 @@ namespace DamageMeter
             };
 
         }
-
-        public static async Task<bool> IsToolboxRunningAsync()
-        {
-            ////kinda ewww, but ok
-            //var expectedPath = Path.Combine(
-            //    Path.GetDirectoryName(
-            //        Path.GetDirectoryName(
-            //            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))!, "node_modules\\electron\\dist\\electron.exe");
-
-            //return Process.GetProcessesByName("Electron").Any(x => x.GetFilePath() == expectedPath);
-
-            if (PacketProcessor.Instance.Sniffer is not ToolboxSniffer sniffer) return false;
-            return await sniffer.ControlConnection.GetToolboxPID() != 0;
-        }
     }
     public static class Extensions
     {

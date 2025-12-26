@@ -60,8 +60,6 @@ namespace DamageMeter.UI
             var updating = new Mutex(true, "ShinraMeterUpdating", out notUpdating);
             _unique = new Mutex(true, "ShinraMeter", out _isNewInstance);
 
-            ToolboxMode = Environment.GetCommandLineArgs().Contains("--toolbox");
-
             if (_isNewInstance)
             {
                 var waiting = true;
@@ -91,10 +89,7 @@ namespace DamageMeter.UI
             }
             else
             {
-                if (ToolboxMode)
-                {
-                    Environment.Exit(0);
-                }
+                // No special modes for this build
             }
             if (!notUpdating) { SetForeground(); }
             bool isWaitingUpdateEnd;
@@ -107,8 +102,6 @@ namespace DamageMeter.UI
             try { _unique.WaitOne(); }
             catch { _unique = new Mutex(true, "ShinraMeter", out _isNewInstance); }
         }
-
-        public static bool ToolboxMode { get; private set; }
 
         private void DeleteTmp()
         {
@@ -203,20 +196,6 @@ namespace DamageMeter.UI
         private void App_OnExit(object sender, ExitEventArgs e)
         {
             if (_isNewInstance) { _unique.ReleaseMutex(); }
-        }
-
-        public static void StartToolboxProcessCheck()
-        {
-            Task.Run(async () =>
-            {
-                while (await MiscUtils.IsToolboxRunningAsync())
-                {
-                    await Task.Delay(2000);
-                    //Debug.WriteLine("Toolbox running");
-                }
-                Debug.WriteLine("Toolbox exited, closing meter");
-                MainDispatcher.Invoke(() => VerifyClose(true));
-            });
         }
     }
 }

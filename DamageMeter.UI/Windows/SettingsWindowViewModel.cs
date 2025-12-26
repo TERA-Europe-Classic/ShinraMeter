@@ -153,13 +153,11 @@ namespace DamageMeter.UI.Windows
         {
             get
             {
-                var ret = EnumUtils.ListFromEnum<CaptureMode>();
-                if (!Environment.GetCommandLineArgs().Contains("--toolbox")) ret.Remove(CaptureMode.Toolbox);
-                return ret;
+                return new[] { Data.CaptureMode };
             }
         }
 
-        public bool CanChangeCaptureMode => !Environment.GetCommandLineArgs().Contains("--toolbox");
+        public bool CanChangeCaptureMode => false;
 
         // detection
         //public bool UseNpcap
@@ -175,7 +173,7 @@ namespace DamageMeter.UI.Windows
 
         public CaptureMode CaptureMode
         {
-            get => Environment.GetCommandLineArgs().Contains("--toolbox") ? CaptureMode.Toolbox : Data.CaptureMode;
+            get => Data.CaptureMode;
             set
             {
                 if (Data.CaptureMode == value) return;

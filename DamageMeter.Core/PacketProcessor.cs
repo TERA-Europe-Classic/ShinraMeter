@@ -76,11 +76,6 @@ namespace DamageMeter
             /*TeraSniffer.Instance*/
             Sniffer.EndConnection += HandleEndConnection;
 
-            if (Sniffer is ToolboxSniffer tbs)
-            {
-                tbs.ReleaseVersionUpdated += OnReleaseVersionUpdated;
-            }
-
             AbnormalityStorage = new AbnormalityStorage();
             Initialize();
             var packetAnalysis = new Thread(PacketAnalysisLoop);
