@@ -63,8 +63,10 @@ jobs:
         $eventName = "${{ github.event_name }}"
         $manualVariant = "${{ github.event.inputs.variant }}"
         $manualTag = "${{ github.event.inputs.tag }}"
+        $sha = "${{ github.sha }}"
         $variant = ""
         $tagName = ""
+        $version = ""
 
         if ($eventName -eq 'workflow_dispatch' -and $manualTag) {
           $tagName = $manualTag
@@ -73,8 +75,8 @@ jobs:
         }
 
         if ($tagName) {
-          if ($tagName -match '(?i)^evervyn-') { $variant = 'Evervyn' }
-          elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)') { $variant = 'EU-Classic' }
+          if ($tagName -match '(?i)^evervyn-(.+)$') { $variant = 'Evervyn'; $version = $Matches[1] }
+          elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)(.+)$') { $variant = 'EU-Classic'; $version = $Matches[2] }
         }
 
         if (-not $variant) {
@@ -89,8 +91,11 @@ jobs:
           }
         }
 
+        $buildId = if ($version) { $version } else { $sha }
         "variant=$variant" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
         "tag_name=$tagName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+        "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+        "build_id=$buildId" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
     - name: Restore dependencies
       run: dotnet restore Tera.sln
@@ -108,7 +113,7 @@ jobs:
     - name: Upload ShinraMeter artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ matrix.configuration }}-${{ github.sha }}
+        name: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ matrix.configuration }}-${{ steps.variant.outputs.build_id }}
         path: ./publish/ShinraMeter/
         retention-days: 1
 
@@ -136,8 +141,10 @@ jobs:
         $eventName = "${{ github.event_name }}"
         $manualVariant = "${{ github.event.inputs.variant }}"
         $manualTag = "${{ github.event.inputs.tag }}"
+        $sha = "${{ github.sha }}"
         $variant = ""
         $tagName = ""
+        $version = ""
 
         if ($eventName -eq 'workflow_dispatch' -and $manualTag) {
           $tagName = $manualTag
@@ -146,8 +153,8 @@ jobs:
         }
 
         if ($tagName) {
-          if ($tagName -match '(?i)^evervyn-') { $variant = 'Evervyn' }
-          elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)') { $variant = 'EU-Classic' }
+          if ($tagName -match '(?i)^evervyn-(.+)$') { $variant = 'Evervyn'; $version = $Matches[1] }
+          elseif ($tagName -match '(?i)^(euclassic-|eu-classic-)(.+)$') { $variant = 'EU-Classic'; $version = $Matches[2] }
         }
 
         if (-not $variant) {
@@ -162,24 +169,27 @@ jobs:
           }
         }
 
+        $buildId = if ($version) { $version } else { $sha }
         "variant=$variant" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
         "tag_name=$tagName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+        "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+        "build_id=$buildId" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
     - name: Create ZIP archive
       shell: pwsh
       run: |
         $variant = "${{ steps.variant.outputs.variant }}"
         if ($variant -eq 'Unknown') { throw "Unable to determine variant. Provide 'variant' or use a variant tag." }
-        $tag = "${{ steps.variant.outputs.tag_name }}"
-        if (-not $tag) { $tag = "${{ github.ref_name }}" }
-        Compress-Archive -Path ./downloaded-artifacts/* -DestinationPath "ShinraMeter-$variant-$tag.zip"
+        $buildId = "${{ steps.variant.outputs.build_id }}"
+        if (-not $buildId) { $buildId = "${{ github.sha }}" }
+        Compress-Archive -Path ./downloaded-artifacts/* -DestinationPath "ShinraMeter-$variant-$buildId.zip"
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ steps.variant.outputs.tag_name != '' && steps.variant.outputs.tag_name || github.ref_name }}
         target_commitish: ${{ github.sha }}
-        files: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ steps.variant.outputs.tag_name != '' && steps.variant.outputs.tag_name || github.ref_name }}.zip
+        files: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ steps.variant.outputs.build_id }}.zip
         draft: false
         prerelease: false
         generate_release_notes: true
