@@ -108,6 +108,7 @@ namespace DamageMeter.Sniffing
 
     public class TeraSniffer : BaseSniffer
     {
+        private ConnectionDecrypter _decrypter;
         private MessageSplitter _messageSplitter;
 
         private bool _enabled;
@@ -191,9 +192,19 @@ namespace DamageMeter.Sniffing
             OnMessageReceived(message);
         }
 
-        // Unencrypted socket mode: connect to a socket and feed already-decrypted frames
-        // Mirror frame format: [2b:totalLen][1b:dir][2b:teraLen][opcode][payload]
-        // where totalLen = 1 + teraLen (direction byte + full TERA packet)
+        // called indirectly from HandleTcpDataReceived, so the current thread already holds the lock
+        private void HandleServerToClientDecrypted(byte[] data)
+        {
+            _messageSplitter.ServerToClient(DateTime.UtcNow, data);
+        }
+
+        // called indirectly from HandleTcpDataReceived, so the current thread already holds the lock
+        private void HandleClientToServerDecrypted(byte[] data)
+        {
+            _messageSplitter.ClientToServer(DateTime.UtcNow, data);
+        }
+
+        // Unencrypted socket mode: connect to a socket and feed decrypted frames
         private async Task UnencryptedSocketLoopAsync(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
@@ -207,64 +218,48 @@ namespace DamageMeter.Sniffing
                     var stream = client.GetStream();
                     int packets = 0;
 
+                    var server = new Tera.Game.Server("Yurian", "EUC", _socketHost);
+                    _decrypter = new ConnectionDecrypter(server.Region);
+                    _decrypter.ClientToServerDecrypted += HandleClientToServerDecrypted;
+                    _decrypter.ServerToClientDecrypted += HandleServerToClientDecrypted;
+
+                    _messageSplitter = new MessageSplitter();
+                    _messageSplitter.MessageReceived += HandleMessageReceived;
+                    _messageSplitter.Resync += OnResync;
+                    OnNewConnection(server);
+
                     var lenBuf = new byte[2];
                     while (!token.IsCancellationRequested)
                     {
                         if (!ReadExact(stream, lenBuf, 2))
                             break;
                         var totalLen = BitConverter.ToUInt16(lenBuf, 0);
-                        if (totalLen < 5)
-                            continue; // minimal sane frame size: 1 (dir) + 4 (len+opcode minimum)
+                        if (totalLen < 1)
+                            continue;
 
                         var dirBuf = new byte[1];
                         if (!ReadExact(stream, dirBuf, 1))
                             break;
                         byte direction = dirBuf[0];
 
-                        // Read the inner TERA length field as provided by the mirror
-                        var lenField = new byte[2];
-                        if (!ReadExact(stream, lenField, 2))
-                            break;
-                        var teraPacketLen = BitConverter.ToUInt16(lenField, 0);
-
-                        // Sanity check: totalLen should be 1 (dir) + teraPacketLen
-                        if (teraPacketLen < 4 || 1 + teraPacketLen != totalLen)
+                        // Raw frame payload (totalLen includes dir byte)
+                        var payloadLen = totalLen - 1;
+                        var payload = new byte[payloadLen];
+                        if (payloadLen > 0)
                         {
-                            OnWarning($"[Unencrypted] transport/tera length mismatch: totalLen={totalLen}, teraLen={teraPacketLen}");
+                            if (!ReadExact(stream, payload, payloadLen))
+                                break;
                         }
-
-                        // Read opcode+payload (teraLen includes its own 2 bytes of length)
-                        var restLen = teraPacketLen - 2;
-                        var restBuf = new byte[restLen];
-                        if (restLen > 0 && !ReadExact(stream, restBuf, restLen))
-                            break;
-
-                        // Reconstruct full TERA packet [len(2)][opcode(2)][payload...]
-                        var dataBuf = new byte[teraPacketLen];
-                        Buffer.BlockCopy(lenField, 0, dataBuf, 0, 2);
-                        if (restLen > 0)
-                            Buffer.BlockCopy(restBuf, 0, dataBuf, 2, restLen);
 
                         packets++;
 
-                        // Initialize MessageSplitter and Server on first packet
-                        if (packets == 1)
-                        {
-                            var server = new Tera.Game.Server("Yurian", "EUC", _socketHost);
-                            _messageSplitter = new MessageSplitter();
-                            _messageSplitter.MessageReceived += HandleMessageReceived;
-                            _messageSplitter.Resync += OnResync;
-                            OnNewConnection(server);
-                        }
-
-                        // Validate direction marker (1=C2S, 2=S2C) and feed to splitter
                         if (direction == 1)
                         {
-                            _messageSplitter.ClientToServer(DateTime.UtcNow, dataBuf);
+                            _decrypter.ClientToServer(payload, 0);
                         }
                         else if (direction == 2)
                         {
-                            _messageSplitter.ServerToClient(DateTime.UtcNow, dataBuf);
+                            _decrypter.ServerToClient(payload, 0);
                         }
                         else
                         {
