@@ -441,12 +441,28 @@ namespace DamageMeter
                 }
                 //Thread.Sleep(100); // intentional lag
 
-                var message = MessageFactory.Create(obj);
+                ParsedMessage message;
+                try
+                {
+                    message = MessageFactory.Create(obj);
+                }
+                catch (Exception ex)
+                {
+                    BasicTeraData.LogError($"[PacketProcessor] Failed to parse opcode {obj.OpCode}: {ex.Message}", false, true);
+                    continue;
+                }
                 if (message.GetType() == typeof(UnknownMessage)) { continue; }
 
-                if (!PacketProcessing.Process(message))
+                try
                 {
-                    //Unprocessed packet
+                    if (!PacketProcessing.Process(message))
+                    {
+                        //Unprocessed packet
+                    }
+                }
+                catch (Exception ex)
+                {
+                    BasicTeraData.LogError($"[PacketProcessor] Failed to process {message.GetType().Name}: {ex.Message}", false, true);
                 }
             }
         }
