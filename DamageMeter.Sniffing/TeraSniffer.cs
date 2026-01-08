@@ -195,12 +195,14 @@ namespace DamageMeter.Sniffing
         // called indirectly from HandleTcpDataReceived, so the current thread already holds the lock
         private void HandleServerToClientDecrypted(byte[] data)
         {
+            Debug.WriteLine($"[TeraSniffer] S2C Decrypted: len={data.Length}");
             _messageSplitter.ServerToClient(DateTime.UtcNow, data);
         }
 
         // called indirectly from HandleTcpDataReceived, so the current thread already holds the lock
         private void HandleClientToServerDecrypted(byte[] data)
         {
+            Debug.WriteLine($"[TeraSniffer] C2S Decrypted: len={data.Length}");
             _messageSplitter.ClientToServer(DateTime.UtcNow, data);
         }
 
@@ -226,6 +228,7 @@ namespace DamageMeter.Sniffing
                     _messageSplitter = new MessageSplitter();
                     _messageSplitter.MessageReceived += HandleMessageReceived;
                     _messageSplitter.Resync += OnResync;
+                    Debug.WriteLine($"[TeraSniffer] Connected to mirror socket, server={server.Name}, region={server.Region}");
                     OnNewConnection(server);
 
                     var lenBuf = new byte[2];
@@ -252,6 +255,10 @@ namespace DamageMeter.Sniffing
                         }
 
                         packets++;
+                        if (packets <= 10 || packets % 100 == 0)
+                        {
+                            Debug.WriteLine($"[TeraSniffer] Frame #{packets}: dir={direction}, payloadLen={payloadLen}");
+                        }
 
                         if (direction == 1)
                         {
