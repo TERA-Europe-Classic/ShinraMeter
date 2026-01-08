@@ -1,0 +1,496 @@
+diff --git a/Game/Messages/Client/C_LOGIN_ARBITER.cs b/Game/Messages/Client/C_LOGIN_ARBITER.cs
+index 9f2f29f..85a26ce 100644
+--- a/Game/Messages/Client/C_LOGIN_ARBITER.cs
++++ b/Game/Messages/Client/C_LOGIN_ARBITER.cs
+@@ -1,4 +1,5 @@
+ ﻿using System;
++using System.Diagnostics;
+ using System.IO;
+ using System.Linq;
+ 
+@@ -25,9 +26,16 @@ namespace Tera.Game.Messages
+         internal C_LOGIN_ARBITER(TeraMessageReader reader)
+             : base(reader)
+         {
++            var region = reader.Factory.Region;
++            Debug.WriteLine($"[C_LOGIN_ARBITER] START: Region={region}, PacketLen={reader.BaseStream.Length}");
++
+             reader.Skip(11);
+             Language = (LangEnum)reader.ReadUInt32();
+-            Version = reader.Factory.Region.Contains("C") ? 2707 : reader.ReadInt32(); //hardcoded EUC/KRC, since its version is not sent via network
++            var isClassicRegion = region.Contains("C");
++            var hardcodedVersion = 2707;
++            Version = isClassicRegion ? hardcodedVersion : reader.ReadInt32(); //hardcoded EUC/KRC, since its version is not sent via network
++            Debug.WriteLine($"[C_LOGIN_ARBITER] Language={Language}, IsClassicRegion={isClassicRegion}, VersionFromPacket={(!isClassicRegion ? Version : 0)}, UsingHardcoded={isClassicRegion}");
++
+             if (!Environment.GetCommandLineArgs().Contains("--toolbox"))
+             {
+                 int versionFromFile = 0;
+@@ -40,6 +48,7 @@ namespace Tera.Game.Messages
+                 if (patchfile.Length > 0)
+                 {
+                     versionFromFile = Int32.Parse(Path.GetFileNameWithoutExtension(patchfile[0]));
++                    Debug.WriteLine($"[C_LOGIN_ARBITER] Found patchVersion file: {patchfile[0]}, parsed version={versionFromFile}");
+                     if (versionFromFile > 11600 || versionFromFile < 1000)
+                         throw new IOException(
+                             "Wrong patch version, check *.patchVersion file name in your Shinrameter folder or delete it"
+@@ -48,8 +57,13 @@ namespace Tera.Game.Messages
+                 }
+ 
+                 reader.Factory.ReleaseVersion = Version;
++                Debug.WriteLine($"[C_LOGIN_ARBITER] FINAL ReleaseVersion={Version}, set on MessageFactory");
+                 reader.Factory.ReloadSysMsg();
+             }
++            else
++            {
++                Debug.WriteLine($"[C_LOGIN_ARBITER] Running in toolbox mode, ReleaseVersion not modified");
++            }
+         }
+ 
+         public LangEnum Language { get; set; }
+diff --git a/Game/Messages/Server/EachSkillResultServerMessage.cs b/Game/Messages/Server/EachSkillResultServerMessage.cs
+index ca5a978..7666e29 100644
+--- a/Game/Messages/Server/EachSkillResultServerMessage.cs
++++ b/Game/Messages/Server/EachSkillResultServerMessage.cs
+@@ -19,42 +19,55 @@ namespace Tera.Game.Messages
+         internal EachSkillResultServerMessage(TeraMessageReader reader)
+             : base(reader)
+         {
++            var packetLen = reader.BaseStream.Length;
++            var releaseVer = reader.Factory.ReleaseVersion;
++            Debug.WriteLine($"[SkillResult] START - PacketLen={packetLen}, ReleaseVersion={releaseVer}");
++
+             reader.Skip(4);
+             Source = reader.ReadEntityId();
+-            if (reader.Factory.ReleaseVersion >= 7402) {
++            var originalSource = Source;
++            if (releaseVer >= 7402) {
+                 var owner = reader.ReadEntityId();
+                 if (owner.Id != 0) Source = owner;
+-            } // not sure, when it was added
++                Debug.WriteLine($"[SkillResult] Owner check (v>=7402): owner={owner.Id:X}, using Source={Source.Id:X}");
++            }
+ 
+             Target = reader.ReadEntityId();
+             TemplateId = reader.ReadInt32();
++            Debug.WriteLine($"[SkillResult] Source={Source.Id:X}, Target={Target.Id:X}, TemplateId={TemplateId}, Position={reader.BaseStream.Position}");
+ 
+             SkillId = new SkillId(reader).Id;
+-            if (reader.Factory.ReleaseVersion >= 11001 || reader.Factory.ReleaseVersion == 9901 ) {
++            if (releaseVer >= 11001 || releaseVer == 9901) {
+                 var originalSkillId = new SkillId(reader).Id;
+-                //if (originalSkillId != 0) SkillId = originalSkillId; //not sure what is originalSkillId, but ingame meter use it in this way. todo: look at it later if they implement something new.
+-                //seems it contains base skill id to simplify official meter DC queries, not needed here.
++                Debug.WriteLine($"[SkillResult] OriginalSkillId={originalSkillId} (v>=11001 or ==9901)");
+             }
+-            HitId = reader.ReadInt32(); //index in TargetingList (NOT id) - See DataCenter.SkillData
+-            Unknow2 = reader.ReadBytes(12); //index in area, id, time
++            HitId = reader.ReadInt32();
++            Unknow2 = reader.ReadBytes(12);
+ 
+-            Amount = reader.Factory.ReleaseVersion < 6200 ? reader.ReadInt32() : reader.ReadInt64();// KR now use 64 bit
++            var amountIs64Bit = releaseVer >= 6200;
++            Amount = amountIs64Bit ? reader.ReadInt64() : reader.ReadInt32();
+             FlagsDebug = reader.ReadInt32();
+             Flags = (SkillResultFlags) FlagsDebug;
+             IsCritical = (reader.ReadByte() & 1) != 0;
+             ConsumeEdge = (reader.ReadByte() & 1) != 0;
+-            if (reader.Factory.ReleaseVersion >= 3707) {//brawler stuff
+-                Blocked = (reader.ReadByte() & 1) != 0; ///SuperArmor
++            Debug.WriteLine($"[SkillResult] SkillId={SkillId}, Amount={Amount}, Flags={FlagsDebug}, Crit={IsCritical}, Amount64bit={amountIs64Bit}");
++
++            var hasBrawlerFields = releaseVer >= 3707;
++            if (hasBrawlerFields) {
++                Blocked = (reader.ReadByte() & 1) != 0;
+                 SuperArmorId = reader.ReadInt32();
+                 HitCylinderId = reader.ReadInt32();
+-                reader.Skip(4); // reaction bools: enable,push,air, airchain
+-            } else reader.Skip(2); //reaction bools: enable, push
+-            if (reader.Factory.ReleaseVersion>=8600) reader.Skip(2);//SkillDamageType
++                reader.Skip(4);
++                Debug.WriteLine($"[SkillResult] Brawler fields (v>=3707): Blocked={Blocked}, SuperArmorId={SuperArmorId}");
++            } else {
++                reader.Skip(2);
++                Debug.WriteLine($"[SkillResult] No brawler fields (v<3707), skipped 2 bytes");
++            }
++            if (releaseVer >= 8600) reader.Skip(2);
+ 
+             Position = reader.ReadVector3f();
+             Heading = reader.ReadAngle();
+-            //if (Position.X!=0)
+-            //    Debug.WriteLine($"{Time.Ticks} {BitConverter.ToString(BitConverter.GetBytes(Target.Id))} {SkillId} {Position} {Heading}");
++            Debug.WriteLine($"[SkillResult] DONE - Source={Source.Id:X}, Target={Target.Id:X}, SkillId={SkillId}, Amount={Amount}, Position={reader.BaseStream.Position}/{packetLen}");
+         }
+ 
+         //DEBUG
+diff --git a/Game/Messages/Server/LoginServerMessage.cs b/Game/Messages/Server/LoginServerMessage.cs
+index b73f30f..831ce40 100644
+--- a/Game/Messages/Server/LoginServerMessage.cs
++++ b/Game/Messages/Server/LoginServerMessage.cs
+@@ -1,11 +1,18 @@
+-﻿namespace Tera.Game.Messages
++﻿using System.Diagnostics;
++
++namespace Tera.Game.Messages
+ {
+     public class LoginServerMessage : ParsedMessage
+     {
+         internal LoginServerMessage(TeraMessageReader reader)
+             : base(reader)
+         {
+-            if (reader.Factory.ReleaseVersion >= 8100) reader.Skip(4);
++            var releaseVer = reader.Factory.ReleaseVersion;
++            var packetLen = reader.BaseStream.Length;
++            Debug.WriteLine($"[S_LOGIN] START: PacketLen={packetLen}, ReleaseVersion={releaseVer}");
++
++            var skip8100 = releaseVer >= 8100;
++            if (skip8100) reader.Skip(4);
+             int nameOffset = reader.ReadInt16();
+             reader.Skip(8);
+             RaceGenderClass = new RaceGenderClass(reader.ReadInt32());
+@@ -14,9 +21,11 @@
+             PlayerId = reader.ReadUInt32();
+             reader.Skip(27);
+             Level = reader.ReadInt16();
++            Debug.WriteLine($"[S_LOGIN] Parsed: nameOffset={nameOffset}, skip8100={skip8100}, EntityId={Id.Id:X}, ServerId={ServerId}, PlayerId={PlayerId}, Level={Level}, Position={reader.BaseStream.Position}");
++
+             reader.BaseStream.Position = nameOffset - 4;
+             Name = reader.ReadTeraString();
+-//            Debug.WriteLine(Name + ":" + BitConverter.ToString(BitConverter.GetBytes(Id.Id)) + ":" + ServerId.ToString() + " " + BitConverter.ToString(BitConverter.GetBytes(PlayerId)));
++            Debug.WriteLine($"[S_LOGIN] DONE: Name={Name}, EntityId={Id.Id:X}, ServerId={ServerId}, PlayerId={PlayerId}, Class={RaceGenderClass.Class}");
+         }
+ 
+         public EntityId Id { get; private set; }
+diff --git a/Game/Messages/Server/S_BOSS_GAGE_INFO.cs b/Game/Messages/Server/S_BOSS_GAGE_INFO.cs
+index 1f48432..8ce96ed 100644
+--- a/Game/Messages/Server/S_BOSS_GAGE_INFO.cs
++++ b/Game/Messages/Server/S_BOSS_GAGE_INFO.cs
+@@ -1,25 +1,37 @@
+-﻿namespace Tera.Game.Messages
++﻿using System.Diagnostics;
++
++namespace Tera.Game.Messages
+ {
+     public class S_BOSS_GAGE_INFO : ParsedMessage
+     {
+         internal S_BOSS_GAGE_INFO(TeraMessageReader reader) : base(reader)
+         {
++            var packetLen = reader.BaseStream.Length;
++            var releaseVer = reader.Factory.ReleaseVersion;
++            Debug.WriteLine($"[BossGage] START - PacketLen={packetLen}, ReleaseVersion={releaseVer}");
++
+             EntityId = reader.ReadEntityId();
+             HuntingZoneId = reader.ReadUInt32();
+             TemplateId = reader.ReadUInt32();
+             TargetId = reader.ReadEntityId();
+             Unk1 = reader.ReadInt32();
+-            if (reader.Factory.ReleaseVersion < 6200) {
++            Debug.WriteLine($"[BossGage] EntityId={EntityId.Id:X}, HuntingZone={HuntingZoneId}, Template={TemplateId}, TargetId={TargetId.Id:X}");
++
++            var useOldFormat = releaseVer < 6200;
++            if (useOldFormat) {
+                 HpChange = reader.ReadSingle();
+-                Unk2 = reader.ReadByte(); //enrage?
++                Unk2 = reader.ReadByte();
+                 HpRemaining = (long)reader.ReadSingle();
+                 TotalHp = (long)reader.ReadSingle();
++                Debug.WriteLine($"[BossGage] OLD format (v<6200): HpChange={HpChange}, HP={HpRemaining}/{TotalHp}, Enrage={Unk2}");
+             }
+             else {
+-                Unk2 = reader.ReadByte(); //enrage?
++                Unk2 = reader.ReadByte();
+                 HpRemaining = reader.ReadInt64();
+                 TotalHp = reader.ReadInt64();
++                Debug.WriteLine($"[BossGage] NEW format (v>=6200): HP={HpRemaining}/{TotalHp}, Enrage={Unk2}");
+             }
++            Debug.WriteLine($"[BossGage] DONE - EntityId={EntityId.Id:X}, HP={HpRemaining}/{TotalHp}, Position={reader.BaseStream.Position}/{packetLen}");
+         }
+ 
+         public byte Unk2 { get; }
+diff --git a/Game/Messages/Server/SpawnUserServerMessage.cs b/Game/Messages/Server/SpawnUserServerMessage.cs
+index 606ed46..500fe0e 100644
+--- a/Game/Messages/Server/SpawnUserServerMessage.cs
++++ b/Game/Messages/Server/SpawnUserServerMessage.cs
+@@ -8,24 +8,37 @@ namespace Tera.Game.Messages
+         internal SpawnUserServerMessage(TeraMessageReader reader)
+             : base(reader)
+         {
+-            reader.Skip(reader.Factory.ReleaseVersion>=4500 ? 8 : 4);//not sure when account benefits array appeared there
++            var packetLen = reader.BaseStream.Length;
++            var releaseVer = reader.Factory.ReleaseVersion;
++            Debug.WriteLine($"[SpawnUser] START - PacketLen={packetLen}, ReleaseVersion={releaseVer}, Position={reader.BaseStream.Position}");
++
++            var skip1 = releaseVer >= 4500 ? 8 : 4;
++            reader.Skip(skip1);
+             var nameOffset = reader.ReadUInt16();
+-            reader.Skip(reader.Factory.ReleaseVersion>=4500 ? 14 : 16); //not sure when they deleted guild title
++            var skip2 = releaseVer >= 4500 ? 14 : 16;
++            reader.Skip(skip2);
++            Debug.WriteLine($"[SpawnUser] After skips: skip1={skip1}, nameOffset={nameOffset}, skip2={skip2}, Position={reader.BaseStream.Position}");
++
+             ServerId = reader.ReadUInt32();
+             PlayerId = reader.ReadUInt32();
+             Id = reader.ReadEntityId();
++            Debug.WriteLine($"[SpawnUser] IDs: ServerId={ServerId}, PlayerId={PlayerId}, EntityId={Id.Id:X}, Position={reader.BaseStream.Position}");
++
+             Position = reader.ReadVector3f();
+             Heading = reader.ReadAngle();
+             reader.Skip(4);//relation
+             RaceGenderClass = new RaceGenderClass(reader.ReadInt32());
+             reader.Skip(11); // huntingZoneId, walkSpeed, runSpeed, actionMode, status, bool visible
+             Dead = (reader.ReadByte() & 1) == 0;
+-            reader.Skip(reader.Factory.ReleaseVersion>=4500 ? 121 : 105); // not sure when they added dye colors
++            var skip3 = releaseVer >= 4500 ? 121 : 105;
++            reader.Skip(skip3);
+             Level = reader.ReadInt16();
+-            reader.BaseStream.Position=nameOffset-4;
++            Debug.WriteLine($"[SpawnUser] After fields: Class={RaceGenderClass.Class}, Level={Level}, Dead={Dead}, skip3={skip3}, Position={reader.BaseStream.Position}");
++
++            reader.BaseStream.Position = nameOffset - 4;
+             Name = reader.ReadTeraString();
+             GuildName = reader.ReadTeraString();
+-            Debug.WriteLine($"[SpawnUser] Name={Name}, EntityId={Id.Id:X}, ServerId={ServerId}, PlayerId={PlayerId}, Class={RaceGenderClass.Class}");
++            Debug.WriteLine($"[SpawnUser] DONE - Name={Name}, Guild={GuildName}, EntityId={Id.Id:X}, ServerId={ServerId}, PlayerId={PlayerId}, Class={RaceGenderClass.Class}");
+         }
+ 
+         public int Level { get; private set; }
+diff --git a/Game/Services/EntityTracker.cs b/Game/Services/EntityTracker.cs
+index 7cf720b..554901f 100644
+--- a/Game/Services/EntityTracker.cs
++++ b/Game/Services/EntityTracker.cs
+@@ -51,6 +51,7 @@ namespace Tera.Game
+         public void Update(SpawnUserServerMessage message)
+         {
+             var newEntity = new UserEntity(message);
++            Debug.WriteLine($"[EntityTracker] Registering USER: EntityId={newEntity.Id.Id:X}, Name={message.Name}, ServerId={message.ServerId}, PlayerId={message.PlayerId}");
+             Register(newEntity);
+         }
+ 
+@@ -62,7 +63,9 @@ namespace Tera.Game
+ 
+         internal void Register(Entity newEntity)
+         {
++            var isUpdate = _entities.ContainsKey(newEntity.Id);
+             _entities[newEntity.Id] = newEntity;
++            Debug.WriteLine($"[EntityTracker] Register: EntityId={newEntity.Id.Id:X}, Type={newEntity.GetType().Name}, IsUpdate={isUpdate}, TotalEntities={_entities.Count}");
+             OnEntityUpdated(newEntity);
+         }
+ 
+@@ -99,6 +102,7 @@ namespace Tera.Game
+                 _npcDatabase.GetOrPlaceholder(m.NpcArea, m.NpcId), m.Position, m.Heading);
+             if (m.EnrageThreshold > 0) newEntity.Info.EnrageThreshold = m.EnrageThreshold;
+             if (m.MaxHP > 0) newEntity.Info.HP = m.MaxHP;
++            Debug.WriteLine($"[EntityTracker] Registering NPC: EntityId={newEntity.Id.Id:X}, NpcArea={m.NpcArea}, NpcId={m.NpcId}, Name={newEntity.Info.Name}, Boss={newEntity.Info.Boss}, OwnerId={m.OwnerId.Id:X}");
+             Register(newEntity);
+         }
+ 
+@@ -262,15 +266,18 @@ namespace Tera.Game
+         public void Update(S_BOSS_GAGE_INFO m)
+         {
+             var entity = GetOrNull(m.EntityId) as NpcEntity;
++            var wasNull = entity == null;
+             if (entity == null)
+             {
+                 entity = new NpcEntity(m.EntityId, EntityId.Empty, null,
+                     _npcDatabase.GetOrPlaceholder((ushort)m.HuntingZoneId, m.TemplateId),new Vector3f(), new Angle());
++                Debug.WriteLine($"[EntityTracker] S_BOSS_GAGE_INFO creating new NpcEntity: EntityId={m.EntityId.Id:X}, HuntingZone={m.HuntingZoneId}, Template={m.TemplateId}");
+                 Register(entity);
+             }
+             _npcDatabase.AddDetectedBoss(entity.Info.HuntingZoneId, entity.Info.TemplateId);
+             entity.Info.Boss = true;
+             entity.Info.HP = (long) m.TotalHp;
++            Debug.WriteLine($"[EntityTracker] S_BOSS_GAGE_INFO: EntityId={m.EntityId.Id:X}, Name={entity.Info.Name}, HP={m.TotalHp}, WasNewEntity={wasNull}");
+         }
+ 
+         public void Update(S_GUILD_NAME message)
+@@ -313,6 +320,10 @@ namespace Tera.Game
+         {
+             Entity entity;
+             _entities.TryGetValue(id, out entity);
++            if (entity == null)
++            {
++                Debug.WriteLine($"[EntityTracker] GetOrNull MISS: EntityId={id.Id:X} not found in {_entities.Count} tracked entities");
++            }
+             return entity;
+         }
+ 
+@@ -323,6 +334,7 @@ namespace Tera.Game
+             var entity = GetOrNull(id);
+             if (entity != null)
+                 return entity;
++            Debug.WriteLine($"[EntityTracker] GetOrPlaceholder returning PLACEHOLDER for EntityId={id.Id:X}");
+             return new PlaceHolderEntity(id);
+         }
+     }
+diff --git a/Game/Services/MessageFactory.cs b/Game/Services/MessageFactory.cs
+index 391adeb..3ecc943 100644
+--- a/Game/Services/MessageFactory.cs
++++ b/Game/Services/MessageFactory.cs
+@@ -140,6 +140,7 @@ namespace Tera.Game
+             Version = version;
+             Region = region;
+             _chatEnabled = chatEnabled;
++            Debug.WriteLine($"[MessageFactory] Created: Region={region}, Version={version}, ReleaseVersion={ReleaseVersion}, ChatEnabled={chatEnabled}, OpcodeCount={OpcodeNameToType.Count}");
+         }
+ 
+         public void ReloadSysMsg() { _sysMsgNamer?.Reload(Version, ReleaseVersion); }
+@@ -154,7 +155,7 @@ namespace Tera.Game
+         private ParsedMessage Instantiate(ushort opCode, TeraMessageReader reader)
+         {
+             Delegate type;
+-            
++
+             if (!OpcodeNameToType.TryGetValue(opCode, out type))
+                 type = UnknownMessageDelegate;
+             return (ParsedMessage) type.DynamicInvoke(reader);
+@@ -163,7 +164,14 @@ namespace Tera.Game
+         public ParsedMessage Create(Message message)
+         {
+             var reader = new TeraMessageReader(message, _opCodeNamer, this, _sysMsgNamer);
+-            return Instantiate(message.OpCode, reader);
++            var opCodeName = _opCodeNamer?.GetName(message.OpCode) ?? "UNKNOWN";
++            var result = Instantiate(message.OpCode, reader);
++            // Log important message types
++            if (opCodeName.StartsWith("S_SPAWN") || opCodeName == "S_LOGIN" || opCodeName == "S_BOSS_GAGE_INFO" || opCodeName == "S_EACH_SKILL_RESULT")
++            {
++                Debug.WriteLine($"[MessageFactory] Created {result.GetType().Name}: OpCode=0x{message.OpCode:X4} ({opCodeName}), Len={message.Payload.Count}, ReleaseVersion={ReleaseVersion}");
++            }
++            return result;
+         }
+     }
+ }
+diff --git a/Game/Services/PlayerTracker.cs b/Game/Services/PlayerTracker.cs
+index ba79a5c..d50f16d 100644
+--- a/Game/Services/PlayerTracker.cs
++++ b/Game/Services/PlayerTracker.cs
+@@ -1,6 +1,7 @@
+ ﻿using System;
+ using System.Collections;
+ using System.Collections.Generic;
++using System.Diagnostics;
+ using System.Linq;
+ using Tera.Game.Messages;
+ 
+@@ -60,10 +61,12 @@ namespace Tera.Game
+             {
+                 player = new Player(user, _serverDatabase);
+                 _playerById.Add(tup, player);
++                Debug.WriteLine($"[PlayerTracker] NEW player registered: Name={user.Name}, ServerId={user.ServerId}, PlayerId={user.PlayerId}, EntityId={user.Id.Id:X}, TotalPlayers={_playerById.Count}");
+             }
+             else
+             {
+                 if (player.User == user) return;
++                Debug.WriteLine($"[PlayerTracker] UPDATED player EntityId: Name={user.Name}, OldEntityId={player.User.Id.Id:X}, NewEntityId={user.Id.Id:X}");
+                 OnPlayerIdChangedAction(player.User.Id, user.Id);
+                 player.User = user;
+             }
+@@ -82,13 +85,28 @@ namespace Tera.Game
+ 
+         public Player Get(uint serverId, uint playerId)
+         {
+-            return _playerById[Tuple.Create(serverId, playerId)];
++            var tup = Tuple.Create(serverId, playerId);
++            if (!_playerById.TryGetValue(tup, out var player))
++            {
++                Debug.WriteLine($"[PlayerTracker] Get FAILED: ServerId={serverId}, PlayerId={playerId} not found in {_playerById.Count} tracked players");
++                // List all tracked players for debugging
++                foreach (var kv in _playerById)
++                {
++                    Debug.WriteLine($"[PlayerTracker]   - Tracked: ServerId={kv.Key.Item1}, PlayerId={kv.Key.Item2}, Name={kv.Value.Name}");
++                }
++                throw new KeyNotFoundException($"Player {serverId}:{playerId} not found");
++            }
++            return player;
+         }
+ 
+         public Player GetOrNull(uint serverId, uint playerId)
+         {
+             Player result;
+-            _playerById.TryGetValue(Tuple.Create(serverId, playerId), out result);
++            var found = _playerById.TryGetValue(Tuple.Create(serverId, playerId), out result);
++            if (!found)
++            {
++                Debug.WriteLine($"[PlayerTracker] GetOrNull MISS: ServerId={serverId}, PlayerId={playerId} not found in {_playerById.Count} players");
++            }
+             return result;
+         }
+ 
+diff --git a/Game/SkillResult.cs b/Game/SkillResult.cs
+index b640cd5..a462a36 100644
+--- a/Game/SkillResult.cs
++++ b/Game/SkillResult.cs
+@@ -11,6 +11,8 @@ namespace Tera.Game
+         public SkillResult(EachSkillResultServerMessage message, EntityTracker entityRegistry,
+             PlayerTracker playerTracker, SkillDatabase skillDatabase, PetSkillDatabase petSkillDatabase = null, AbnormalityTracker abnormalityTracker=null)
+         {
++            Debug.WriteLine($"[SkillResult] Constructor START: SourceId={message.Source.Id:X}, TargetId={message.Target.Id:X}, SkillId={message.SkillId}, Amount={message.Amount}");
++
+             Time = message.Time;
+             Amount = message.Amount;
+             IsCritical = message.IsCritical;
+@@ -21,10 +23,17 @@ namespace Tera.Game
+ 
+             Source = entityRegistry.GetOrPlaceholder(message.Source);
+             Target = entityRegistry.GetOrPlaceholder(message.Target);
++            Debug.WriteLine($"[SkillResult] Entity lookup: Source={Source?.GetType().Name ?? "null"}, Target={Target?.GetType().Name ?? "null"}");
+             if (Source is PlaceHolderEntity && (Target as NpcEntity)?.Info.Boss == true)
+             {
+-                Debug.WriteLine($"[SkillResult] Unknown source entity {message.Source.Id:X} dealing damage to boss, SkillId={message.SkillId}");
+-                Source = playerTracker.GetUnknownPlayer() ?? Source;  //track unknown damage dealt to bosses like in raid-30
++                Debug.WriteLine($"[SkillResult] PLACEHOLDER source {message.Source.Id:X} dealing damage to boss {(Target as NpcEntity)?.Info.Name}, SkillId={message.SkillId}");
++                var unknownPlayer = playerTracker.GetUnknownPlayer();
++                Debug.WriteLine($"[SkillResult] GetUnknownPlayer returned: {(unknownPlayer != null ? "valid" : "null")}");
++                Source = unknownPlayer ?? Source;  //track unknown damage dealt to bosses like in raid-30
++            }
++            else if (Source is PlaceHolderEntity)
++            {
++                Debug.WriteLine($"[SkillResult] PLACEHOLDER source {message.Source.Id:X} - target is not a boss (Target={Target?.GetType().Name}, IsBoss={(Target as NpcEntity)?.Info.Boss})");
+             }
+             if (abnormalityTracker?.AbnormalityExist(message.Target, 950187) ?? false) Amount=0; //fix raid-30 bug with 1kkk damage after shield
+             var userNpc = UserEntity.ForEntity(Source);
+@@ -35,13 +44,17 @@ namespace Tera.Game
+ 
+             if (sourceUser != null)
+             {
++                Debug.WriteLine($"[SkillResult] sourceUser found: Name={sourceUser.Name}, ServerId={sourceUser.ServerId}, PlayerId={sourceUser.PlayerId}, Class={sourceUser.RaceGenderClass.Class}");
+                 Skill = skillDatabase.Get(sourceUser, message);
++                Debug.WriteLine($"[SkillResult] skillDatabase.Get returned: {(Skill != null ? Skill.Name : "null")}");
+                 if (Skill == null && npc != null)
+                 {
++                    Debug.WriteLine($"[SkillResult] Trying pet skill lookup for NPC: {npc.Info.Name}");
+                     Skill = petSkillDatabase?.GetOrNull(npc.Info, SkillId) ?? new UserSkill(message.SkillId, sourceUser.RaceGenderClass, npc.Info.Name, null,
+                         "", skillDatabase.GetSkillByPetName(npc.Info.Name, sourceUser.RaceGenderClass)?.IconName ?? "", npc.Info);
+                 }
+                 SourcePlayer = playerTracker.Get(sourceUser.ServerId, sourceUser.PlayerId);
++                Debug.WriteLine($"[SkillResult] playerTracker.Get returned: {(SourcePlayer != null ? SourcePlayer.Name : "null")}");
+                 if ((SkillId == 51001 || SkillId == 51011 || SkillId == 51021)
+                     && (abnormalityTracker?.AbnormalityExist(Source.Id, 10152050) ?? false)) {//gunner burstfire buff detection
+                     SkillId = SkillId + abnormalityTracker.AbnormalityStorage.Get(SourcePlayer).Times.Last(x => x.Key.Id == 10152050).Value.LastStack();
+@@ -49,16 +62,25 @@ namespace Tera.Game
+                 }
+                 if (Skill == null)
+                 {
+-                    Debug.WriteLine($"[SkillResult] Unknown skill: ID={message.SkillId}, Class={sourceUser.RaceGenderClass.Class}, Player={sourceUser.Name}");
++                    Debug.WriteLine($"[SkillResult] UNKNOWN SKILL: ID={message.SkillId}, Class={sourceUser.RaceGenderClass.Class}, Player={sourceUser.Name}");
+                     Skill = new UserSkill(message.SkillId, sourceUser.RaceGenderClass, "Unknown");
+                 }
+ 
+             }
++            else
++            {
++                Debug.WriteLine($"[SkillResult] sourceUser is NULL - rootSource type={rootSource?.GetType().Name ?? "null"}");
++            }
+             if (targetUser != null)
+             {
+                 TargetPlayer = playerTracker.Get(targetUser.ServerId, targetUser.PlayerId);
++                Debug.WriteLine($"[SkillResult] targetUser: Name={targetUser.Name}, TargetPlayer={TargetPlayer?.Name ?? "null"}");
++            }
++            if (Source == null || Target == null || Source is PlaceHolderEntity || Target is PlaceHolderEntity)
++            {
++                Debug.WriteLine($"[SkillResult] EARLY RETURN - Source={Source?.GetType().Name ?? "null"}, Target={Target?.GetType().Name ?? "null"}, IsPlaceholder: Source={Source is PlaceHolderEntity}, Target={Target is PlaceHolderEntity}");
++                return;//fix error on skills from or dealt to unknown entities
+             }
+-            if (Source == null || Target == null || Source is PlaceHolderEntity || Target is PlaceHolderEntity) return;//fix error on skills from or dealt to unknown entities
+             Source.Position = Source.Position.MoveForvard(Source.Finish, Source.Speed,
+                 message.Time.Ticks - Source.StartTime);
+             if (Source.EndTime > 0 && Source.EndTime <= Source.StartTime)
