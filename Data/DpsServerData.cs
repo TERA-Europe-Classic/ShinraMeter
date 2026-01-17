@@ -46,5 +46,11 @@ namespace Data
             new Uri("https://api.teralogs.com/v1/whitelist"),
             null,
             null, null, false );
+
+        public static DpsServerData CES = new DpsServerData(
+            new Uri("https://tera-europe-classic.com/api/leaderboard/upload"),
+            new Uri("https://tera-europe-classic.com/api/leaderboard/whitelist"),
+            null,
+            null, null, true );
     }
 }

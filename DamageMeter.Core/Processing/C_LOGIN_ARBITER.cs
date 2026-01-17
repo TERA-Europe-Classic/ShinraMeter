@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System;
+using Data;
 
 namespace DamageMeter.Processing
 {
@@ -12,6 +13,10 @@ namespace DamageMeter.Processing
             //    PacketProcessor.Instance.MessageFactory.ReloadSysMsg();
             //};  //////  Uncomment if start using sysmsg again
             BasicTeraData.Instance.Servers.Language = message.Language;
+            if (message.Ticket != null)
+            {
+                DpsServerData.CES.Token = BitConverter.ToString(message.Ticket).Replace("-", "");
+            }
         }
     }
 }

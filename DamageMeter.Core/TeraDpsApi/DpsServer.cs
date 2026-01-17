@@ -19,6 +19,7 @@ namespace DamageMeter.TeraDpsApi
             "[{\"AreaId\": 735, \"BossIds\": []},{\"AreaId\": 935,\"BossIds\": []},{\"AreaId\": 950,\"BossIds\": [1000, 2000, 3000, 4000]},{\"AreaId\": 794,\"BossIds\": []},{\"AreaId\": 994,\"BossIds\": []},{\"AreaId\": 970,\"BossIds\": []},{\"AreaId\": 770,\"BossIds\": []},{\"AreaId\": 916,\"BossIds\": [1000, 91606]},{\"AreaId\": 710,\"BossIds\": [3000]},{\"AreaId\": 716,\"BossIds\": [1000]},{\"AreaId\": 969,\"BossIds\": [76903]},{\"AreaId\": 769,\"BossIds\": [76903]},{\"AreaId\": 455,\"BossIds\": [300]},{\"AreaId\": 766,\"BossIds\": [76619]},{\"AreaId\": 760,\"BossIds\": [3000]},{\"AreaId\": 860,\"BossIds\": [3000]},{\"AreaId\": 739,\"BossIds\": []},{\"AreaId\": 939,\"BossIds\": []},{\"AreaId\": 720,\"BossIds\": []},{\"AreaId\": 920,\"BossIds\": []}]"
             );
         public static DpsServer NeowutranAnonymousServer => new DpsServer(DpsServerData.Neowutran, true);
+        public static DpsServer CES_Server => new DpsServer(DpsServerData.CES, false);
 
         public bool Enabled => Data.Enabled;
         public Uri UploadUrl => Data.UploadUrl;

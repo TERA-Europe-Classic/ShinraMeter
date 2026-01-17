@@ -41,7 +41,7 @@ namespace DamageMeter
             Success,
             Failed
         }
-        public static List<DpsServer> DpsServers = new List<DpsServer> { DpsServer.NeowutranAnonymousServer };
+        public static List<DpsServer> DpsServers = new List<DpsServer> { DpsServer.NeowutranAnonymousServer, DpsServer.CES_Server };
         public static event Action<GlyphExportStatus, string> GlpyhExportStatusUpdated;
         public static event Action<FightSendStatus, string> FightSendStatusUpdated;
         private static long _lastSend;
