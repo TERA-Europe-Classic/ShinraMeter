@@ -1,98 +1,79 @@
-Shinra Meter (Evervyn + EU Classic)
-===================================
+Shinra Meter — TERA Europe Classic+ variant
+============================================
 
-This repository now maintains two actively built variants of ShinraMeter:
+This fork is the Classic+ variant of ShinraMeter, built for the
+**TERA Europe Classic+** (v100.02) private server. It descends from the
+Gothos / Neowutran lineage, via michaelcarno's .NET 8 rewrite ("Shinra Beta"),
+via LukasTD's Yurian / Evervyn branches, with Classic+-specific connection,
+region, and data pinning applied.
 
-- Evervyn Server variant (branch: `Evervyn`)
-- EU Classic variant (branch: `EU-Classic`)
+Only the `main` branch is maintained.
 
-Releases are produced separately for each variant. See “Releases” below.
+Features
+--------
 
-Shinra Meter
-============
+- Real-time DPS overlay (per-player, per-skill, per-encounter)
+- Encounter log with automatic upload
+- Damage / healing / abnormal-state breakdown
+- Excel + 7z-compressed JSON export
+- D3D9 in-game overlay
+- TTS, Discord RPC, Twitch chat integration
+- Dungeon / boss definitions and abnormality data
 
-[<img src="https://img.shields.io/badge/rating-4%2B%20stars-brightgreen.svg">](https://recordnotfound.com/ShinraMeter-neowutran-9937)
+Connection mechanism
+--------------------
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/yukikoo)
+ShinraMeter connects to `127.0.0.1:7803` over TCP and reads framed messages
+from a local mirror socket exposed by the Noctenium proxy / DLL running in
+the TERA client process. It does **not** sniff the wire (no pcap / WinPcap).
 
-ShinraMeter is a DPS Meter for TERA based off https://github.com/gothos-folly/TeraDamageMeter . 
+Frame format: `[u16 totalLen][u8 direction][payload]`, little-endian,
+`totalLen` includes the direction byte. `direction = 1` → client-to-server,
+`direction = 2` → server-to-client.
 
-Wiki: https://github.com/neowutran/TeraDamageMeter/wiki
+The proxy is responsible for replaying the session-key exchange as the first
+two framed messages after each connect — the sniffer decrypts every frame
+locally via `ConnectionDecrypter` keyed to the `"EUC"` region.
 
-Download (legacy upstream): https://neowutran.ovh/updates/
+Shinra retries the connect every 2 s indefinitely. It does not probe for
+`TERA.exe`; it simply dials the socket and waits.
 
-TERADATA: https://github.com/neowutran/TeraDpsMeterData
-
-https://neowutran.ovh/teraDB/
-
-
-Variants and Branches
-----------------------
-
-- Evervyn variant lives on the `Evervyn` branch and is tailored for the Evervyn server.
-- EU Classic variant lives on the `EU-Classic` branch and is tailored for EU Classic.
-
-Each branch may carry server-specific opcodes, data, and fixes.
-
-Local Build
+Local build
 -----------
 
-Prereqs: .NET 8 SDK and Windows build tools.
+Prereqs: .NET 8 SDK on Windows.
 
-Steps:
+```
+dotnet restore Tera.sln
+dotnet build Tera.sln -c Release
+dotnet publish DamageMeter.UI/DamageMeter.UI.csproj -c Release -f net8-windows -o ./publish/ShinraMeter
+Copy-Item -Path ./resources -Destination ./publish/ShinraMeter -Recurse -Force
+```
 
-1. Checkout the desired branch: `Evervyn` or `EU-Classic`.
-2. Restore and build the solution: `dotnet restore Tera.sln` then `dotnet build -c Release Tera.sln`.
-3. Publish the UI project: `dotnet publish DamageMeter.UI/DamageMeter.UI.csproj -c Release -f net8-windows -o ./publish/ShinraMeter`.
-4. Copy `resources/` into the publish dir if needed.
+The DamageMeter.UI csproj already bundles `lib/7z*.dll` into the output via a
+`Content` include; they are needed for the JSON export's 7z compressor.
 
-ShinraMeter is dev by Gl0 and Yukikoo/Neowutran
- 
+Release
+-------
 
-Logo
----------
- 
-Thanks to Se7en-Hellas for the new Shinra logo =) 
+Push a tag `v*.*.*` to `main`. GitHub Actions will build, publish, and attach
+`ShinraMeter-v*.*.*.zip` to a Release.
 
-Se7en-Hellas website: http://se7enhellas.wixsite.com/mylogogr 
+Credits
+-------
 
-Shinra Manager by Dark (external contributor) 
----------------
-https://github.com/SaltyMonkey/ShinraManager
+- Gothos — original TeraSniffer / DamageMeter
+- Gl0, Yukikoo / neowutran — original ShinraMeter
+- michaelcarno — .NET 8 rewrite ("Shinra Beta")
+- Foglio1024 — Nostrum, TCC, companion tooling
+- GoneUp, dezmen — opcode dumps
+- Se7en-Hellas — logo
+- TERA Europe Classic+ community — Classic+ connection protocol and data
 
-Cool UI project by Foglio
--------------------
-https://github.com/Foglio1024/Tera-custom-cooldowns
+Lineage
+-------
 
-Somehow related project
---------------------
-https://github.com/neowutran/S1UI_GPU
-
-https://github.com/neowutran/S1UI_chat2
-
-
-Original Readme
-================
-
-
-TeraSniffer and Damage Meter by Gothos.
-
-* Packet encryption code and the list of server IPs are from
-
-  https://github.com/GoneUp/Tera_PacketViewer
-
-  Thanks to GoneUp and whoever else worked on this.
-
-* Skillnames extracted from:
-
-  https://forum.ragezone.com/f797/release-tera-datacenter-unpacked-eur-1064404/
-
-  Thanks to mangojoe for the dumps
-
-  Used a modified version of DataTools to extract the list from this dump.
-
-* TeraEmulator was very helpful for understanding the packet structures.
-
-   https://github.com/r4ymonf/TeraEmulator
-
-OpCodes dumped by GoneUp, Gothos, dezmen
+```
+Gothos/TeraDamageMeter → neowutran/ShinraMeter → michaelcarno/ShinraMeter
+  → LukasTD/ShinraMeter → TERA-Europe-Classic/ShinraMeter (this fork)
+```

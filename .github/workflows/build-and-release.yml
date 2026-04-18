@@ -2,29 +2,18 @@ name: Build ShinraMeter
 
 on:
   push:
-    # Build on pushes to variant branches and on variant-tagged releases
-    branches: [ "Evervyn", "EU-Classic"]
+    branches: [ "main" ]
     tags:
-      - "evervyn-*"
-      - "euclassic-*"
-      - "eu-classic-*"
+      - "v*.*.*"
   pull_request:
-    branches: [ "Evervyn", "EU-Classic" ]
+    branches: [ "main" ]
   workflow_dispatch:
     inputs:
       create_release:
-        description: 'Create a release (when true, will create a GitHub Release using the built artifacts)'
+        description: 'Create a GitHub Release from this run'
         required: false
         default: false
         type: boolean
-      variant:
-        description: 'Target variant to build when manually dispatched'
-        required: false
-        default: 'Evervyn'
-        type: choice
-        options:
-          - Evervyn
-          - EU-Classic
 
 jobs:
   build:
@@ -32,7 +21,7 @@ jobs:
       matrix:
         configuration: [Release]
         dotnet-version: ['8.0.x']
-        
+
     runs-on: windows-latest
 
     steps:
@@ -50,25 +39,6 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v2
 
-    - name: Determine variant
-      id: variant
-      shell: pwsh
-      run: |
-        $refName = "${{ github.ref_name }}"
-        $eventName = "${{ github.event_name }}"
-        $manualVariant = "${{ inputs.variant }}"
-        $variant = ""
-        if ($eventName -eq 'workflow_dispatch' -and $manualVariant) {
-          $variant = $manualVariant
-        } elseif ($refName -like 'Evervyn-*' -or "${{ github.ref }}" -like 'refs/heads/Evervyn') {
-          $variant = 'Evervyn'
-        } elseif ($refName -like 'EU-Classic-*' -or "${{ github.ref }}" -like 'refs/heads/EU-Classic') {
-          $variant = 'EU-Classic'
-        } else {
-          $variant = 'Unknown'
-        }
-        "variant=$variant" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-
     - name: Restore dependencies
       run: dotnet restore Tera.sln
 
@@ -82,18 +52,26 @@ jobs:
       run: |
         Copy-Item -Path "./resources" -Destination "./publish/ShinraMeter" -Recurse -Force
 
+    - name: Copy lib directory (7z native DLLs for JSON export)
+      # Guard: the DamageMeter.UI.csproj Content include should already copy these,
+      # but keep the CI copy as a safety net for loose-file publishes.
+      run: |
+        if (Test-Path "./lib") {
+          Copy-Item -Path "./lib" -Destination "./publish/ShinraMeter" -Recurse -Force
+        }
+
     - name: Upload ShinraMeter artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ matrix.configuration }}-${{ github.sha }}
+        name: ShinraMeter-${{ matrix.configuration }}-${{ github.sha }}
         path: ./publish/ShinraMeter/
-        retention-days: 1
+        retention-days: 7
 
   release:
     needs: build
     runs-on: windows-latest
-    if: startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.create_release)
-    
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.create_release)
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -101,38 +79,17 @@ jobs:
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
-        # Download all artifacts produced by the build job
         path: ./downloaded-artifacts/
-
-    - name: Determine variant (release)
-      id: variant
-      shell: pwsh
-      run: |
-        $refName = "${{ github.ref_name }}"
-        $eventName = "${{ github.event_name }}"
-        $manualVariant = "${{ inputs.variant }}"
-        $variant = ""
-        if ($eventName -eq 'workflow_dispatch' -and $manualVariant) {
-          $variant = $manualVariant
-        } elseif ($refName -like 'Evervyn-*' -or "${{ github.ref }}" -like 'refs/heads/Evervyn') {
-          $variant = 'Evervyn'
-        } elseif ($refName -like 'EU-Classic-*' -or "${{ github.ref }}" -like 'refs/heads/EU-Classic') {
-          $variant = 'EU-Classic'
-        } else {
-          $variant = 'Unknown'
-        }
-        "variant=$variant" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
     - name: Create ZIP archive
       run: |
-        $variant = "${{ steps.variant.outputs.variant }}"
-        if ($variant -eq 'Unknown') { throw "Unable to determine variant from ref name '${{ github.ref_name }}'. Use workflow_dispatch with 'variant' input or push a variant-tag (Evervyn-*, EU-Classic-*)." }
-        Compress-Archive -Path ./downloaded-artifacts/* -DestinationPath ShinraMeter-$variant-${{ github.ref_name }}.zip
+        $tag = "${{ github.ref_name }}"
+        Compress-Archive -Path ./downloaded-artifacts/*/* -DestinationPath "ShinraMeter-$tag.zip"
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ShinraMeter-${{ steps.variant.outputs.variant }}-${{ github.ref_name }}.zip
+        files: ShinraMeter-${{ github.ref_name }}.zip
         draft: false
         prerelease: false
         generate_release_notes: true

@@ -81,6 +81,19 @@
 	<ItemGroup>
 		<None Include="app.manifest" />
 	</ItemGroup>
+	<!-- 7z native libs required by Squid-Box.SevenZipSharp for the JSON export
+	     compressor in DamageMeter.Core. Prior CI only copied ./resources/ into
+	     the publish output, so lib/7z_x64.dll was missing at runtime and the
+	     JsonSave Task.Run silently swallowed the load failure. Bundling here
+	     makes the files copy on every build + publish, CI-independent. -->
+	<ItemGroup>
+		<None Include="..\lib\7z.dll" Link="lib\7z.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\lib\7z_x64.dll" Link="lib\7z_x64.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\DamageMeter.Core\DamageMeter.Core.csproj" />
 		<ProjectReference Include="..\DamageMeter.D3D9Render\DamageMeter.D3D9Render.csproj" />

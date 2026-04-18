@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+using System;
 using Tera.Sniffing;
 
 namespace DamageMeter.Sniffing
@@ -8,7 +7,7 @@ namespace DamageMeter.Sniffing
     {
         public static ITeraSniffer Create()
         {
-            if(Environment.GetCommandLineArgs().Contains("--toolbox")) return new ToolboxSniffer();
+            // Yurian-specific build: always use the local mirror socket.
             return new TeraSniffer();
         }
     }

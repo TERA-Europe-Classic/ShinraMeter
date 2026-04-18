@@ -15,7 +15,6 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetworkSniffer\NetworkSniffer.csproj" />
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\TeraCommon\Tera.Core.csproj" />
   </ItemGroup>

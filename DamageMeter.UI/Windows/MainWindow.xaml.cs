@@ -60,8 +60,6 @@ namespace DamageMeter.UI
             SettingsWindowViewModel.WindowScaleChanged += OnScaleChanged;
 
             App.SplashScreen?.CloseWindowSafe();
-
-            if (App.ToolboxMode) App.StartToolboxProcessCheck();
         }
 
         private void ListEncounterOnPreviewKeyDown(object sender, KeyEventArgs keyEventArgs)

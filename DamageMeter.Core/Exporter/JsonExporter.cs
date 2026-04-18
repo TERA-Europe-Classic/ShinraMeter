@@ -136,26 +136,41 @@ namespace DamageMeter.Exporter {
                 {
                     if (file.Exists) { return; } //double check if file was created while we were preparing export in other thread
 
-                    var libpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Environment.Is64BitProcess ? "lib/7z_x64.dll" : "lib/7z.dll");
-                    SevenZipBase.SetLibraryPath(libpath);
-                    var compressor = new SevenZipCompressor {ArchiveFormat = OutArchiveFormat.SevenZip};
-                    compressor.CustomParameters["tc"] = "off";
-                    compressor.CompressionLevel = CompressionLevel.Ultra;
-                    compressor.CompressionMode = CompressionMode.Create;
-                    compressor.TempFolderPath = Path.GetTempPath();
-                    compressor.PreserveDirectoryRoot = false;
-                    compressor.DefaultItemName = Path.GetFileNameWithoutExtension(fileName) + ".json";
-                    using var s = new MemoryStream();
-                    using var w = new StreamWriter(s);
-                    using var jsonw = new JsonTextWriter(w);
-                    var ser = new JsonSerializer();
-                    ser.NullValueHandling = NullValueHandling.Ignore;
-                    ser.Formatting = Formatting.Indented;
-                    ser.Serialize(jsonw, jsonData);
-                    jsonw.Flush();
-                    s.Position = 0;
-                    using var cs = File.Create(fname);
-                    compressor.CompressStream(s, cs);
+                    try
+                    {
+                        var libpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Environment.Is64BitProcess ? "lib/7z_x64.dll" : "lib/7z.dll");
+                        if (!File.Exists(libpath))
+                        {
+                            // Surface the common failure mode explicitly: CI used to omit lib/ from
+                            // the publish output and the export silently failed. Fixed via csproj
+                            // Content include, but keep this diagnostic in case a packager misses it.
+                            BasicTeraData.LogError("JSON export failed: native 7z library not found at " + libpath, false, true);
+                            return;
+                        }
+                        SevenZipBase.SetLibraryPath(libpath);
+                        var compressor = new SevenZipCompressor {ArchiveFormat = OutArchiveFormat.SevenZip};
+                        compressor.CustomParameters["tc"] = "off";
+                        compressor.CompressionLevel = CompressionLevel.Ultra;
+                        compressor.CompressionMode = CompressionMode.Create;
+                        compressor.TempFolderPath = Path.GetTempPath();
+                        compressor.PreserveDirectoryRoot = false;
+                        compressor.DefaultItemName = Path.GetFileNameWithoutExtension(fileName) + ".json";
+                        using var s = new MemoryStream();
+                        using var w = new StreamWriter(s);
+                        using var jsonw = new JsonTextWriter(w);
+                        var ser = new JsonSerializer();
+                        ser.NullValueHandling = NullValueHandling.Ignore;
+                        ser.Formatting = Formatting.Indented;
+                        ser.Serialize(jsonw, jsonData);
+                        jsonw.Flush();
+                        s.Position = 0;
+                        using var cs = File.Create(fname);
+                        compressor.CompressStream(s, cs);
+                    }
+                    catch (Exception ex)
+                    {
+                        BasicTeraData.LogError("JSON export failed: " + ex.Message, false, true);
+                    }
                 }
             });
         }
