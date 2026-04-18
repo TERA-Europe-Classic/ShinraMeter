@@ -1,6 +1,7 @@
 [submodule "TeraCommon"]
 	path = TeraCommon
-	url = https://github.com/LukasTD/TeraCore
+	url = https://github.com/TERA-Europe-Classic/TeraCore
+	branch = main
 [submodule "TeraDpsMeterData"]
 	path = resources/data
 	url = https://github.com/LukasTD/TeraDpsMeterData

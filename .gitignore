@@ -1,5 +1,10 @@
 ## Shinra Meter specific
 resources/config/*
+# Classic+ ships a pre-populated server-overrides.txt so end users get the
+# launcher-provided mirror-socket loopback and the Classic+ gameserver IP
+# as named servers from first launch. The rest of resources/config/ is
+# user state (WindowData, HotkeysData, EventsData, etc.) and stays ignored.
+!resources/config/server-overrides.txt
 resources/logs/*
 ShinraMeter*
 resources/hotkeys.xml
