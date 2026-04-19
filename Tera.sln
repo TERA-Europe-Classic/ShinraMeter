@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkSniffer", "NetworkSniffer\NetworkSniffer.csproj", "{5B431143-1A77-44FF-8BC3-926FEC8AD97C}"
 EndProject
@@ -29,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacketViewer.UI", "PacketViewer.UI\PacketViewer.UI.csproj", "{60027A8E-BA12-4130-9A46-8436BD8DEE4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacketViewer.Core", "PacketViewer.Core\PacketViewer.Core.csproj", "{6DEE0F27-0FF9-4EA2-A2FD-A53EC27DAE8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinraMeter.Tests", "ShinraMeter.Tests\ShinraMeter.Tests.csproj", "{00FF62DF-F8DC-4D71-804A-E010EC1A1225}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +175,18 @@ Global
 		{6DEE0F27-0FF9-4EA2-A2FD-A53EC27DAE8F}.Release|x64.Build.0 = Release|Any CPU
 		{6DEE0F27-0FF9-4EA2-A2FD-A53EC27DAE8F}.Release|x86.ActiveCfg = Release|Any CPU
 		{6DEE0F27-0FF9-4EA2-A2FD-A53EC27DAE8F}.Release|x86.Build.0 = Release|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Debug|x64.Build.0 = Debug|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Debug|x86.Build.0 = Debug|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Release|x64.ActiveCfg = Release|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Release|x64.Build.0 = Release|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Release|x86.ActiveCfg = Release|Any CPU
+		{00FF62DF-F8DC-4D71-804A-E010EC1A1225}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

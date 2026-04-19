@@ -7,6 +7,8 @@ resources/config/*
 !resources/config/server-overrides.txt
 resources/logs/*
 ShinraMeter*
+!ShinraMeter.Tests
+!ShinraMeter.Tests/**
 resources/hotkeys.xml
 resources/window.xml
 
