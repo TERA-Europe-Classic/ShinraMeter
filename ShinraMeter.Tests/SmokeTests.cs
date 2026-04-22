@@ -58,6 +58,26 @@ public class SmokeTests
         Assert.Equal(10002, factory.ReleaseVersion);
     }
 
+    [Fact]
+    public void TeraSniffer_UsesPacketSnifferPath_NotMirrorSocketPath()
+    {
+        var source = File.ReadAllText(
+            Path.Combine(
+                AppContext.BaseDirectory,
+                "..",
+                "..",
+                "..",
+                "..",
+                "DamageMeter.Sniffing",
+                "TeraSniffer.cs"
+            )
+        );
+
+        Assert.Contains("new TcpSniffer(_ipSniffer)", source);
+        Assert.Contains("new IpSnifferRawSocketMultipleInterfaces()", source);
+        Assert.DoesNotContain("ConnectAsync(_socketHost, _socketPort)", source);
+    }
+
     private static byte[] BuildEachSkillResultPacket(ushort opcode, long amount)
     {
         using var ms = new MemoryStream();
