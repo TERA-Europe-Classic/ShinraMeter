@@ -16,7 +16,7 @@ public class SmokeTests
     }
 
     [Fact]
-    public void EachSkillResult_ClassicPlus10002_ReadsAmountAfterOriginalSkillId()
+    public void EachSkillResult_ClassicPlus10002_ReadsAmountFromToolboxV14Layout()
     {
         var opcodeNamer = new OpCodeNamer(new Dictionary<ushort, string>
         {
@@ -35,6 +35,7 @@ public class SmokeTests
 
         Assert.Equal(123L, parsed.Amount);
         Assert.Equal(0x1234567, parsed.SkillId);
+        Assert.Equal(7, parsed.HitId);
     }
 
     [Fact]
@@ -59,7 +60,7 @@ public class SmokeTests
     }
 
     [Fact]
-    public void TeraSniffer_UsesPacketSnifferPath_NotMirrorSocketPath()
+    public void TeraSniffer_UsesMirrorSocketPath_NotPacketSnifferPath()
     {
         var source = File.ReadAllText(
             Path.Combine(
@@ -73,9 +74,11 @@ public class SmokeTests
             )
         );
 
-        Assert.Contains("new TcpSniffer(_ipSniffer)", source);
-        Assert.Contains("new IpSnifferRawSocketMultipleInterfaces()", source);
-        Assert.DoesNotContain("ConnectAsync(_socketHost, _socketPort)", source);
+        Assert.Contains("_socketHost = \"127.0.0.1\"", source);
+        Assert.Contains("ConnectAsync(_socketHost, _socketPort)", source);
+        Assert.Contains("if (direction == 1)", source);
+        Assert.Contains("else if (direction == 2)", source);
+        Assert.DoesNotContain("new TcpSniffer(_ipSniffer)", source);
     }
 
     private static byte[] BuildEachSkillResultPacket(ushort opcode, long amount)
@@ -90,18 +93,20 @@ public class SmokeTests
         writer.Write((ulong)2); // target
         writer.Write(999); // template id
         writer.Write((ulong)0x1234567); // skill id
-        writer.Write((ulong)0x7654321); // original skill id (present on Classic+ v100)
         writer.Write(7); // hit id
-        writer.Write(new byte[12]); // unknown2
+        writer.Write(11); // area
+        writer.Write((uint)22); // id
+        writer.Write(33); // time
         writer.Write(amount); // amount (int64)
-        writer.Write(1); // flags debug
+        writer.Write((short)1); // type = damage
+        writer.Write((short)0); // noctEffect
         writer.Write((byte)0); // crit
-        writer.Write((byte)0); // consume edge
-        writer.Write((byte)0); // blocked
+        writer.Write((byte)0); // stackExplode
+        writer.Write((byte)0); // superArmor
         writer.Write(0); // super armor id
         writer.Write(0); // hit cylinder id
-        writer.Write(0); // reaction bools pad
-        writer.Write((short)0); // skill damage type pad
+        writer.Write(new byte[4]); // reaction bools
+        writer.Write((short)0); // damage type
         writer.Write(0f); // pos x
         writer.Write(0f); // pos y
         writer.Write(0f); // pos z
