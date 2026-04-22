@@ -37,6 +37,27 @@ public class SmokeTests
         Assert.Equal(0x1234567, parsed.SkillId);
     }
 
+    [Fact]
+    public void LoginArbiter_ClassicPlusAlwaysPinsReleaseVersion10002()
+    {
+        var opcodeNamer = new OpCodeNamer(new Dictionary<ushort, string>
+        {
+            { 2, "C_LOGIN_ARBITER" },
+        });
+        var factory = new MessageFactory(opcodeNamer, "EUC", 387400);
+        factory.ReleaseVersion = 9901;
+
+        var message = new Message(
+            DateTime.UtcNow,
+            MessageDirection.ClientToServer,
+            new ArraySegment<byte>(BuildLoginArbiterPacket(opcode: 2, language: 6, fallbackVersion: 2707))
+        );
+
+        _ = (C_LOGIN_ARBITER)factory.Create(message);
+
+        Assert.Equal(10002, factory.ReleaseVersion);
+    }
+
     private static byte[] BuildEachSkillResultPacket(ushort opcode, long amount)
     {
         using var ms = new MemoryStream();
@@ -65,6 +86,20 @@ public class SmokeTests
         writer.Write(0f); // pos y
         writer.Write(0f); // pos z
         writer.Write((short)0); // heading
+
+        writer.Flush();
+        return ms.ToArray();
+    }
+
+    private static byte[] BuildLoginArbiterPacket(ushort opcode, uint language, int fallbackVersion)
+    {
+        using var ms = new MemoryStream();
+        using var writer = new BinaryWriter(ms);
+
+        writer.Write(opcode);
+        writer.Write(new byte[11]);
+        writer.Write(language);
+        writer.Write(fallbackVersion);
 
         writer.Flush();
         return ms.ToArray();
