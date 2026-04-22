@@ -5,6 +5,6 @@ namespace Shinra
     public static class MeterVersion
     {
         // Central, fixed application version string (replaces updater-based version)
-        public const string Value = "3.00b-Yurian";
+        public const string Value = "3.0.5-classicplus";
     }
 }
