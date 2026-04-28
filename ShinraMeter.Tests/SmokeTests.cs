@@ -124,6 +124,19 @@ public class SmokeTests
     }
 
     [Fact]
+    public void TtsSettingsTab_OpensPerAlertTtsEditor()
+    {
+        var settingsSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindow.xaml"));
+
+        var ttsTabStart = settingsSource.IndexOf("<!--TTS-->", StringComparison.Ordinal);
+        var hpBarTabStart = settingsSource.IndexOf("<!--HP bar-->", StringComparison.Ordinal);
+        var ttsTab = settingsSource.Substring(ttsTabStart, hpBarTabStart - ttsTabStart);
+
+        Assert.Contains("Configure TTS alerts", ttsTab);
+        Assert.Contains("OpenEventEditorCommand", ttsTab);
+    }
+
+    [Fact]
     public void ManualJsonAndExcelExportsRevealTheCreatedFileInExplorer()
     {
         var jsonSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "Exporter", "JsonExporter.cs"));

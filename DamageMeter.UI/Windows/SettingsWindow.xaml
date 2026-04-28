@@ -412,6 +412,18 @@
                                                SettingName="{x:Static lang:LP.MaxTTSSize}"
                                                Min="10" Max="200"
                                                IsEnabled="{Binding TtsMessagesTruncate}" />
+                        <Separator Opacity=".2" Margin="0 8" />
+                        <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                   Text="Choose exactly which TTS alerts are allowed to speak, such as Nostrum reminders, Enrage, or Adrenaline Rush."
+                                   TextWrapping="Wrap"
+                                   Margin="32 0 0 8" />
+                        <Button Command="{Binding OpenEventEditorCommand}"
+                                HorizontalAlignment="Left"
+                                HorizontalContentAlignment="Center"
+                                Padding="10 0"
+                                Margin="32 0 0 0">
+                            <TextBlock Text="Configure TTS alerts" VerticalAlignment="Center" />
+                        </Button>
                     </StackPanel>
                 </TabItem>
                 <!--HP bar-->
