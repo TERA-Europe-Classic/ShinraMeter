@@ -81,6 +81,32 @@ public class SmokeTests
         Assert.DoesNotContain("new TcpSniffer(_ipSniffer)", source);
     }
 
+    [Fact]
+    public void ClassicPlusServerId2800_ResolvesToElinu()
+    {
+        var serverDatabase = new ServerDatabase(ProjectPath("resources", "data"))
+        {
+            Language = LangEnum.EU_EN,
+        };
+
+        Assert.Equal("Elinu", serverDatabase.GetServerName(2800));
+    }
+
+    private static string ProjectPath(params string[] parts)
+    {
+        var pathParts = new List<string>
+        {
+            AppContext.BaseDirectory,
+            "..",
+            "..",
+            "..",
+            "..",
+        };
+        pathParts.AddRange(parts);
+
+        return Path.GetFullPath(Path.Combine(pathParts.ToArray()));
+    }
+
     private static byte[] BuildEachSkillResultPacket(ushort opcode, long amount)
     {
         using var ms = new MemoryStream();
