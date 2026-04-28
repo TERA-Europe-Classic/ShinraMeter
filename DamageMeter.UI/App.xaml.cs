@@ -195,7 +195,39 @@ namespace DamageMeter.UI
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
+            PersistSettingsOnExit();
             if (_isNewInstance) { _unique.ReleaseMutex(); }
+        }
+
+        private static void PersistSettingsOnExit()
+        {
+            try
+            {
+                HudContainer?.SaveWindowsPos();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to persist Shinra window positions during exit: {ex}");
+            }
+
+            try
+            {
+                BasicTeraData.Instance.WindowData.Save();
+                BasicTeraData.Instance.WindowData.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to persist Shinra window settings during exit: {ex}");
+            }
+
+            try
+            {
+                BasicTeraData.Instance.HotkeysData.Save();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to persist Shinra hotkeys during exit: {ex}");
+            }
         }
     }
 }

@@ -369,6 +369,7 @@ namespace DamageMeter
                     package.Workbook.Properties.Company = "github.com/neowutran & github.com/Gl0";
                     package.Save();
                 }
+                if (manual) { ExportFileRevealer.Reveal(fname); }
             }
         }
 

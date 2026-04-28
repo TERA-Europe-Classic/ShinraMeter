@@ -5,7 +5,7 @@ namespace Data.Actions.Notify.SoundElements
 {
     public class TextToSpeech : SoundInterface
     {
-        public TextToSpeech(string text, VoiceGender voiceGender, VoiceAge voiceAge, int voicePosition, string culture, int volume, int rate)
+        public TextToSpeech(string text, VoiceGender voiceGender, VoiceAge voiceAge, int voicePosition, string culture, int volume, int rate, bool enabled = true)
         {
             Text = text;
             VoiceGender = voiceGender;
@@ -14,8 +14,10 @@ namespace Data.Actions.Notify.SoundElements
             CultureInfo = culture;
             Volume = volume;
             Rate = rate;
+            Enabled = enabled;
         }
 
+        public bool Enabled { get; set; }
         public string Text { get; set; }
         public VoiceGender VoiceGender { get; set; }
         public VoiceAge VoiceAge { get; set; }
@@ -28,6 +30,7 @@ namespace Data.Actions.Notify.SoundElements
 #if NETFULL
         public void Play()
         {
+            if (!Enabled) { return; }
             using (var synth = new System.Speech.Synthesis.SpeechSynthesizer())
             {
                 synth.SelectVoiceByHints((System.Speech.Synthesis.VoiceGender)VoiceGender, (System.Speech.Synthesis.VoiceAge)VoiceAge, VoicePosition, new CultureInfo(CultureInfo));
@@ -43,6 +46,7 @@ namespace Data.Actions.Notify.SoundElements
 
         public void Play()
         {
+            if (!Enabled) { return; }
             using (var synth = new SpeechSynthesizer())
             {
                 synth.SelectVoiceByHints((System.Speech.Synthesis.VoiceGender)VoiceGender, (System.Speech.Synthesis.VoiceAge)VoiceAge, VoicePosition, new CultureInfo(CultureInfo));

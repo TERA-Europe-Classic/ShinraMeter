@@ -76,7 +76,7 @@ namespace DamageMeter.UI
 
         private void Apply()
         {
-            // re-apply data in model (save and reload), do it via some "save" button
+            _data.Save();
         }
 
         private void Load()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Data.Actions.Notify.SoundElements;
 using Tera;
 using Tera.Game;
 using Tera.Game.Messages;
@@ -90,6 +91,62 @@ public class SmokeTests
         };
 
         Assert.Equal("Elinu", serverDatabase.GetServerName(2800));
+    }
+
+    [Fact]
+    public void TextToSpeech_CanBeDisabledPerAlert()
+    {
+        var tts = new TextToSpeech("Use Nostrum", VoiceGender.Female, VoiceAge.Adult, 0, "en-US", 30, 0, false);
+
+        Assert.False(tts.Enabled);
+    }
+
+    [Fact]
+    public void EventsParser_ReadsTextToSpeechEnabledAttributeWithDefaultEnabled()
+    {
+        var source = File.ReadAllText(ProjectPath("Data", "EventsData.cs"));
+
+        Assert.Contains("tts.Attribute(\"enabled\")?.Value ?? \"True\"", source);
+        Assert.Contains("new TextToSpeech(text, voiceGender, voiceAge, voicePosition, culture, volume, rate, enabled)", source);
+        Assert.Contains("new XAttribute(\"enabled\", textToSpeech.Enabled)", source);
+    }
+
+    [Fact]
+    public void EventsEditor_ExposesPerTextToSpeechToggle()
+    {
+        var viewModelSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "TtsDataVM.cs"));
+        var editorSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorViewModel.cs"));
+        var xamlSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorWindow.xaml"));
+
+        Assert.Contains("public bool Enabled", viewModelSource);
+        Assert.Contains("_data.Save();", editorSource);
+        Assert.Contains("IsOn=\"{Binding Enabled, Mode=TwoWay}\"", xamlSource);
+    }
+
+    [Fact]
+    public void ManualJsonAndExcelExportsRevealTheCreatedFileInExplorer()
+    {
+        var jsonSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "Exporter", "JsonExporter.cs"));
+        var excelSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "Exporter", "ExcelExporter.cs"));
+        var revealerSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "Exporter", "ExportFileRevealer.cs"));
+
+        Assert.Contains("if (manual) { ExportFileRevealer.Reveal(fname); }", jsonSource);
+        Assert.Contains("if (manual) { ExportFileRevealer.Reveal(fname); }", excelSource);
+        Assert.Contains("explorer.exe", revealerSource);
+        Assert.Contains("/select,", revealerSource);
+    }
+
+    [Fact]
+    public void WpfAppExitPersistsSettingsWhenMainWindowIsClosedExternally()
+    {
+        var appSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "App.xaml.cs"));
+
+        var appExitBody = appSource.Substring(appSource.IndexOf("private void App_OnExit", StringComparison.Ordinal));
+
+        Assert.Contains("HudContainer?.SaveWindowsPos()", appExitBody);
+        Assert.Contains("BasicTeraData.Instance.WindowData.Save()", appExitBody);
+        Assert.Contains("BasicTeraData.Instance.WindowData.Close()", appExitBody);
+        Assert.Contains("BasicTeraData.Instance.HotkeysData.Save()", appExitBody);
     }
 
     private static string ProjectPath(params string[] parts)

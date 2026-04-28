@@ -155,7 +155,156 @@ namespace Data
 
         public void Save()
         {
-            //TODO UI, too lazy atm
+            var eventsDir = Path.Combine(_basicData.ResourceDirectory, "config/events");
+            Directory.CreateDirectory(eventsDir);
+
+            var root = new XElement("events",
+                new XAttribute("active", true),
+                new XAttribute("priority", 5));
+
+            foreach (var eventActions in EventsCommon)
+            {
+                root.Add(SerializeEvent(eventActions.Key, eventActions.Value));
+            }
+
+            var xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), root);
+            var file = Path.Combine(eventsDir, "events-common.xml");
+            File.WriteAllText(file, xml.Declaration + Environment.NewLine + xml, Encoding.UTF8);
+        }
+
+        private XElement SerializeEvent(Event ev, List<Action> actions)
+        {
+            if (ev is CommonAFKEvent)
+            {
+                return new XElement("common_afk",
+                    new XAttribute("active", ev.Active),
+                    SerializeActions(actions));
+            }
+
+            if (ev is CooldownEvent cooldown)
+            {
+                return new XElement("cooldown",
+                    new XAttribute("active", cooldown.Active),
+                    new XAttribute("ingame", cooldown.InGame),
+                    new XAttribute("priority", cooldown.Priority),
+                    new XAttribute("skill_id", cooldown.SkillId),
+                    new XAttribute("only_resetted", cooldown.OnlyResetted),
+                    SerializeActions(actions));
+            }
+
+            if (ev is AbnormalityEvent abnormality)
+            {
+                var element = new XElement("abnormality",
+                    new XAttribute("active", abnormality.Active),
+                    new XAttribute("ingame", abnormality.InGame),
+                    new XAttribute("priority", abnormality.Priority),
+                    new XAttribute("target", abnormality.Target),
+                    new XAttribute("trigger", abnormality.Trigger),
+                    new XAttribute("out_of_combat", abnormality.OutOfCombat));
+
+                if (abnormality.IgnoreClasses.Any())
+                {
+                    element.Add(new XAttribute("ignore_classes", string.Join(",", abnormality.IgnoreClasses)));
+                }
+
+                if (abnormality.Trigger == AbnormalityTriggerType.MissingDuringFight || abnormality.Trigger == AbnormalityTriggerType.Ending)
+                {
+                    element.Add(new XAttribute("remaining_seconds_before_trigger", abnormality.RemainingSecondBeforeTrigger));
+                    element.Add(new XAttribute("rewarn_timeout_seconds", abnormality.RewarnTimeoutSeconds));
+                }
+
+                element.Add(SerializeAreaBossBlacklist(abnormality.AreaBossBlackList));
+                element.Add(SerializeAbnormalities(abnormality));
+                element.Add(SerializeActions(actions));
+                return element;
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(ev), ev.GetType().Name, "Unsupported event type");
+        }
+
+        private static XElement SerializeAreaBossBlacklist(List<BlackListItem> blacklist)
+        {
+            var element = new XElement("area_boss_blacklist");
+            foreach (var item in blacklist)
+            {
+                element.Add(new XElement("blacklist",
+                    new XAttribute("area_id", item.AreaId),
+                    new XAttribute("boss_id", item.BossId)));
+            }
+            return element;
+        }
+
+        private static XElement SerializeAbnormalities(AbnormalityEvent abnormality)
+        {
+            var element = new XElement("abnormalities");
+            foreach (var id in abnormality.Ids)
+            {
+                element.Add(new XElement("abnormality",
+                    new XAttribute("stack", id.Value),
+                    id.Key));
+            }
+            foreach (var type in abnormality.Types)
+            {
+                element.Add(new XElement("abnormality", type));
+            }
+            return element;
+        }
+
+        private static XElement SerializeActions(List<Action> actions)
+        {
+            var element = new XElement("actions");
+            foreach (var action in actions.OfType<NotifyAction>())
+            {
+                var notify = new XElement("notify");
+                if (action.Balloon != null)
+                {
+                    notify.Add(new XElement("balloon",
+                        new XAttribute("title_text", action.Balloon.TitleText),
+                        new XAttribute("body_text", action.Balloon.BodyText),
+                        new XAttribute("display_time", action.Balloon.DisplayTime)));
+                }
+
+                var sound = SerializeSound(action.Sound);
+                if (sound != null)
+                {
+                    notify.Add(sound);
+                }
+                element.Add(notify);
+            }
+            return element;
+        }
+
+        private static XElement SerializeSound(SoundInterface sound)
+        {
+            switch (sound)
+            {
+                case Music music:
+                    return new XElement("music",
+                        new XAttribute("file", music.File),
+                        new XAttribute("volume", (music.Volume * 100).ToString(CultureInfo.InvariantCulture)),
+                        new XAttribute("duration", music.Duration));
+                case Beeps beeps:
+                    var element = new XElement("beeps");
+                    foreach (var beep in beeps.BeepList)
+                    {
+                        element.Add(new XElement("beep",
+                            new XAttribute("frequency", beep.Frequency),
+                            new XAttribute("duration", beep.Duration)));
+                    }
+                    return element;
+                case TextToSpeech textToSpeech:
+                    return new XElement("text_to_speech",
+                        new XAttribute("text", textToSpeech.Text),
+                        new XAttribute("voice_gender", textToSpeech.VoiceGender),
+                        new XAttribute("voice_age", textToSpeech.VoiceAge),
+                        new XAttribute("voice_position", textToSpeech.VoicePosition),
+                        new XAttribute("culture", textToSpeech.CultureInfo),
+                        new XAttribute("volume", textToSpeech.Volume),
+                        new XAttribute("rate", textToSpeech.Rate),
+                        new XAttribute("enabled", textToSpeech.Enabled));
+                default:
+                    return null;
+            }
         }
 
         private void ParseCommonAFK(Dictionary<Event, List<Action>> events, XDocument xml)
@@ -224,7 +373,8 @@ namespace Data
                     var voicePosition = int.Parse(tts.Attribute("voice_position")?.Value ?? "0");
                     var volume = int.Parse(tts.Attribute("volume")?.Value ?? "30");
                     var rate = int.Parse(tts.Attribute("rate")?.Value ?? "0");
-                    soundInterface = new TextToSpeech(text, voiceGender, voiceAge, voicePosition, culture, volume, rate);
+                    var enabled = bool.Parse(tts.Attribute("enabled")?.Value ?? "True");
+                    soundInterface = new TextToSpeech(text, voiceGender, voiceAge, voicePosition, culture, volume, rate, enabled);
                 }
 
                 var notifyAction = new NotifyAction(soundInterface, ballonData);

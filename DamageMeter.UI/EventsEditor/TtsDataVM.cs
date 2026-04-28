@@ -4,6 +4,8 @@ namespace DamageMeter.UI
 {
     public class TtsDataVM : BaseSoundVM
     {
+        private readonly TextToSpeech _tts;
+        private bool _enabled;
         private string _text;
         private VoiceGender _gender;
         private VoiceAge _age;
@@ -12,6 +14,18 @@ namespace DamageMeter.UI
         private int _volume; //0-100
         private int _rate;
 
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (_enabled == value) return;
+                _enabled = value;
+                _tts.Enabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public string Text
         {
             get => _text;
@@ -19,6 +33,7 @@ namespace DamageMeter.UI
             {
                 if (_text == value) return;
                 _text = value;
+                _tts.Text = value;
                 NotifyPropertyChanged();
             }
         }
@@ -30,6 +45,7 @@ namespace DamageMeter.UI
             {
                 if (_gender == value) return;
                 _gender = value;
+                _tts.VoiceGender = value;
                 NotifyPropertyChanged();
             }
         }
@@ -41,6 +57,7 @@ namespace DamageMeter.UI
             {
                 if (_age == value) return;
                 _age = value;
+                _tts.VoiceAge = value;
                 NotifyPropertyChanged();
             }
         }
@@ -52,6 +69,7 @@ namespace DamageMeter.UI
             {
                 if (_voiceIndex == value) return;
                 _voiceIndex = value;
+                _tts.VoicePosition = value;
                 NotifyPropertyChanged();
             }
         }
@@ -63,6 +81,7 @@ namespace DamageMeter.UI
             {
                 if (_culture == value) return;
                 _culture = value;
+                _tts.CultureInfo = value;
                 NotifyPropertyChanged();
             }
         }
@@ -74,6 +93,7 @@ namespace DamageMeter.UI
             {
                 if (_volume == value) return;
                 _volume = value;
+                _tts.Volume = value;
                 NotifyPropertyChanged();
             }
         }
@@ -85,12 +105,15 @@ namespace DamageMeter.UI
             {
                 if (_rate == value) return;
                 _rate = value;
+                _tts.Rate = value;
                 NotifyPropertyChanged();
             }
         }
 
         public TtsDataVM(TextToSpeech tts)
         {
+            _tts = tts;
+            _enabled = tts.Enabled;
             _text = tts.Text;
             _gender = tts.VoiceGender;
             _age = tts.VoiceAge;

@@ -224,6 +224,7 @@
         </DataTemplate>
         <DataTemplate x:Key="TtsTemplate" DataType="ui:TtsDataVM">
             <StackPanel>
+                <settings:CheckboxSetting SettingName="Play this TTS alert" IsOn="{Binding Enabled, Mode=TwoWay}" />
                 <settings:FieldSetting SettingName="Text" Value="{Binding Text, Mode=TwoWay}" Margin="0" />
                 <UniformGrid Columns="2" HorizontalAlignment="Left">
                     <settings:ValueSetting SettingName="Volume" Value="{Binding Volume, Mode=TwoWay}" Min="0"

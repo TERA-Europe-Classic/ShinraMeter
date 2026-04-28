@@ -164,8 +164,11 @@ namespace DamageMeter.Exporter {
                         ser.Serialize(jsonw, jsonData);
                         jsonw.Flush();
                         s.Position = 0;
-                        using var cs = File.Create(fname);
-                        compressor.CompressStream(s, cs);
+                        using (var cs = File.Create(fname))
+                        {
+                            compressor.CompressStream(s, cs);
+                        }
+                        if (manual) { ExportFileRevealer.Reveal(fname); }
                     }
                     catch (Exception ex)
                     {
