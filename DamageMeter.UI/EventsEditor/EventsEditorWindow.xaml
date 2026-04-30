@@ -515,19 +515,32 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Margin="50 0" />
-            <Button HorizontalAlignment="Right"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Style="{StaticResource ButtonMainStyle}"
-                    Cursor="Arrow"
-                    Height="30"
-                    Width="30"
-                    Click="CloseWindow">
-                <Path Data="{StaticResource Svg.Close}"
-                      Fill="{StaticResource LightRed}"
-                      Stretch="Uniform"
-                      Margin="8" />
-            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding ApplyCommand}"
+                        Style="{StaticResource ButtonMainStyle}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Cursor="Hand"
+                        Height="30"
+                        Padding="14 0"
+                        ToolTip="Save event settings to disk">
+                    <TextBlock Text="Apply"
+                               VerticalAlignment="Center"
+                               Foreground="#cfff" />
+                </Button>
+                <Button HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Style="{StaticResource ButtonMainStyle}"
+                        Cursor="Arrow"
+                        Height="30"
+                        Width="30"
+                        Click="CloseWindow">
+                    <Path Data="{StaticResource Svg.Close}"
+                          Fill="{StaticResource LightRed}"
+                          Stretch="Uniform"
+                          Margin="8" />
+                </Button>
+            </StackPanel>
         </Grid>
         <ScrollViewer Grid.Row="1" Margin="5 5 0 5" UseLayoutRounding="True">
             <ItemsControl HorizontalAlignment="Center" HorizontalContentAlignment="Center"
