@@ -228,6 +228,20 @@ namespace DamageMeter.UI
             {
                 Debug.WriteLine($"Failed to persist Shinra hotkeys during exit: {ex}");
             }
+
+            // Per-event TTS toggles ("Configure TTS alerts" pane in Settings)
+            // mutate the in-memory TextToSpeech instances through TtsDataVM,
+            // but EventsEditorWindow has no Apply button wired to ApplyCommand,
+            // so nothing else flushes EventsData. Persist here so Nostrum /
+            // Enrage / Adrenaline Rush enabled-flags survive a relaunch.
+            try
+            {
+                BasicTeraData.Instance.EventsData.Save();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to persist Shinra events during exit: {ex}");
+            }
         }
     }
 }
