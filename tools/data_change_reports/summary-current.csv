@@ -1,0 +1,5 @@
+locale,old_skills,current_skills,added,modified,removed,invalid_classes,added_already_in_override,duplicate_runtime_keys,duplicate_exact_rows
+EU-EN,13634,13793,159,40,0,0,0,0,0
+EU-FR,13145,13177,32,24,0,0,0,0,0
+EU-GER,13110,13142,32,24,0,0,0,0,0
+RU,14285,14317,32,22,0,0,0,0,0

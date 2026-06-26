@@ -1,0 +1,1913 @@
+{
+  "EU-EN": {
+    "fallbackNpcNameCount": 823,
+    "fallbackNpcNameRowsSample": [
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1904",
+        "speciesId": 0,
+        "templateId": 1904,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1905",
+        "speciesId": 0,
+        "templateId": 1905,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 60,
+        "zoneName": "Lumbertown"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 62,
+        "zoneName": "Cutthroat Harbor"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1023",
+        "speciesId": 0,
+        "templateId": 1023,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1151",
+        "speciesId": 0,
+        "templateId": 1151,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1152",
+        "speciesId": 0,
+        "templateId": 1152,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      }
+    ],
+    "monsterCount": 26688,
+    "packagedFallbackNpcNameCount": 823,
+    "packagedMatchesRuntime": true,
+    "packagedSyntheticZoneNameCount": 11,
+    "packagedUnknownZoneCount": 0,
+    "syntheticZoneNameCount": 11,
+    "syntheticZoneNameIds": [
+      0,
+      99,
+      119,
+      406,
+      415,
+      486,
+      802,
+      803,
+      804,
+      998,
+      2803
+    ],
+    "unknownZoneCount": 0,
+    "unknownZoneIds": [],
+    "zoneCount": 470
+  },
+  "EU-FR": {
+    "fallbackNpcNameCount": 831,
+    "fallbackNpcNameRowsSample": [
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1904",
+        "speciesId": 0,
+        "templateId": 1904,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1905",
+        "speciesId": 0,
+        "templateId": 1905,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 60,
+        "zoneName": "Boquillon"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 62,
+        "zoneName": "Port Coupe-gorge"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1023",
+        "speciesId": 0,
+        "templateId": 1023,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1151",
+        "speciesId": 0,
+        "templateId": 1151,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1152",
+        "speciesId": 0,
+        "templateId": 1152,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      }
+    ],
+    "monsterCount": 26629,
+    "packagedFallbackNpcNameCount": 831,
+    "packagedMatchesRuntime": true,
+    "packagedSyntheticZoneNameCount": 12,
+    "packagedUnknownZoneCount": 0,
+    "syntheticZoneNameCount": 12,
+    "syntheticZoneNameIds": [
+      0,
+      99,
+      119,
+      406,
+      415,
+      486,
+      795,
+      802,
+      803,
+      804,
+      998,
+      2803
+    ],
+    "unknownZoneCount": 0,
+    "unknownZoneIds": [],
+    "zoneCount": 470
+  },
+  "EU-GER": {
+    "fallbackNpcNameCount": 831,
+    "fallbackNpcNameRowsSample": [
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 59,
+        "zoneName": "Crescentia"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1904",
+        "speciesId": 0,
+        "templateId": 1904,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1905",
+        "speciesId": 0,
+        "templateId": 1905,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 60,
+        "zoneName": "Holzhausen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 61,
+        "zoneName": "Castanica"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 62,
+        "zoneName": "Halsabschneiderhafen"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1023",
+        "speciesId": 0,
+        "templateId": 1023,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1151",
+        "speciesId": 0,
+        "templateId": 1151,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1152",
+        "speciesId": 0,
+        "templateId": 1152,
+        "zoneId": 63,
+        "zoneName": "Velika"
+      }
+    ],
+    "monsterCount": 26629,
+    "packagedFallbackNpcNameCount": 831,
+    "packagedMatchesRuntime": true,
+    "packagedSyntheticZoneNameCount": 12,
+    "packagedUnknownZoneCount": 0,
+    "syntheticZoneNameCount": 12,
+    "syntheticZoneNameIds": [
+      0,
+      99,
+      119,
+      406,
+      415,
+      486,
+      795,
+      802,
+      803,
+      804,
+      998,
+      2803
+    ],
+    "unknownZoneCount": 0,
+    "unknownZoneIds": [],
+    "zoneCount": 470
+  },
+  "RU": {
+    "fallbackNpcNameCount": 830,
+    "fallbackNpcNameRowsSample": [
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 59 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 59,
+        "zoneName": "Кресцентия"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1904",
+        "speciesId": 0,
+        "templateId": 1904,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 1905",
+        "speciesId": 0,
+        "templateId": 1905,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 60 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 60,
+        "zoneName": "Деревня лесорубов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 61 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 61,
+        "zoneName": "Кастаника"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1900",
+        "speciesId": 0,
+        "templateId": 1900,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1901",
+        "speciesId": 0,
+        "templateId": 1901,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1902",
+        "speciesId": 0,
+        "templateId": 1902,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 1903",
+        "speciesId": 0,
+        "templateId": 1903,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8003",
+        "speciesId": 0,
+        "templateId": 8003,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8004",
+        "speciesId": 0,
+        "templateId": 8004,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8005",
+        "speciesId": 0,
+        "templateId": 8005,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8006",
+        "speciesId": 0,
+        "templateId": 8006,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 8007",
+        "speciesId": 0,
+        "templateId": 8007,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9001",
+        "speciesId": 0,
+        "templateId": 9001,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9002",
+        "speciesId": 0,
+        "templateId": 9002,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 62 9003",
+        "speciesId": 0,
+        "templateId": 9003,
+        "zoneId": 62,
+        "zoneName": "Гавань Головорезов"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1023",
+        "speciesId": 0,
+        "templateId": 1023,
+        "zoneId": 63,
+        "zoneName": "Велика"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1151",
+        "speciesId": 0,
+        "templateId": 1151,
+        "zoneId": 63,
+        "zoneName": "Велика"
+      },
+      {
+        "hp": 10000,
+        "isBoss": "False",
+        "name": "Npc 63 1152",
+        "speciesId": 0,
+        "templateId": 1152,
+        "zoneId": 63,
+        "zoneName": "Велика"
+      }
+    ],
+    "monsterCount": 26629,
+    "packagedFallbackNpcNameCount": 830,
+    "packagedMatchesRuntime": true,
+    "packagedSyntheticZoneNameCount": 12,
+    "packagedUnknownZoneCount": 0,
+    "syntheticZoneNameCount": 12,
+    "syntheticZoneNameIds": [
+      0,
+      99,
+      119,
+      406,
+      415,
+      486,
+      795,
+      802,
+      803,
+      804,
+      998,
+      2803
+    ],
+    "unknownZoneCount": 0,
+    "unknownZoneIds": [],
+    "zoneCount": 470
+  }
+}

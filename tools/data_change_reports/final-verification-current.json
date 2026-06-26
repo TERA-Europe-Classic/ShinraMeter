@@ -1,0 +1,126 @@
+{
+  "hotdot": {
+    "packaged": {
+      "badFieldRowCount": 0,
+      "badFieldRows": [],
+      "rows": 11959
+    },
+    "packagedMatchesRuntimeNormalized": true,
+    "runtime": {
+      "badFieldRowCount": 0,
+      "badFieldRows": [],
+      "rows": 11959
+    }
+  },
+  "monsters": {
+    "EU-EN": {
+      "duplicateKeys": 0,
+      "fallbackNpcNames": 823,
+      "fieldMismatches": 0,
+      "missingFromSource": 0,
+      "packagedMatchesRuntime": true,
+      "rows": 26688,
+      "sourceKeys": 26688,
+      "syntheticZones": 11,
+      "unknownZones": 0
+    },
+    "EU-FR": {
+      "duplicateKeys": 0,
+      "fallbackNpcNames": 831,
+      "fieldMismatches": 0,
+      "missingFromSource": 0,
+      "packagedMatchesRuntime": true,
+      "rows": 26629,
+      "sourceKeys": 26629,
+      "syntheticZones": 12,
+      "unknownZones": 0
+    },
+    "EU-GER": {
+      "duplicateKeys": 0,
+      "fallbackNpcNames": 831,
+      "fieldMismatches": 0,
+      "missingFromSource": 0,
+      "packagedMatchesRuntime": true,
+      "rows": 26629,
+      "sourceKeys": 26629,
+      "syntheticZones": 12,
+      "unknownZones": 0
+    },
+    "RU": {
+      "duplicateKeys": 0,
+      "fallbackNpcNames": 830,
+      "fieldMismatches": 0,
+      "missingFromSource": 0,
+      "packagedMatchesRuntime": true,
+      "rows": 26629,
+      "sourceKeys": 26629,
+      "syntheticZones": 12,
+      "unknownZones": 0
+    }
+  },
+  "servers": {
+    "packagedMatchesRuntimeNormalized": true
+  },
+  "skills": {
+    "packaged:EU-EN": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 13793
+    },
+    "packaged:EU-FR": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 13177
+    },
+    "packaged:EU-GER": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 13142
+    },
+    "packaged:RU": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 14317
+    },
+    "packagedMatchesRuntime:EU-EN": true,
+    "packagedMatchesRuntime:EU-FR": true,
+    "packagedMatchesRuntime:EU-GER": true,
+    "packagedMatchesRuntime:RU": true,
+    "runtime:EU-EN": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 13793
+    },
+    "runtime:EU-FR": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 13177
+    },
+    "runtime:EU-GER": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 13142
+    },
+    "runtime:RU": {
+      "badColumnRows": 0,
+      "duplicateRuntimeKeys": 0,
+      "exactDuplicates": 0,
+      "invalidClasses": 0,
+      "rows": 14317
+    }
+  }
+}

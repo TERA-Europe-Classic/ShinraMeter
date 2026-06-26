@@ -1,0 +1,366 @@
+locale,change,old_id,old_race,old_gender,old_class,old_name,old_chained,old_detail,old_icon,new_id,new_race,new_gender,new_class,new_name,new_chained,new_detail,new_icon
+EU-EN,added,,,,,,,,291000,Common,Common,Archer,Thunderbolt X,False,,icon_skills.thunderdrake_tex
+EU-EN,added,,,,,,,,8881004,Common,Common,Common,Designated Leader,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,11111100,Common,Common,Common,Expedition Summon: Blue Roan,False,,icon_skills.horsebluedot_tex
+EU-EN,added,,,,,,,,11111500,Common,Common,Common,Expedition Summon: Arcadian Dapple,False,,icon_skills.horsepaint_tex
+EU-EN,added,,,,,,,,11111700,Common,Common,Common,Expedition Summon: Velikan Gray,False,,icon_skills.horsegray_tex
+EU-EN,added,,,,,,,,12300000,Common,Common,Common,Ancient Mighty Hellfire,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,12301000,Common,Common,Common,Blazing Free Flight,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,12302000,Common,Common,Common,Commander Drake,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,12302001,Common,Common,Common,General Drake,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,60401327,Common,Common,Common,Moon Love Aura,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,60501313,Common,Common,Common,Darkan's Wings,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,60501315,Common,Common,Common,Darkan's Blue Wings,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,60501317,Common,Common,Common,Darkan's Green Wings,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,60501319,Common,Common,Common,Darkan's Black Wings,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,60501321,Common,Common,Common,Darkan's Pink Wings,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,63000114,Common,Common,Common,Commander's Horn,False,,icon_skills.guildskills_critrate_tex
+EU-EN,added,,,,,,,,63000115,Common,Common,Common,Commander's Grace,False,,icon_skills.guildskills_critres_tex
+EU-EN,added,,,,,,,,63000116,Common,Common,Common,Commander's Gift,False,,icon_skills.guildskills_ccres2_tex
+EU-EN,added,,,,,,,,63000150,Common,Common,Common,"Set Us Up, Da Stun Bomb",False,,icon_skills.union_skillicon9_tex
+EU-EN,added,,,,,,,,63000151,Common,Common,Common,"Set Us Up, Da Slow Bomb",False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,63000152,Common,Common,Common,"Set Us Up, Da Knock Up Bomb",False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,63000153,Common,Common,Common,"Set Us Up, Da Root Bomb",False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,92601000,Common,Common,Common,Dragon Fire Bomb,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,92601001,Common,Common,Common,Dragon Fire Bomb,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,98140001,Common,Common,Common,Darkan's Wings,False,,icon_status.descentofdarkness_tex
+EU-EN,added,,,,,,,,98140003,Common,Common,Common,Darkan's Black Wings,False,,icon_status.descentofdarkness3_tex
+EU-EN,added,,,,,,,,98140050,Common,Common,Common,Solar Flare Wings,False,,icon_status.wrathstormcompleted_tex
+EU-EN,added,,,,,,,,98140052,Common,Common,Common,Devil's Wings,False,,icon_status.darkriftdestroy_tex
+EU-EN,added,,,,,,,,98140055,Common,Common,Common,Ancient Dragon's Wings,False,,icon_status.battlecommand04_tex
+EU-EN,added,,,,,,,,98140157,Common,Common,Common,Devil's Wings,False,,icon_status.darkriftdestroy_tex
+EU-EN,added,,,,,,,,98150022,Common,Common,Common,Sky Soar,False,,icon_skills.flyingcostumemt_tex
+EU-EN,added,,,,,,,,98150023,Common,Common,Common,Bloodpact,False,,icon_equipments.brooch_23p_tex
+EU-EN,added,,,,,,,,98240000,Common,Common,Common,Summon: Dapper Lloyd,False,,icon_skills.vehicle_llama_d_tex
+EU-EN,added,,,,,,,,98240001,Common,Common,Common,Summon: Free Traders Fortuna,False,,icon_skills.horse_lord_c_tex
+EU-EN,added,,,,,,,,98240002,Common,Common,Common,Summon: Iron Order Virtus,False,,icon_skills.horse_lord_b_tex
+EU-EN,added,,,,,,,,98240003,Common,Common,Common,Summon: Enlightened Union,False,,icon_skills.horse_lord_a_tex
+EU-EN,added,,,,,,,,98240005,Common,Common,Common,Summon: Hello Kitty Squealer,False,,icon_skills.vehicle_pig_kitty_tex
+EU-EN,added,,,,,,,,98245005,Common,Common,Common,Summon: Shandra Manaya,False,,icon_skills.vehicle_sandramanaia_a_tex
+EU-EN,added,,,,,,,,98245006,Common,Common,Common,Summon: Silent Shandra Manaya,False,,icon_skills.vehicle_sandramanaia_b_tex
+EU-EN,added,,,,,,,,98245007,Common,Common,Common,Summon: Destructive Shandra Manaya,False,,icon_skills.vehicle_sandramanaia_c_tex
+EU-EN,added,,,,,,,,98245008,Common,Common,Common,Summon: Windforce Shandra Manaya,False,,icon_skills.vehicle_sandramanaia_d_tex
+EU-EN,added,,,,,,,,98245009,Common,Common,Common,Summon: Dawn Carmine,False,,icon_skills.vehicle_raptor_a_tex
+EU-EN,added,,,,,,,,98245010,Common,Common,Common,Summon: Dawn Lupus Noctus,False,,icon_skills.trans_lion_wolf_black_tex
+EU-EN,added,,,,,,,,98245011,Common,Common,Common,Summon: Dawn Mare,False,,icon_skills.horseinferno_tex
+EU-EN,added,,,,,,,,98245012,Common,Common,Common,Summon: Revivified Shandra Manaya,False,,icon_skills.vehicle_sandramanaia_e_tex
+EU-EN,added,,,,,,,,98245013,Common,Common,Common,Summon: War Horse,False,,icon_skills.horse_darkness_tex
+EU-EN,added,,,,,,,,98245014,Common,Common,Common,Summon: War Bengal Tiger,False,,icon_skills.trans_tiger_d_tex
+EU-EN,added,,,,,,,,98245015,Common,Common,Common,Summon: Ancient Mighty Revivified Shandra Manaya,False,,icon_skills.vehicle_sandramanaia_e_tex
+EU-EN,added,,,,,,,,98245016,Common,Common,Common,Shandra's Revival,False,,icon_skills.shandramanaia_vehicleskill_legend_tex
+EU-EN,added,,,,,,,,98245017,Common,Common,Common,Flight: Kami,False,,icon_skills.vehicle_gianthaechi_a_tex
+EU-EN,added,,,,,,,,98245018,Common,Common,Common,Flight: Almighty Kami,False,,icon_skills.vehicle_gianthaechi_b_tex
+EU-EN,added,,,,,,,,98245021,Common,Common,Common,Flight: Gloom Drake,False,,icon_skills.vehicle_battlepass_dragon_tex
+EU-EN,added,,,,,,,,98245022,Common,Common,Common,Flying Skill: Gloom Broom,False,,icon_skills.vehicle_halloweenbroomstick_a_tex
+EU-EN,added,,,,,,,,98245023,Common,Common,Common,Flying Skill: Bloom Broom,False,,icon_skills.vehicle_halloweenbroomstick_b_tex
+EU-EN,added,,,,,,,,98245024,Common,Common,Common,Flying Skill: Qinglong,False,,icon_skills.vehicle_orientaldragon_a_tex
+EU-EN,added,,,,,,,,98245025,Common,Common,Common,Flying Skill: Almighty Qinglong,False,,icon_skills.vehicle_orientaldragon_b_tex
+EU-EN,added,,,,,,,,98245026,Common,Common,Common,Flying Skill: Feilong,False,,icon_skills.vehicle_orientaldragon_c_tex
+EU-EN,added,,,,,,,,98245027,Common,Common,Common,Flying Skill: Almighty Feilong,False,,icon_skills.vehicle_orientaldragon_d_tex
+EU-EN,added,,,,,,,,98245028,Common,Common,Common,Flying Skill: Sheilong,False,,icon_skills.vehicle_orientaldragon_e_tex
+EU-EN,added,,,,,,,,98245029,Common,Common,Common,Flying Skill: Stygian War Gryphon,False,,icon_skills.vehicle_statdragon_e_tex
+EU-EN,added,,,,,,,,98245030,Common,Common,Common,Flying Skill: Almighty Stygian War Gryphon,False,,icon_skills.vehicle_statdragon_e_tex
+EU-EN,added,,,,,,,,98245031,Common,Common,Common,Flying Skill: Twilight Gryphon,False,,icon_skills.vehicle_statdragon_z_tex
+EU-EN,added,,,,,,,,98245032,Common,Common,Common,Flying Skill: Empyrean War Gryphon,False,,icon_skills.vehicle_statdragon_f_tex
+EU-EN,added,,,,,,,,98245033,Common,Common,Common,Flying Skill: Almighty Empyrean War Gryphon,False,,icon_skills.vehicle_statdragon_f_tex
+EU-EN,added,,,,,,,,98245034,Common,Common,Common,Summon: Chimeric Frostshadow Tiger,False,,icon_skills.vehicle_trans_tiger_e_tex
+EU-EN,added,,,,,,,,98245035,Common,Common,Common,Summon: Almighty Chimeric Frostshadow Tiger,False,,icon_skills.vehicle_trans_tiger_f_tex
+EU-EN,added,,,,,,,,98245036,Common,Common,Common,Flight: Pelagic Guardian,False,,icon_skills.vehicle_shark_a_tex
+EU-EN,added,,,,,,,,98245037,Common,Common,Common,Flight: Pelagic Lord,False,,icon_skills.vehicle_shark_b_tex
+EU-EN,added,,,,,,,,98245038,Common,Common,Common,Summon: Experimental Turbo Massage Chair,False,,icon_skills.vehicle_sofa_a_tex
+EU-EN,added,,,,,,,,98245039,Common,Common,Common,Summon: Heavy Metal Hell Sofa,False,,icon_skills.vehicle_sofa_b_tex
+EU-EN,added,,,,,,,,98245040,Common,Common,Common,Summon: Red Shiba Inu,False,,icon_skills.vehicle_shina_a_tex
+EU-EN,added,,,,,,,,98245041,Common,Common,Common,Summon: Red Shiba Jet,False,,icon_skills.vehicle_shina_b_tex
+EU-EN,added,,,,,,,,98245042,Common,Common,Common,Summon: Black Shiba Inu,False,,icon_skills.vehicle_shina_c_tex
+EU-EN,added,,,,,,,,98245043,Common,Common,Common,Summon: Black Shiba Jet,False,,icon_skills.vehicle_shina_d_tex
+EU-EN,added,,,,,,,,98245044,Common,Common,Common,Summon: Cream Shiba Inu,False,,icon_skills.vehicle_shina_e_tex
+EU-EN,added,,,,,,,,98245045,Common,Common,Common,Summon: Cream Shiba Jet,False,,icon_skills.vehicle_shina_f_tex
+EU-EN,added,,,,,,,,98245046,Common,Common,Common,Flight: Flying UFO,False,,icon_skills.vehicle_spaceship_tex
+EU-EN,added,,,,,,,,98245047,Common,Common,Common,Flight: Gilded Koinobori,False,,icon_skills.vehicle_koinobori_h_tex
+EU-EN,added,,,,,,,,98245048,Common,Common,Common,Flight: Gilded Koinobori School,False,,icon_skills.vehicle_koinobori_i_tex
+EU-EN,added,,,,,,,,98245049,Common,Common,Common,Summon: Swift Fyrewing,False,,icon_skills.vehicle_kirin_tex
+EU-EN,added,,,,,,,,98245050,Common,Common,Common,Summon: Swift Jadewing,False,,icon_skills.vehicle_kirin_green_tex
+EU-EN,added,,,,,,,,98245051,Common,Common,Common,Summon: Swift Silverwing,False,,icon_skills.vehicle_kirin_silver_tex
+EU-EN,added,,,,,,,,98245052,Common,Common,Common,Summon: HyperCharged EX-TRM,False,,icon_skills.steelvehicle_tex
+EU-EN,added,,,,,,,,98245053,Common,Common,Common,Summon: Swift Rainbow,False,,icon_skills.unicon_tex
+EU-EN,added,,,,,,,,98245054,Common,Common,Common,Summon: Swift Death Charger,False,,icon_skills.vehicle_horse_undead_tex
+EU-EN,added,,,,,,,,98245055,Common,Common,Common,Flight: Support Kami,False,,icon_skills.vehicle_gianthaechi_b_tex
+EU-EN,added,,,,,,,,98245056,Common,Common,Common,Summon: Pyrepelt,False,,icon_skills.vehicle_pyrepelt_tex
+EU-EN,added,,,,,,,,98245057,Common,Common,Common,Summon: Blazing Pyrepelt,False,,icon_skills.vehicle_b_pyrepelt_tex
+EU-EN,added,,,,,,,,98245058,Common,Common,Common,Flight: Pyrepelt,False,,icon_skills.vehicle_pyrepelt_tex
+EU-EN,added,,,,,,,,98245059,Common,Common,Common,Flight: Blazing Pyrepelt,False,,icon_skills.vehicle_b_pyrepelt_tex
+EU-EN,added,,,,,,,,98245060,Common,Common,Common,Flight: Heartwynder,False,,icon_skills.vehicle_phoenix_pink_tex
+EU-EN,added,,,,,,,,98245061,Common,Common,Common,Flight: Silverwynder,False,,icon_skills.vehicle_phoenix_white_tex
+EU-EN,added,,,,,,,,98245062,Common,Common,Common,Flight: Darkwynder,False,,icon_skills.vehicle_phoenix_black_tex
+EU-EN,added,,,,,,,,98245063,Common,Common,Common,Summon: Giant Halloween Kitty,False,,icon_skills.vehicle_halloween_kitty_tex
+EU-EN,added,,,,,,,,98245064,Common,Common,Common,Flight: Kylos,False,,icon_skills.vehicle_kylos_tex
+EU-EN,added,,,,,,,,98245065,Common,Common,Common,Summon: Blazing Pyrepelt,False,,icon_skills.vehicle_b_pyrepelt_tex
+EU-EN,added,,,,,,,,98245066,Common,Common,Common,Summon: Swift Blood Moon Courser,False,,icon_skills.vehicle_ghosthorse_d_tex
+EU-EN,added,,,,,,,,98245067,Common,Common,Common,Summon: Swift Black Steed,False,,icon_skills.vehicle_horse_lord_a_tex
+EU-EN,added,,,,,,,,98245068,Common,Common,Common,Summon: Swift White Steed,False,,icon_skills.vehicle_horse_lord_cn_a_tex
+EU-EN,added,,,,,,,,98245069,Common,Common,Common,Flight: Polar Reindeer,False,,icon_skills.vehicle_reindeer_tex
+EU-EN,added,,,,,,,,98245070,Common,Common,Common,Flight: Halrath,False,,icon_skills.vehicle_halrath_tex
+EU-EN,added,,,,,,,,98245071,Common,Common,Common,Flight: Fluffy Cloud,False,,icon_skills.vehicle_cloud_tex
+EU-EN,added,,,,,,,,98245072,Common,Common,Common,Summon: Fat Kitty,False,,icon_skills.vehicle_fatkitty_tex
+EU-EN,added,,,,,,,,98245073,Common,Common,Common,Flight: Capybara,False,,icon_skills.vehicle_capybara_tex
+EU-EN,added,,,,,,,,98245074,Common,Common,Common,Flight: Capybara with Chick and Turtle,False,,icon_skills.vehicle_capybaraanimals_tex
+EU-EN,added,,,,,,,,98245075,Common,Common,Common,Flight: Cozy Capybara,False,,icon_skills.vehicle_cozycapybara_tex
+EU-EN,added,,,,,,,,98245076,Common,Common,Common,Flight: Cozy Capybara with Chick,False,,icon_skills.vehicle_cozycapybaraanimals_tex
+EU-EN,added,,,,,,,,98245077,Common,Common,Common,Flying Skill: Ancient Mighty Stygian War Gryphon,False,,icon_skills.vehicle_statdragon_e_tex
+EU-EN,added,,,,,,,,98245078,Common,Common,Common,Flying Skill: Ancient Mighty Empyrean War Gryphon,False,,icon_skills.vehicle_statdragon_f_tex
+EU-EN,added,,,,,,,,98245079,Common,Common,Common,Flight: Kami,False,,icon_skills.vehicle_gianthaechi_a_tex
+EU-EN,added,,,,,,,,98245080,Common,Common,Common,Summon: Swift Arcadian Dapple,False,,icon_skills.horsepaint_tex
+EU-EN,added,,,,,,,,98245081,Common,Common,Common,Summon: Swift Chestnut Gelding,False,,icon_skills.horseyellow_tex
+EU-EN,added,,,,,,,,98245082,Common,Common,Common,Summon: Swift Velikan Gray,False,,icon_skills.horsegray_tex
+EU-EN,added,,,,,,,,98245083,Common,Common,Common,Summon: Swift Pinto,False,,icon_skills.horseyellowdot_tex
+EU-EN,added,,,,,,,,98245084,Common,Common,Common,Summon: Swift Blue Roan,False,,icon_skills.horsebluedot_tex
+EU-EN,added,,,,,,,,98245085,Common,Common,Common,Summon: Swift White Stallion,False,,icon_skills.mounthorse04_tex
+EU-EN,added,,,,,,,,98245086,Common,Common,Common,Summon: Swift Regal Frostlion,False,,icon_skills.trans_lion_white_tex
+EU-EN,added,,,,,,,,98245087,Common,Common,Common,Summon: Thrall Lord,False,,icon_skills.vehicle_kingblob_tex
+EU-EN,added,,,,,,,,98245088,Common,Common,Common,Summon: Tantibus,False,,icon_items.tantibusmount_tex
+EU-EN,added,,,,,,,,98245089,Common,Common,Common,Summon: Golden Tantibus,False,,icon_items.fireworks_ding_question_tex
+EU-EN,added,,,,,,,,98245090,Common,Common,Common,Summon: Dragonsire Vergos,False,,icon_status.summonvergos_tex
+EU-EN,added,,,,,,,,98245091,Common,Common,Common,Summon: Swift White Pegasus,False,,icon_skills.vehicle_pegasus_tex
+EU-EN,added,,,,,,,,98245092,Common,Common,Common,Summon: Swift Black Pegasus,False,,icon_skills.vehicle_pegasus_black_tex
+EU-EN,added,,,,,,,,98245093,Common,Common,Common,Summon: Mythical Swift Star Trail,False,,icon_skills.vehicle_unicon_bf_b_tex
+EU-EN,added,,,,,,,,98245094,Common,Common,Common,Summon: Mythical Swift Frost Monarch,False,,icon_skills.vehicle_winterdragon_b_tex
+EU-EN,added,,,,,,,,98245095,Common,Common,Common,Flight: Starwynder,False,,icon_skills.vehicle_starphoenix_tex
+EU-EN,added,,,,,,,,98245096,Common,Common,Common,Summon: Mighty Shandra Manaya,False,,icon_skills.vehicle_sandramanaia_a_tex
+EU-EN,added,,,,,,,,98245097,Common,Common,Common,Summon: Mighty Shandra Manaya (Limited Time),False,,icon_skills.vehicle_sandramanaia_a_tex
+EU-EN,added,,,,,,,,200100,Common,Common,Lancer,Menacing Wave,False,,icon_skills.menacewave_tex
+EU-EN,added,,,,,,,,200100,Common,Common,Priest,Blessing of Seren,False,,icon_skills.agilitybless_tex
+EU-EN,added,,,,,,,,230100,Common,Common,Priest,Blessing of Balder,False,,icon_skills.refreshbless_tex
+EU-EN,added,,,,,,,,560100,Common,Common,Sorcerer,Fireblast I,False,,icon_status.firedamage_tex
+EU-EN,added,,,,,,,,560200,Common,Common,Sorcerer,Fireblast II,False,,icon_status.firedamage_tex
+EU-EN,added,,,,,,,,560300,Common,Common,Sorcerer,Fireblast III,False,,icon_status.firedamage_tex
+EU-EN,added,,,,,,,,560400,Common,Common,Sorcerer,Fireblast IV,False,,icon_status.firedamage_tex
+EU-EN,added,,,,,,,,560500,Common,Common,Sorcerer,Fireblast V,False,,icon_status.firedamage_tex
+EU-EN,added,,,,,,,,560600,Common,Common,Sorcerer,Fireblast VI,False,,icon_status.firedamage_tex
+EU-EN,added,,,,,,,,560700,Common,Common,Sorcerer,Fireblast VII,False,,icon_status.firedamage_tex
+EU-EN,added,,,,,,,,561100,Common,Common,Sorcerer,Magma Bomb I,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561140,Common,Common,Sorcerer,Magma Bomb I,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561200,Common,Common,Sorcerer,Magma Bomb II,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561240,Common,Common,Sorcerer,Magma Bomb II,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561300,Common,Common,Sorcerer,Magma Bomb III,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561340,Common,Common,Sorcerer,Magma Bomb III,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561400,Common,Common,Sorcerer,Magma Bomb IV,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561440,Common,Common,Sorcerer,Magma Bomb IV,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561500,Common,Common,Sorcerer,Magma Bomb V,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561540,Common,Common,Sorcerer,Magma Bomb V,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561600,Common,Common,Sorcerer,Magma Bomb VI,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561640,Common,Common,Sorcerer,Magma Bomb VI,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561700,Common,Common,Sorcerer,Magma Bomb VII,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561740,Common,Common,Sorcerer,Magma Bomb VII,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561800,Common,Common,Sorcerer,Magma Bomb VIII,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561840,Common,Common,Sorcerer,Magma Bomb VIII,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,561900,Common,Common,Sorcerer,Magma Bomb IX,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,561940,Common,Common,Sorcerer,Magma Bomb IX,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,562000,Common,Common,Sorcerer,Magma Bomb X,False,,icon_skills.howitzer_tex
+EU-EN,added,,,,,,,,562040,Common,Common,Sorcerer,Magma Bomb X,False,,icon_skills.voidtrap_tex
+EU-EN,added,,,,,,,,562100,Common,Common,Sorcerer,Magma Bomb XI,False,,icon_skills.howitzer_tex
+EU-EN,modified,320300,Common,Common,Archer,Find Weakness III,False,,icon_skills.weak_point_observed_awaken_tex,320300,Common,Common,Archer,Find Weakness III,False,,icon_skills.weak_point_observed
+EU-EN,modified,111140,Common,Common,Common,Summon: Regulus,,,,111140,Common,Common,Common,Summon: Regulus,,,icon_skills.voidtrap_tex
+EU-EN,modified,120000,Common,Common,Common,Dismount,,,,120000,Common,Common,Common,Dismount,,,icon_skills.voidtrap_tex
+EU-EN,modified,190039,Common,Common,Common,Anti-Tank Mine,,,icon_items.snowball_tex,190039,Common,Common,Common,Anti-Tank Mine,,,icon_skills.explosiontrap_tex
+EU-EN,modified,190041,Common,Common,Common,Anti-Tank Slush Mine,,,icon_skills.fireball_tex,190041,Common,Common,Common,Lightning Mine,,,icon_skills.webtrap_tex
+EU-EN,modified,190043,Common,Common,Common,Anti-Tank Ice Mine,,,icon_items.snowball_large_tex,190043,Common,Common,Common,Thunder Mine,,,icon_skills.paralysistrap_tex
+EU-EN,modified,190045,Common,Common,Common,Tank Suicidal Landmine,,,icon_items.snowball_large_tex,190045,Common,Common,Common,Suicide Soldier,,,icon_items.bomb1_tex
+EU-EN,modified,2000001,Common,Common,Common,Azart Disguise Kit (Female),,,icon_items.rare_potion11_tex,2000001,Common,Common,Common,Take off Azart disguise,,,icon_items.rare_potion11_tex
+EU-EN,modified,2000002,Common,Common,Common,Azart Disguise Kit (Male),,,icon_items.rare_potion11_tex,2000002,Common,Common,Common,Take off Azart disguise,,,icon_items.rare_potion11_tex
+EU-EN,modified,8400010,Common,Common,Common,Noctenium Infusion,,,icon_items.union_supplies5_tex,8400010,Common,Common,Common,Activate Noctenium Infusion,,,icon_items.union_supplies5_tex
+EU-EN,modified,14100639,Common,Common,Common,Summon: Spectral Tail,,,icon_skills.ookami_ghost_tex,14100639,Common,Common,Common,Summon: Spectral Tail,,,icon_skills.vehicle_llama_d_tex
+EU-EN,modified,14100644,Common,Common,Common,Summon: Wintera Christmas Kumas,,,,14100644,Common,Common,Common,Summon: Wintera Christmas Kumas,,,icon_skills.vehicle_horse_white_tex
+EU-EN,modified,14100645,Common,Common,Common,Summon: Wintera Snowbite,,,,14100645,Common,Common,Common,Summon: Wintera Snowbite,,,icon_skills.vehicle_horse_white_tex
+EU-EN,modified,15210001,Common,Common,Common,Summon: Topthorn,,,icon_skills.vehicle_horse_black_tex,15210001,Common,Common,Common,Summon: Topthorn,,,icon_skills.vehicle_horse_lord_c_tex
+EU-EN,modified,23000477,Common,Common,Common,Flight: Gilded Koinobori,,,icon_skills.vehicle_koinobori_h_tex,23000477,Common,Common,Common,Flight: Gilded Koinobori,,,icon_skills.vehicle_formula_a_tex
+EU-EN,modified,23000478,Common,Common,Common,Flight: Gilded Koinobori,,,icon_skills.vehicle_koinobori_h_tex,23000478,Common,Common,Common,Flight: Gilded Koinobori,,,icon_skills.vehicle_formula_a_tex
+EU-EN,modified,23000479,Common,Common,Common,Flight: Gilded Koinobori,,,icon_skills.vehicle_koinobori_h_tex,23000479,Common,Common,Common,Flight: Gilded Koinobori,,,icon_skills.vehicle_formula_a_tex
+EU-EN,modified,23000500,Common,Common,Common,Flight: Pelagic Lord,,,,23000500,Common,Common,Common,Flight: Pelagic Lord,,,icon_skills.voidtrap_tex
+EU-EN,modified,60193025,Common,Common,Common,미니게임 스킬 테스트용,,,icon_items.petrolbomb_tex,60193025,Common,Common,Common,Kick,,,icon_equipments.acc_025a_tex
+EU-EN,modified,60951901,Common,Common,Common,Repel,,,icon_status.darkriftareawind_tex,60951901,Common,Common,Common,Oneiric Wave,,,icon_status.darkriftareawind_tex
+EU-EN,modified,60951903,Common,Common,Common,Human Cannonball,,,icon_status.darkriftwill_tex,60951903,Common,Common,Common,Flaming Cannonball,,,icon_status.darkriftwill_tex
+EU-EN,modified,61900007,Common,Common,Common,Snowman Scroll (Green),,,icon_items.snowmangreen_scroll_tex,61900007,Common,Common,Common,Transformation: Green Wintera Snowman,,,icon_items.snowmangreen_scroll_tex
+EU-EN,modified,61900008,Common,Common,Common,Snowman Scroll (Yellow),,,icon_items.snowmanyellow_scroll_tex,61900008,Common,Common,Common,Transformation: Yellow Wintera Snowman,,,icon_items.snowmanyellow_scroll_tex
+EU-EN,modified,61900009,Common,Common,Common,Snowman Scroll (Blue),,,icon_items.snowmanblue_scroll_tex,61900009,Common,Common,Common,Transformation: Blue Wintera Snowman,,,icon_items.snowmanblue_scroll_tex
+EU-EN,modified,61900010,Common,Common,Common,Snowman Scroll (Red),,,icon_items.snowman_scroll_tex,61900010,Common,Common,Common,Transformation: Red Wintera Snowman,,,icon_items.snowman_scroll_tex
+EU-EN,modified,61985010,Common,Common,Common,Expiring Anthrozombie Elixir (1 hour),,,icon_items.rare_potion11_tex,61985010,Common,Common,Common,Un-zombify,,,icon_items.rare_potion11_tex
+EU-EN,modified,61985011,Common,Common,Common,Expiring Gynozombie Elixir (1 hour),,,icon_items.rare_potion11_tex,61985011,Common,Common,Common,Un-zombify,,,icon_items.rare_potion11_tex
+EU-EN,modified,63000103,Common,Common,Common,Commander's Blessing,,,icon_skills.mpcharge_tex,63000103,Common,Common,Common,Commander's Blessing,,,icon_skills.guildskill2_mpup_1_tex
+EU-EN,modified,63000104,Common,Common,Common,Commander's Salvation,,,icon_skills.healarea_tex,63000104,Common,Common,Common,Commander's Salvation,,,icon_skills.guildskill2_hpup_1_tex
+EU-EN,modified,30100,Common,Common,Mystic,Titanic Wrath I,,,icon_skills.rage_tex,30100,Common,Common,Mystic,Titanic Wrath,,,icon_skills.rage_tex
+EU-EN,modified,130100,Common,Common,Mystic,Aura of the Merciless I,False,On,icon_skills.criticalupaura_tex,130100,Common,Common,Mystic,Aura of the Merciless (Not Intended),False,On,icon_skills.criticalupaura_tex
+EU-EN,modified,130200,Common,Common,Mystic,Aura of the Merciless II,False,On,icon_skills.criticalupaura_tex,130200,Common,Common,Mystic,Aura of the Merciless I,False,On,icon_skills.criticalupaura_tex
+EU-EN,modified,130300,Common,Common,Mystic,Aura of the Merciless III,False,On,icon_skills.criticalupaura_tex,130300,Common,Common,Mystic,Aura of the Merciless (Not Intended),False,On,icon_skills.criticalupaura_tex
+EU-EN,modified,130400,Common,Common,Mystic,Aura of the Merciless IV,False,On,icon_skills.criticalupaura_tex,130400,Common,Common,Mystic,Aura of the Merciless II,False,On,icon_skills.criticalupaura_tex
+EU-EN,modified,50100,Common,Common,Priest,Blessing of Shakan I,False,,icon_skills.attackup_tex,50100,Common,Common,Priest,Blessing of Shakan,False,,icon_skills.attackup_tex
+EU-EN,modified,150300,Common,Common,Reaper,Retribution III,False,,icon_skills.counterattack_tex,150300,Common,Common,Reaper,Retribution,False,,icon_skills.counterattack_tex
+EU-EN,modified,150380,Common,Common,Reaper,Retribution III,False,,icon_skills.counterattack_tex,150380,Common,Common,Reaper,Retribution,False,,icon_skills.counterattack_tex
+EU-EN,modified,350100,Common,Common,Sorcerer,Ice Lances,False,,icon_skills.icespear_tex,350100,Common,Common,Sorcerer,Ice Lances,False,,icon_skills.icicle_tex
+EU-EN,modified,360100,Common,Common,Sorcerer,Fusion,False,,icon_skills.fusion_tex,360100,Common,Common,Sorcerer,Fusion,False,,icon_skills.newweak_point_observed1_tex
+EU-EN,modified,360600,Common,Common,Sorcerer,Elemental Fusion,False,,icon_skills.elementfusion_tex,360600,Common,Common,Sorcerer,Elemental Fusion,False,,icon_skills.newweak_point_observed1_tex
+EU-FR,added,,,,,,,,291000,Common,Common,Archer,Tir percutant X,False,,icon_skills.thunderdrake_tex
+EU-FR,added,,,,,,,,200100,Common,Common,Lancer,Vague menaçante,False,,icon_skills.menacewave_tex
+EU-FR,added,,,,,,,,200100,Common,Common,Priest,Bénédiction de Seren,False,,icon_skills.agilitybless_tex
+EU-FR,added,,,,,,,,230100,Common,Common,Priest,Bénédiction de Balder,False,,icon_skills.agilitybless_tex
+EU-FR,added,,,,,,,,560100,Common,Common,Sorcerer,Explosion de flammes I,False,,icon_skills.hellfire_tex
+EU-FR,added,,,,,,,,560200,Common,Common,Sorcerer,Explosion de flammes II,False,,icon_skills.hellfire_tex
+EU-FR,added,,,,,,,,560300,Common,Common,Sorcerer,Explosion de flammes III,False,,icon_skills.hellfire_tex
+EU-FR,added,,,,,,,,560400,Common,Common,Sorcerer,Explosion de flammes IV,False,,icon_skills.hellfire_tex
+EU-FR,added,,,,,,,,560500,Common,Common,Sorcerer,Explosion de flammes V,False,,icon_skills.hellfire_tex
+EU-FR,added,,,,,,,,560600,Common,Common,Sorcerer,Explosion de flammes VI,False,,icon_skills.hellfire_tex
+EU-FR,added,,,,,,,,560700,Common,Common,Sorcerer,Explosion de flammes VII,False,,icon_skills.hellfire_tex
+EU-FR,added,,,,,,,,561100,Common,Common,Sorcerer,Bombe de magma I,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561140,Common,Common,Sorcerer,Bombe de magma I,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561200,Common,Common,Sorcerer,Bombe de magma II,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561240,Common,Common,Sorcerer,Bombe de magma II,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561300,Common,Common,Sorcerer,Bombe de magma III,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561340,Common,Common,Sorcerer,Bombe de magma III,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561400,Common,Common,Sorcerer,Bombe de magma IV,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561440,Common,Common,Sorcerer,Bombe de magma IV,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561500,Common,Common,Sorcerer,Bombe de magma V,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561540,Common,Common,Sorcerer,Bombe de magma V,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561600,Common,Common,Sorcerer,Bombe de magma VI,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561640,Common,Common,Sorcerer,Bombe de magma VI,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561700,Common,Common,Sorcerer,Bombe de magma VII,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561740,Common,Common,Sorcerer,Bombe de magma VII,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561800,Common,Common,Sorcerer,Bombe de magma VIII,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561840,Common,Common,Sorcerer,Bombe de magma VIII,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,561900,Common,Common,Sorcerer,Bombe de magma IX,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,561940,Common,Common,Sorcerer,Bombe de magma IX,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,562000,Common,Common,Sorcerer,Bombe de magma X,False,,icon_skills.howitzer_tex
+EU-FR,added,,,,,,,,562040,Common,Common,Sorcerer,Bombe de magma X,False,,icon_skills.voidtrap_tex
+EU-FR,added,,,,,,,,562100,Common,Common,Sorcerer,Bombe de magma XI,False,,icon_skills.howitzer_tex
+EU-FR,modified,100300,Common,Common,Brawler,Riposte III,False,,icon_skills.counterattack2_tex,100300,Common,Common,Brawler,Riposte,False,,icon_skills.counterattack2_tex
+EU-FR,modified,111140,Common,Common,Common,Invocation : Regulus,,,,111140,Common,Common,Common,Invocation : Regulus,,,icon_skills.voidtrap_tex
+EU-FR,modified,120000,Common,Common,Common,Descendre,,,,120000,Common,Common,Common,Descendre,,,icon_skills.voidtrap_tex
+EU-FR,modified,190039,Common,Common,Common,Mine antichar : déflagration,,,icon_items.snowball_tex,190039,Common,Common,Common,Mine antichar&nbsp;: déflagration,,,icon_skills.explosiontrap_tex
+EU-FR,modified,190041,Common,Common,Common,Mine antichar : étourdissement,,,icon_skills.fireball_tex,190041,Common,Common,Common,Mine antichar&nbsp;: étourdissement,,,icon_skills.webtrap_tex
+EU-FR,modified,190043,Common,Common,Common,Mine antichar : torpeur,,,icon_items.snowball_large_tex,190043,Common,Common,Common,Mine antichar&nbsp;: autodestruction,,,icon_skills.paralysistrap_tex
+EU-FR,modified,190045,Common,Common,Common,Mine antichar : autodestruction,,,icon_items.snowball_large_tex,190045,Common,Common,Common,Soldat kamikaze,,,icon_items.bomb1_tex
+EU-FR,modified,2000001,Common,Common,Common,Ensemble d'accoutrement d'Arkarp (femme),,,icon_items.rare_potion11_tex,2000001,Common,Common,Common,Lever la transformation d'Arkarp,,,icon_items.rare_potion11_tex
+EU-FR,modified,2000002,Common,Common,Common,Ensemble d'accoutrement d'Arkarp (homme),,,icon_items.rare_potion11_tex,2000002,Common,Common,Common,Lever la transformation d'Arkarp,,,icon_items.rare_potion11_tex
+EU-FR,modified,8400010,Common,Common,Common,Infusion au noctenium,,,icon_items.union_supplies5_tex,8400010,Common,Common,Common,Activer la solution au noctenium,,,icon_items.union_supplies5_tex
+EU-FR,modified,9100100,Common,Common,Common,Puissance de l'éveil,,,icon_skills.awakenaura_tex,9100100,Common,Common,Common,Puissance de l'Compétence passive,,,icon_skills.awakenaura_tex
+EU-FR,modified,60193025,Common,Common,Common,미니게임 스킬 테스트용,,,icon_items.petrolbomb_tex,60193025,Common,Common,Common,Botte,,,icon_equipments.acc_025a_tex
+EU-FR,modified,61900007,Common,Common,Common,Parchemin de bonhomme de neige (vert),,,icon_items.snowmangreen_scroll_tex,61900007,Common,Common,Common,Transformation : Bonhomme de neige d'Hivera vert,,,icon_items.snowmangreen_scroll_tex
+EU-FR,modified,61900008,Common,Common,Common,Parchemin de bonhomme de neige (jaune),,,icon_items.snowmanyellow_scroll_tex,61900008,Common,Common,Common,Transformation : Bonhomme de neige d'Hivera jaune,,,icon_items.snowmanyellow_scroll_tex
+EU-FR,modified,61900009,Common,Common,Common,Parchemin de bonhomme de neige (bleu),,,icon_items.snowmanblue_scroll_tex,61900009,Common,Common,Common,Transformation : Bonhomme de neige d'Hivera bleu,,,icon_items.snowmanblue_scroll_tex
+EU-FR,modified,61900010,Common,Common,Common,Parchemin de bonhomme de neige (rouge),,,icon_items.snowman_scroll_tex,61900010,Common,Common,Common,Transformation : Bonhomme de neige d'Hivera rouge,,,icon_items.snowman_scroll_tex
+EU-FR,modified,61985010,Common,Common,Common,[Counterstrike Online] Transformation en zombie mâle (1&nbsp;heure),,,icon_items.rare_potion11_tex,61985010,Common,Common,Common,Annuler la transformation en zombie,,,icon_items.rare_potion11_tex
+EU-FR,modified,61985011,Common,Common,Common,[Counterstrike Online] Transformation en zombie femelle (1&nbsp;heure),,,icon_items.rare_potion11_tex,61985011,Common,Common,Common,Annuler la transformation en zombie,,,icon_items.rare_potion11_tex
+EU-FR,modified,30100,Common,Common,Mystic,Colère du titan I,,,icon_skills.rage_tex,30100,Common,Common,Mystic,Colère titanesque,,,icon_skills.rage_tex
+EU-FR,modified,130200,Common,Common,Mystic,Aura d'inclémence II,False,On,icon_skills.criticalupaura_tex,130200,Common,Common,Mystic,Aura de l'Impitoyable I,False,On,icon_skills.criticalupaura_tex
+EU-FR,modified,130400,Common,Common,Mystic,Aura d'inclémence IV,False,On,icon_skills.criticalupaura_tex,130400,Common,Common,Mystic,Aura de l'Impitoyable II,False,On,icon_skills.criticalupaura_tex
+EU-FR,modified,9100100,Common,Common,Priest,Puissance de l'éveil,False,,icon_skills.awakenaura_tex,9100100,Common,Common,Priest,Puissance de l'Compétence passive,False,,icon_skills.awakenaura_tex
+EU-FR,modified,150300,Common,Common,Reaper,Riposte III,False,,icon_skills.counterattack_tex,150300,Common,Common,Reaper,Riposte,False,,icon_skills.counterattack_tex
+EU-FR,modified,150380,Common,Common,Reaper,Riposte III,False,,icon_skills.counterattack_tex,150380,Common,Common,Reaper,Riposte,False,,icon_skills.counterattack_tex
+EU-GER,added,,,,,,,,291000,Common,Common,Archer,Donnerkeil X,False,,icon_skills.thunderdrake_tex
+EU-GER,added,,,,,,,,200100,Common,Common,Lancer,Bedrohliche Welle,False,,icon_skills.menacewave_tex
+EU-GER,added,,,,,,,,200100,Common,Common,Priest,Serens Segen,False,,icon_skills.agilitybless_tex
+EU-GER,added,,,,,,,,230100,Common,Common,Priest,Segen Balders,False,,icon_skills.agilitybless_tex
+EU-GER,added,,,,,,,,560100,Common,Common,Sorcerer,Feuerstoß I,False,,icon_skills.hellfire_tex
+EU-GER,added,,,,,,,,560200,Common,Common,Sorcerer,Feuerstoß II,False,,icon_skills.hellfire_tex
+EU-GER,added,,,,,,,,560300,Common,Common,Sorcerer,Feuerstoß III,False,,icon_skills.hellfire_tex
+EU-GER,added,,,,,,,,560400,Common,Common,Sorcerer,Feuerstoß IV,False,,icon_skills.hellfire_tex
+EU-GER,added,,,,,,,,560500,Common,Common,Sorcerer,Feuerstoß V,False,,icon_skills.hellfire_tex
+EU-GER,added,,,,,,,,560600,Common,Common,Sorcerer,Feuerstoß VI,False,,icon_skills.hellfire_tex
+EU-GER,added,,,,,,,,560700,Common,Common,Sorcerer,Feuerstoß VII,False,,icon_skills.hellfire_tex
+EU-GER,added,,,,,,,,561100,Common,Common,Sorcerer,Magmabombe I,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561140,Common,Common,Sorcerer,Magmabombe I,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561200,Common,Common,Sorcerer,Magmabombe II,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561240,Common,Common,Sorcerer,Magmabombe II,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561300,Common,Common,Sorcerer,Magmabombe III,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561340,Common,Common,Sorcerer,Magmabombe III,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561400,Common,Common,Sorcerer,Magmabombe IV,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561440,Common,Common,Sorcerer,Magmabombe IV,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561500,Common,Common,Sorcerer,Magmabombe V,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561540,Common,Common,Sorcerer,Magmabombe V,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561600,Common,Common,Sorcerer,Magmabombe VI,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561640,Common,Common,Sorcerer,Magmabombe VI,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561700,Common,Common,Sorcerer,Magmabombe VII,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561740,Common,Common,Sorcerer,Magmabombe VII,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561800,Common,Common,Sorcerer,Magmabombe VIII,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561840,Common,Common,Sorcerer,Magmabombe VIII,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,561900,Common,Common,Sorcerer,Magmabombe IX,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,561940,Common,Common,Sorcerer,Magmabombe IX,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,562000,Common,Common,Sorcerer,Magmabombe X,False,,icon_skills.howitzer_tex
+EU-GER,added,,,,,,,,562040,Common,Common,Sorcerer,Magmabombe X,False,,icon_skills.voidtrap_tex
+EU-GER,added,,,,,,,,562100,Common,Common,Sorcerer,Magmabombe XI,False,,icon_skills.howitzer_tex
+EU-GER,modified,111140,Common,Common,Common,Beschwörung: Regulus,,,,111140,Common,Common,Common,Beschwörung: Regulus,,,icon_skills.voidtrap_tex
+EU-GER,modified,120000,Common,Common,Common,Absitzen,,,,120000,Common,Common,Common,Absitzen,,,icon_skills.voidtrap_tex
+EU-GER,modified,190039,Common,Common,Common,Panzerabwehrmine: Sprengung,,,icon_items.snowball_tex,190039,Common,Common,Common,Panzerabwehrmine: Sprengung,,,icon_skills.explosiontrap_tex
+EU-GER,modified,190041,Common,Common,Common,Panzerabwehrmine: Betäubung,,,icon_skills.fireball_tex,190041,Common,Common,Common,Panzerabwehrmine: Betäubung,,,icon_skills.webtrap_tex
+EU-GER,modified,190043,Common,Common,Common,Panzerabwehrmine: Benommenheit,,,icon_items.snowball_large_tex,190043,Common,Common,Common,Panzerabwehrmine: Selbstzerstörung,,,icon_skills.paralysistrap_tex
+EU-GER,modified,190045,Common,Common,Common,Panzerabwehrmine: Selbstzerstörung,,,icon_items.snowball_large_tex,190045,Common,Common,Common,Kamikazesoldat,,,icon_items.bomb1_tex
+EU-GER,modified,2000001,Common,Common,Common,Arkarp-Verkleidungsset (weiblich),,,icon_items.rare_potion11_tex,2000001,Common,Common,Common,Arkarp-Verwandlung aufheben,,,icon_items.rare_potion11_tex
+EU-GER,modified,2000002,Common,Common,Common,Arkarp-Verkleidungsset (männlich),,,icon_items.rare_potion11_tex,2000002,Common,Common,Common,Arkarp-Verwandlung aufheben,,,icon_items.rare_potion11_tex
+EU-GER,modified,8400010,Common,Common,Common,Nokteniuminfusion,,,icon_items.union_supplies5_tex,8400010,Common,Common,Common,Aktivierung der Nokteniumlösung,,,icon_items.union_supplies5_tex
+EU-GER,modified,9100100,Common,Common,Common,Kraft der Erweckung,,,icon_skills.awakenaura_tex,9100100,Common,Common,Common,Kraft der Passiv,,,icon_skills.awakenaura_tex
+EU-GER,modified,60193025,Common,Common,Common,미니게임 스킬 테스트용,,,icon_items.petrolbomb_tex,60193025,Common,Common,Common,Strohstoßen,,,icon_equipments.acc_025a_tex
+EU-GER,modified,61900007,Common,Common,Common,Schneemann-Schriftrolle (grün),,,icon_items.snowmangreen_scroll_tex,61900007,Common,Common,Common,Verwandlung: Grüner Schneemann von Wintera,,,icon_items.snowmangreen_scroll_tex
+EU-GER,modified,61900008,Common,Common,Common,Schneemann-Schriftrolle (gelb),,,icon_items.snowmanyellow_scroll_tex,61900008,Common,Common,Common,Verwandlung: Gelber Schneemann von Wintera,,,icon_items.snowmanyellow_scroll_tex
+EU-GER,modified,61900009,Common,Common,Common,Schneemann-Schriftrolle (blau),,,icon_items.snowmanblue_scroll_tex,61900009,Common,Common,Common,Verwandlung: Blauer Schneemann von Wintera,,,icon_items.snowmanblue_scroll_tex
+EU-GER,modified,61900010,Common,Common,Common,Schneemann-Schriftrolle (rot),,,icon_items.snowman_scroll_tex,61900010,Common,Common,Common,Verwandlung: Roter Schneemann von Wintera,,,icon_items.snowman_scroll_tex
+EU-GER,modified,61985010,Common,Common,Common,[Counterstrike Online] Männliche Zombieverwandlung (1 Stunde),,,icon_items.rare_potion11_tex,61985010,Common,Common,Common,Zombieverwandlung aufheben,,,icon_items.rare_potion11_tex
+EU-GER,modified,61985011,Common,Common,Common,[Counterstrike Online] Weibliche Zombieverwandlung (1 Stunde),,,icon_items.rare_potion11_tex,61985011,Common,Common,Common,Zombieverwandlung aufheben,,,icon_items.rare_potion11_tex
+EU-GER,modified,30100,Common,Common,Mystic,Zorn der Titanen I,,,icon_skills.rage_tex,30100,Common,Common,Mystic,Titanischer Zorn,,,icon_skills.rage_tex
+EU-GER,modified,130200,Common,Common,Mystic,Aura der Gnadenlosen II,False,On,icon_skills.criticalupaura_tex,130200,Common,Common,Mystic,Aura der Gnadenlosigkeit I,False,On,icon_skills.criticalupaura_tex
+EU-GER,modified,130400,Common,Common,Mystic,Aura der Gnadenlosen IV,False,On,icon_skills.criticalupaura_tex,130400,Common,Common,Mystic,Aura der Gnadenlosigkeit II,False,On,icon_skills.criticalupaura_tex
+EU-GER,modified,9100100,Common,Common,Priest,Kraft der Erweckung,False,,icon_skills.awakenaura_tex,9100100,Common,Common,Priest,Kraft der Passiv,False,,icon_skills.awakenaura_tex
+EU-GER,modified,150300,Common,Common,Reaper,Rache III,False,,icon_skills.counterattack_tex,150300,Common,Common,Reaper,Rache,False,,icon_skills.counterattack_tex
+EU-GER,modified,150380,Common,Common,Reaper,Rache III,False,,icon_skills.counterattack_tex,150380,Common,Common,Reaper,Rache,False,,icon_skills.counterattack_tex
+EU-GER,modified,200200,Common,Common,Warrior,Tödliches Spiel II,False,,icon_skills.deadlywill_tex,200200,Common,Common,Warrior,Tödliches Risiko II,False,,icon_skills.deadlywill_tex
+RU,added,,,,,,,,291000,Common,Common,Archer,Грозовой разряд X,False,,icon_skills.thunderdrake_tex
+RU,added,,,,,,,,200100,Common,Common,Lancer,Грозный вал,False,,icon_skills.menacewave_tex
+RU,added,,,,,,,,200100,Common,Common,Priest,Благословение Серен,False,,icon_skills.agilitybless_tex
+RU,added,,,,,,,,230100,Common,Common,Priest,Благословение Балдера,False,,icon_skills.agilitybless_tex
+RU,added,,,,,,,,560100,Common,Common,Sorcerer,Огненный взрыв I,False,,icon_skills.hellfire_tex
+RU,added,,,,,,,,560200,Common,Common,Sorcerer,Огненный взрыв II,False,,icon_skills.hellfire_tex
+RU,added,,,,,,,,560300,Common,Common,Sorcerer,Огненный взрыв III,False,,icon_skills.hellfire_tex
+RU,added,,,,,,,,560400,Common,Common,Sorcerer,Огненный взрыв IV,False,,icon_skills.hellfire_tex
+RU,added,,,,,,,,560500,Common,Common,Sorcerer,Огненный взрыв V,False,,icon_skills.hellfire_tex
+RU,added,,,,,,,,560600,Common,Common,Sorcerer,Огненный взрыв VI,False,,icon_skills.hellfire_tex
+RU,added,,,,,,,,560700,Common,Common,Sorcerer,Огненный взрыв VII,False,,icon_skills.hellfire_tex
+RU,added,,,,,,,,561100,Common,Common,Sorcerer,Магмовая бомба I,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561140,Common,Common,Sorcerer,Магмовая бомба I,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561200,Common,Common,Sorcerer,Магмовая бомба II,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561240,Common,Common,Sorcerer,Магмовая бомба II,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561300,Common,Common,Sorcerer,Магмовая бомба III,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561340,Common,Common,Sorcerer,Магмовая бомба III,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561400,Common,Common,Sorcerer,Магмовая бомба IV,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561440,Common,Common,Sorcerer,Магмовая бомба IV,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561500,Common,Common,Sorcerer,Магмовая бомба V,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561540,Common,Common,Sorcerer,Магмовая бомба V,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561600,Common,Common,Sorcerer,Магмовая бомба VI,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561640,Common,Common,Sorcerer,Магмовая бомба VI,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561700,Common,Common,Sorcerer,Магмовая бомба VII,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561740,Common,Common,Sorcerer,Магмовая бомба VII,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561800,Common,Common,Sorcerer,Магмовая бомба VIII,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561840,Common,Common,Sorcerer,Магмовая бомба VIII,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,561900,Common,Common,Sorcerer,Магмовая бомба IX,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,561940,Common,Common,Sorcerer,Магмовая бомба IX,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,562000,Common,Common,Sorcerer,Магмовая бомба X,False,,icon_skills.howitzer_tex
+RU,added,,,,,,,,562040,Common,Common,Sorcerer,Магмовая бомба X,False,,icon_skills.voidtrap_tex
+RU,added,,,,,,,,562100,Common,Common,Sorcerer,Магмовая бомба XI,False,,icon_skills.howitzer_tex
+RU,modified,111140,Common,Common,Common,Призыв: Регул,,,,111140,Common,Common,Common,Призыв: Регул,,,icon_skills.voidtrap_tex
+RU,modified,120000,Common,Common,Common,Спешиться,,,,120000,Common,Common,Common,Спешиться,,,icon_skills.voidtrap_tex
+RU,modified,2000001,Common,Common,Common,Маскировка под Аргафа (жен),,,icon_items.rare_potion11_tex,2000001,Common,Common,Common,Снять маскировку Аргафа,,,icon_items.rare_potion11_tex
+RU,modified,2000002,Common,Common,Common,Маскировка под Аргафа (муж),,,icon_items.rare_potion11_tex,2000002,Common,Common,Common,Снять маскировку Аргафа,,,icon_items.rare_potion11_tex
+RU,modified,8400010,Common,Common,Common,Настой ноктиния,,,icon_items.union_supplies5_tex,8400010,Common,Common,Common,Использовать зелье из ноктиния,,,icon_items.union_supplies5_tex
+RU,modified,9100039,Common,Common,Common,Штормовой заряд,,,icon_skills.dragonangry3_tex,9100039,Common,Common,Common,Сила древних,,,icon_skills.dragonangry3_tex
+RU,modified,9100040,Common,Common,Common,Штормовой заряд,,,icon_skills.dragonangry3_tex,9100040,Common,Common,Common,Сила бытия,,,icon_skills.dragonangry3_tex
+RU,modified,9100041,Common,Common,Common,Штормовой заряд,,,icon_skills.dragonangry3_tex,9100041,Common,Common,Common,Сила древних,,,icon_skills.dragonangry3_tex
+RU,modified,9100042,Common,Common,Common,Штормовой заряд,,,icon_skills.dragonangry3_tex,9100042,Common,Common,Common,Сила бытия,,,icon_skills.dragonangry3_tex
+RU,modified,60193025,Common,Common,Common,미니게임 스킬 테스트용,,,icon_items.petrolbomb_tex,60193025,Common,Common,Common,Ударить,,,icon_equipments.acc_025a_tex
+RU,modified,61900007,Common,Common,Common,Зеленый зимний шарф,,,icon_items.snowmangreen_scroll_tex,61900007,Common,Common,Common,Перевоплощение: зеленый снеговик,,,icon_items.snowmangreen_scroll_tex
+RU,modified,61900008,Common,Common,Common,Желтый зимний шарф,,,icon_items.snowmanyellow_scroll_tex,61900008,Common,Common,Common,Перевоплощение: желтый снеговик,,,icon_items.snowmanyellow_scroll_tex
+RU,modified,61900009,Common,Common,Common,Синий зимний шарф,,,icon_items.snowmanblue_scroll_tex,61900009,Common,Common,Common,Перевоплощение: синий снеговик,,,icon_items.snowmanblue_scroll_tex
+RU,modified,61900010,Common,Common,Common,Красный зимний шарф,,,icon_items.snowman_scroll_tex,61900010,Common,Common,Common,Перевоплощение: красный снеговик,,,icon_items.snowman_scroll_tex
+RU,modified,61985010,Common,Common,Common,"[Counter-strike online] Зелье перевоплощения в зомби (муж., 1 час)",,,icon_items.rare_potion11_tex,61985010,Common,Common,Common,Отмена перевоплощения в зомби,,,icon_items.rare_potion11_tex
+RU,modified,61985011,Common,Common,Common,"[Counter-strike online] Зелье перевоплощения в зомби (жен., 1 час)",,,icon_items.rare_potion11_tex,61985011,Common,Common,Common,Отмена перевоплощения в зомби,,,icon_items.rare_potion11_tex
+RU,modified,30100,Common,Common,Mystic,Гнев титанов I,,,icon_skills.rage_tex,30100,Common,Common,Mystic,Титанический гнев,,,icon_skills.rage_tex
+RU,modified,130200,Common,Common,Mystic,Аура безжалостности II,False,On,icon_skills.criticalupaura_tex,130200,Common,Common,Mystic,Аура беспощадности I,False,On,icon_skills.criticalupaura_tex
+RU,modified,130400,Common,Common,Mystic,Аура безжалостности IV,False,On,icon_skills.criticalupaura_tex,130400,Common,Common,Mystic,Аура беспощадности II,False,On,icon_skills.criticalupaura_tex
+RU,modified,150300,Common,Common,Reaper,Воздаяние III,False,,icon_skills.counterattack_tex,150300,Common,Common,Reaper,Воздаяние,False,,icon_skills.counterattack_tex
+RU,modified,150380,Common,Common,Reaper,Воздаяние III,False,,icon_skills.counterattack_tex,150380,Common,Common,Reaper,Воздаяние,False,,icon_skills.counterattack_tex
+RU,modified,200200,Common,Common,Warrior,Смертельная игра II,False,,icon_skills.deadlywill_tex,200200,Common,Common,Warrior,Смертельная ставка II,False,,icon_skills.deadlywill_tex

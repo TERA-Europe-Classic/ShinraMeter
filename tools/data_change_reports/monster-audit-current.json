@@ -1,0 +1,38 @@
+{
+  "EU-EN": {
+    "duplicateKeys": 0,
+    "fieldMismatches": 0,
+    "literalUnknownZones": [],
+    "missingFromSource": 0,
+    "rows": 26688,
+    "sampleMismatch": [],
+    "sourceKeys": 26688
+  },
+  "EU-FR": {
+    "duplicateKeys": 0,
+    "fieldMismatches": 0,
+    "literalUnknownZones": [],
+    "missingFromSource": 0,
+    "rows": 26629,
+    "sampleMismatch": [],
+    "sourceKeys": 26629
+  },
+  "EU-GER": {
+    "duplicateKeys": 0,
+    "fieldMismatches": 0,
+    "literalUnknownZones": [],
+    "missingFromSource": 0,
+    "rows": 26629,
+    "sampleMismatch": [],
+    "sourceKeys": 26629
+  },
+  "RU": {
+    "duplicateKeys": 0,
+    "fieldMismatches": 0,
+    "literalUnknownZones": [],
+    "missingFromSource": 0,
+    "rows": 26629,
+    "sampleMismatch": [],
+    "sourceKeys": 26629
+  }
+}

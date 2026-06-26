@@ -1,0 +1,1346 @@
+[
+  {
+    "locale": "EU-EN",
+    "old": 18627,
+    "current": 26688,
+    "added": 8835,
+    "removed": 774,
+    "modified": 4388,
+    "removed_still_in_elinu_source": 0,
+    "added_missing_from_elinu_source": 0,
+    "sample_added": [
+      [
+        1,
+        9,
+        "Shurian Crusher",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        12,
+        "Bloodthirsty Hellion",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        13,
+        "Malicious Runekeeper",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        14,
+        "Maligos Sentinel",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        15,
+        "Shurian Behemoth",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        16,
+        "Arachnen Matriarch",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        17,
+        "Ksharan Reaver",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        18,
+        "Ksharan Lancer",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        19,
+        "Ksharan Slayer",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        21,
+        "Ksharan Sorcerer",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_removed": [
+      [
+        1,
+        40,
+        "Argon Mothership",
+        "True",
+        "55000000",
+        "2"
+      ],
+      [
+        1,
+        50,
+        "Argon Kelba Ranger",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        60,
+        "Kallan Reaver",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        62,
+        "Argon Evolved Shurian Warrior",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        63,
+        "Argon Evolved Shurian Summoner",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        603,
+        "Argon Magister Priest",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        1001,
+        "Ashen Unicorn",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1002,
+        "Ferocious Unicorn",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1003,
+        "Meandering Forest Guardian",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1004,
+        "Meandering Tree Spirit",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_modified": [
+      [
+        1,
+        1,
+        [
+          "Meandering Forest Tree Spirit",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Skittish Unicorn",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        2,
+        [
+          "Meandering Forest Ghilliedhu",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Ferocious Unicorn",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        3,
+        [
+          "Parched Ghilliedhu",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Prowling Jalmarak",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        4,
+        [
+          "Meandering Forest Water Spirit",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Stalking Mycanar",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        5,
+        [
+          "Meandering Forest Earth Spirit",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Tomb Knight",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        6,
+        [
+          "Poisoned Unicorn",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Sovereign Tomb Knight",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        7,
+        [
+          "Meandering Forest Nature Spirit",
+          "False",
+          "12000000",
+          "5"
+        ],
+        [
+          "Cruel Dragoon",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        8,
+        [
+          "Tame Unicorn",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Unrelenting Dragoon",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        10,
+        [
+          "Meandering Forest Shurian Warrior",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Shurian Mangler",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        11,
+        [
+          "Meandering Forest Shurian Warrior",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Feisty Hellion",
+          "False",
+          "0",
+          "0"
+        ]
+      ]
+    ]
+  },
+  {
+    "locale": "EU-FR",
+    "old": 18581,
+    "current": 26629,
+    "added": 8821,
+    "removed": 773,
+    "modified": 4311,
+    "removed_still_in_elinu_source": 0,
+    "added_missing_from_elinu_source": 0,
+    "sample_added": [
+      [
+        1,
+        9,
+        "Écraseur Shurian",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        12,
+        "Hellion sanguinaire",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        13,
+        "Gardien des runes malveillant",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        14,
+        "Sentinelle maligos",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        15,
+        "Béhémoth Shurian",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        16,
+        "Matriarche arachnéenne",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        17,
+        "Ravageur ksharan",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        18,
+        "Lancier ksharan",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        19,
+        "Pourfendeur ksharan",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        21,
+        "Sorcier ksharan",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_removed": [
+      [
+        1,
+        40,
+        "Vaisseau mère des argons",
+        "True",
+        "55000000",
+        "2"
+      ],
+      [
+        1,
+        50,
+        "Éclaireur kelba des argons",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        60,
+        "Ravageur de Kallan",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        62,
+        "Guerrier shurian devenu argon",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        63,
+        "Invocateur shurian devenu argon",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        603,
+        "Prêtre de Shamallan",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        1001,
+        "Licorne noir de suie",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1002,
+        "Licorne féroce",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1003,
+        "Gardien des Bois tortueux",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1004,
+        "Esprit d'érable tortueux",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_modified": [
+      [
+        1,
+        1,
+        [
+          "Esprit d'érable des Bois tortueux",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Licorne joueuse",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        2,
+        [
+          "Ghilliedhu des Bois tortueux",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Licorne féroce",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        3,
+        [
+          "Ghilliedhu maigre",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Jalmarak rôdeur",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        4,
+        [
+          "Esprit d'eau des Bois tortueux",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Mycanar rôdeur",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        5,
+        [
+          "Esprit de terre des Bois tortueux",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Chevalier sépulcral",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        6,
+        [
+          "Licorne empoisonnée",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Chevalier de la tombe royale",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        7,
+        [
+          "Esprit de nature des Bois tortueux",
+          "False",
+          "12000000",
+          "5"
+        ],
+        [
+          "Argousin cruel",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        8,
+        [
+          "Licorne apprivoisée",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Argousin implacable",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        10,
+        [
+          "Guerrier shurian des Bois tortueux",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Mutileur Shurian",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        11,
+        [
+          "Guerrier shurian des Bois tortueux",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Hellion fougueux",
+          "False",
+          "0",
+          "0"
+        ]
+      ]
+    ]
+  },
+  {
+    "locale": "EU-GER",
+    "old": 18581,
+    "current": 26629,
+    "added": 8821,
+    "removed": 773,
+    "modified": 4308,
+    "removed_still_in_elinu_source": 0,
+    "added_missing_from_elinu_source": 0,
+    "sample_added": [
+      [
+        1,
+        9,
+        "Shurianischer Zertrümmerer",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        12,
+        "Blutdurstiger Höllion",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        13,
+        "Bösartiger Runenhüter",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        14,
+        "Maligosnachtwache",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        15,
+        "Shurianisches Ungeheuer",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        16,
+        "Arachnenmatriarchin",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        17,
+        "Ksharanischer Räuber",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        18,
+        "Ksharanischer Lanzer",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        19,
+        "Ksharanischer Zerstörer",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        21,
+        "Ksharanischer Zauberer",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_removed": [
+      [
+        1,
+        40,
+        "Argonenmutterschiff",
+        "True",
+        "55000000",
+        "2"
+      ],
+      [
+        1,
+        50,
+        "Argonenkelba-Kundschafter",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        60,
+        "Kallanräuber",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        62,
+        "Argon gewordener shurianischer Krieger",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        63,
+        "Argon gewordener shurianischer Beschwörer",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        603,
+        "Shamallan-Priester",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        1001,
+        "Aschfahles Einhorn",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1002,
+        "Bösartiges Einhorn",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1003,
+        "Wächter des gewundenen Waldes",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1004,
+        "Gewundener Baumgeist",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_modified": [
+      [
+        1,
+        1,
+        [
+          "Baumgeist des gewundenen Waldes",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Scheues Einhorn",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        2,
+        [
+          "Ghilliedhu des gewundenen Waldes",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Bösartiges Einhorn",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        3,
+        [
+          "Dürrer Ghilliedhu",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Schleichender Jalmarak",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        4,
+        [
+          "Wassergeist des gewundenen Waldes",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Pirschender Mycanar",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        5,
+        [
+          "Erdgeist des gewundenen Waldes",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Gruftritter",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        6,
+        [
+          "Vergiftetes Einhorn",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Hoheitlicher Gruftritter",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        7,
+        [
+          "Naturgeist des gewundenen Waldes",
+          "False",
+          "12000000",
+          "5"
+        ],
+        [
+          "Grausamer Dragoner",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        8,
+        [
+          "Zahmes Einhorn",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Unnachgiebiger Dragoner",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        10,
+        [
+          "Shurianischer Krieger des gewundenen Waldes",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Shurianischer Verstümmler",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        11,
+        [
+          "Shurianischer Krieger des gewundenen Waldes",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Streitsüchtiger Höllion",
+          "False",
+          "0",
+          "0"
+        ]
+      ]
+    ]
+  },
+  {
+    "locale": "RU",
+    "old": 18583,
+    "current": 26629,
+    "added": 8819,
+    "removed": 773,
+    "modified": 4406,
+    "removed_still_in_elinu_source": 0,
+    "added_missing_from_elinu_source": 0,
+    "sample_added": [
+      [
+        1,
+        9,
+        "Шурский крушитель",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        12,
+        "Кровожадный плут",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        13,
+        "Зловредный хранитель рун",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        14,
+        "Малигос-караульный",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        15,
+        "Шурский гигант",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        16,
+        "Арахнен-матриарх",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        17,
+        "Кшаранский грабитель",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        18,
+        "Кшаранский рыцарь",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        19,
+        "Кшаранский убийца",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        21,
+        "Кшаранский маг",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_removed": [
+      [
+        1,
+        40,
+        "Аргонский корабль-матка",
+        "True",
+        "55000000",
+        "2"
+      ],
+      [
+        1,
+        50,
+        "Аргонский келба-разведчик",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        60,
+        "Калланский грабитель",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        62,
+        "Шурский воин-аргон",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        63,
+        "Шурский призыватель-аргон",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        603,
+        "Икнефарский жрец",
+        "False",
+        "12000000",
+        "2"
+      ],
+      [
+        1,
+        1001,
+        "Пепельный единорог",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1002,
+        "Взбешенный единорог",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1003,
+        "Хранитель Ветвистого леса",
+        "False",
+        "0",
+        "0"
+      ],
+      [
+        1,
+        1004,
+        "Ветвистый древесный дух",
+        "False",
+        "0",
+        "0"
+      ]
+    ],
+    "sample_modified": [
+      [
+        1,
+        1,
+        [
+          "Древесный дух Ветвистого леса",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Хитрый единорог",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        2,
+        [
+          "Древень Ветвистого леса",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Взбешенный единорог",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        3,
+        [
+          "Высохший древень",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Рыщущий джалмарак",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        4,
+        [
+          "Водный дух Ветвистого леса",
+          "False",
+          "13136140",
+          "5"
+        ],
+        [
+          "Бродящий миканар",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        5,
+        [
+          "Земной дух Ветвистого леса",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Могильный рыцарь",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        6,
+        [
+          "Отравленный единорог",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Король могильных рыцарей",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        7,
+        [
+          "Дух природы Ветвистого леса",
+          "False",
+          "12000000",
+          "5"
+        ],
+        [
+          "Жестокий всадник",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        8,
+        [
+          "Прирученный единорог",
+          "False",
+          "40000000",
+          "5"
+        ],
+        [
+          "Неудержимый всадник",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        10,
+        [
+          "Шурский воин Ветвистого леса",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Шурский избиватель",
+          "False",
+          "0",
+          "0"
+        ]
+      ],
+      [
+        1,
+        11,
+        [
+          "Шурский воин Ветвистого леса",
+          "False",
+          "40000000",
+          "0"
+        ],
+        [
+          "Вздорный плут",
+          "False",
+          "0",
+          "0"
+        ]
+      ]
+    ]
+  }
+]

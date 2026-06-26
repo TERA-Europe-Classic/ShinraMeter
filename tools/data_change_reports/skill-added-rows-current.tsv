@@ -1,0 +1,256 @@
+locale	id	race	gender	class	name	chained	detail	icon
+EU-EN	Common	Common	Archer	Thunderbolt X	False		icon_skills.thunderdrake_tex
+EU-EN	Common	Common	Common	Designated Leader	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Expedition Summon: Blue Roan	False		icon_skills.horsebluedot_tex
+EU-EN	Common	Common	Common	Expedition Summon: Arcadian Dapple	False		icon_skills.horsepaint_tex
+EU-EN	Common	Common	Common	Expedition Summon: Velikan Gray	False		icon_skills.horsegray_tex
+EU-EN	Common	Common	Common	Ancient Mighty Hellfire	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Blazing Free Flight	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Commander Drake	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	General Drake	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Moon Love Aura	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Darkan's Wings	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Darkan's Blue Wings	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Darkan's Green Wings	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Darkan's Black Wings	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Darkan's Pink Wings	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Commander's Horn	False		icon_skills.guildskills_critrate_tex
+EU-EN	Common	Common	Common	Commander's Grace	False		icon_skills.guildskills_critres_tex
+EU-EN	Common	Common	Common	Commander's Gift	False		icon_skills.guildskills_ccres2_tex
+EU-EN	Common	Common	Common	Set Us Up, Da Stun Bomb	False		icon_skills.union_skillicon9_tex
+EU-EN	Common	Common	Common	Set Us Up, Da Slow Bomb	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Set Us Up, Da Knock Up Bomb	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Set Us Up, Da Root Bomb	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Dragon Fire Bomb	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Dragon Fire Bomb	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Common	Darkan's Wings	False		icon_status.descentofdarkness_tex
+EU-EN	Common	Common	Common	Darkan's Black Wings	False		icon_status.descentofdarkness3_tex
+EU-EN	Common	Common	Common	Solar Flare Wings	False		icon_status.wrathstormcompleted_tex
+EU-EN	Common	Common	Common	Devil's Wings	False		icon_status.darkriftdestroy_tex
+EU-EN	Common	Common	Common	Ancient Dragon's Wings	False		icon_status.battlecommand04_tex
+EU-EN	Common	Common	Common	Devil's Wings	False		icon_status.darkriftdestroy_tex
+EU-EN	Common	Common	Common	Sky Soar	False		icon_skills.flyingcostumemt_tex
+EU-EN	Common	Common	Common	Bloodpact	False		icon_equipments.brooch_23p_tex
+EU-EN	Common	Common	Common	Summon: Dapper Lloyd	False		icon_skills.vehicle_llama_d_tex
+EU-EN	Common	Common	Common	Summon: Free Traders Fortuna	False		icon_skills.horse_lord_c_tex
+EU-EN	Common	Common	Common	Summon: Iron Order Virtus	False		icon_skills.horse_lord_b_tex
+EU-EN	Common	Common	Common	Summon: Enlightened Union	False		icon_skills.horse_lord_a_tex
+EU-EN	Common	Common	Common	Summon: Hello Kitty Squealer	False		icon_skills.vehicle_pig_kitty_tex
+EU-EN	Common	Common	Common	Summon: Shandra Manaya	False		icon_skills.vehicle_sandramanaia_a_tex
+EU-EN	Common	Common	Common	Summon: Silent Shandra Manaya	False		icon_skills.vehicle_sandramanaia_b_tex
+EU-EN	Common	Common	Common	Summon: Destructive Shandra Manaya	False		icon_skills.vehicle_sandramanaia_c_tex
+EU-EN	Common	Common	Common	Summon: Windforce Shandra Manaya	False		icon_skills.vehicle_sandramanaia_d_tex
+EU-EN	Common	Common	Common	Summon: Dawn Carmine	False		icon_skills.vehicle_raptor_a_tex
+EU-EN	Common	Common	Common	Summon: Dawn Lupus Noctus	False		icon_skills.trans_lion_wolf_black_tex
+EU-EN	Common	Common	Common	Summon: Dawn Mare	False		icon_skills.horseinferno_tex
+EU-EN	Common	Common	Common	Summon: Revivified Shandra Manaya	False		icon_skills.vehicle_sandramanaia_e_tex
+EU-EN	Common	Common	Common	Summon: War Horse	False		icon_skills.horse_darkness_tex
+EU-EN	Common	Common	Common	Summon: War Bengal Tiger	False		icon_skills.trans_tiger_d_tex
+EU-EN	Common	Common	Common	Summon: Ancient Mighty Revivified Shandra Manaya	False		icon_skills.vehicle_sandramanaia_e_tex
+EU-EN	Common	Common	Common	Shandra's Revival	False		icon_skills.shandramanaia_vehicleskill_legend_tex
+EU-EN	Common	Common	Common	Flight: Kami	False		icon_skills.vehicle_gianthaechi_a_tex
+EU-EN	Common	Common	Common	Flight: Almighty Kami	False		icon_skills.vehicle_gianthaechi_b_tex
+EU-EN	Common	Common	Common	Flight: Gloom Drake	False		icon_skills.vehicle_battlepass_dragon_tex
+EU-EN	Common	Common	Common	Flying Skill: Gloom Broom	False		icon_skills.vehicle_halloweenbroomstick_a_tex
+EU-EN	Common	Common	Common	Flying Skill: Bloom Broom	False		icon_skills.vehicle_halloweenbroomstick_b_tex
+EU-EN	Common	Common	Common	Flying Skill: Qinglong	False		icon_skills.vehicle_orientaldragon_a_tex
+EU-EN	Common	Common	Common	Flying Skill: Almighty Qinglong	False		icon_skills.vehicle_orientaldragon_b_tex
+EU-EN	Common	Common	Common	Flying Skill: Feilong	False		icon_skills.vehicle_orientaldragon_c_tex
+EU-EN	Common	Common	Common	Flying Skill: Almighty Feilong	False		icon_skills.vehicle_orientaldragon_d_tex
+EU-EN	Common	Common	Common	Flying Skill: Sheilong	False		icon_skills.vehicle_orientaldragon_e_tex
+EU-EN	Common	Common	Common	Flying Skill: Stygian War Gryphon	False		icon_skills.vehicle_statdragon_e_tex
+EU-EN	Common	Common	Common	Flying Skill: Almighty Stygian War Gryphon	False		icon_skills.vehicle_statdragon_e_tex
+EU-EN	Common	Common	Common	Flying Skill: Twilight Gryphon	False		icon_skills.vehicle_statdragon_z_tex
+EU-EN	Common	Common	Common	Flying Skill: Empyrean War Gryphon	False		icon_skills.vehicle_statdragon_f_tex
+EU-EN	Common	Common	Common	Flying Skill: Almighty Empyrean War Gryphon	False		icon_skills.vehicle_statdragon_f_tex
+EU-EN	Common	Common	Common	Summon: Chimeric Frostshadow Tiger	False		icon_skills.vehicle_trans_tiger_e_tex
+EU-EN	Common	Common	Common	Summon: Almighty Chimeric Frostshadow Tiger	False		icon_skills.vehicle_trans_tiger_f_tex
+EU-EN	Common	Common	Common	Flight: Pelagic Guardian	False		icon_skills.vehicle_shark_a_tex
+EU-EN	Common	Common	Common	Flight: Pelagic Lord	False		icon_skills.vehicle_shark_b_tex
+EU-EN	Common	Common	Common	Summon: Experimental Turbo Massage Chair	False		icon_skills.vehicle_sofa_a_tex
+EU-EN	Common	Common	Common	Summon: Heavy Metal Hell Sofa	False		icon_skills.vehicle_sofa_b_tex
+EU-EN	Common	Common	Common	Summon: Red Shiba Inu	False		icon_skills.vehicle_shina_a_tex
+EU-EN	Common	Common	Common	Summon: Red Shiba Jet	False		icon_skills.vehicle_shina_b_tex
+EU-EN	Common	Common	Common	Summon: Black Shiba Inu	False		icon_skills.vehicle_shina_c_tex
+EU-EN	Common	Common	Common	Summon: Black Shiba Jet	False		icon_skills.vehicle_shina_d_tex
+EU-EN	Common	Common	Common	Summon: Cream Shiba Inu	False		icon_skills.vehicle_shina_e_tex
+EU-EN	Common	Common	Common	Summon: Cream Shiba Jet	False		icon_skills.vehicle_shina_f_tex
+EU-EN	Common	Common	Common	Flight: Flying UFO	False		icon_skills.vehicle_spaceship_tex
+EU-EN	Common	Common	Common	Flight: Gilded Koinobori	False		icon_skills.vehicle_koinobori_h_tex
+EU-EN	Common	Common	Common	Flight: Gilded Koinobori School	False		icon_skills.vehicle_koinobori_i_tex
+EU-EN	Common	Common	Common	Summon: Swift Fyrewing	False		icon_skills.vehicle_kirin_tex
+EU-EN	Common	Common	Common	Summon: Swift Jadewing	False		icon_skills.vehicle_kirin_green_tex
+EU-EN	Common	Common	Common	Summon: Swift Silverwing	False		icon_skills.vehicle_kirin_silver_tex
+EU-EN	Common	Common	Common	Summon: HyperCharged EX-TRM	False		icon_skills.steelvehicle_tex
+EU-EN	Common	Common	Common	Summon: Swift Rainbow	False		icon_skills.unicon_tex
+EU-EN	Common	Common	Common	Summon: Swift Death Charger	False		icon_skills.vehicle_horse_undead_tex
+EU-EN	Common	Common	Common	Flight: Support Kami	False		icon_skills.vehicle_gianthaechi_b_tex
+EU-EN	Common	Common	Common	Summon: Pyrepelt	False		icon_skills.vehicle_pyrepelt_tex
+EU-EN	Common	Common	Common	Summon: Blazing Pyrepelt	False		icon_skills.vehicle_b_pyrepelt_tex
+EU-EN	Common	Common	Common	Flight: Pyrepelt	False		icon_skills.vehicle_pyrepelt_tex
+EU-EN	Common	Common	Common	Flight: Blazing Pyrepelt	False		icon_skills.vehicle_b_pyrepelt_tex
+EU-EN	Common	Common	Common	Flight: Heartwynder	False		icon_skills.vehicle_phoenix_pink_tex
+EU-EN	Common	Common	Common	Flight: Silverwynder	False		icon_skills.vehicle_phoenix_white_tex
+EU-EN	Common	Common	Common	Flight: Darkwynder	False		icon_skills.vehicle_phoenix_black_tex
+EU-EN	Common	Common	Common	Summon: Giant Halloween Kitty	False		icon_skills.vehicle_halloween_kitty_tex
+EU-EN	Common	Common	Common	Flight: Kylos	False		icon_skills.vehicle_kylos_tex
+EU-EN	Common	Common	Common	Summon: Blazing Pyrepelt	False		icon_skills.vehicle_b_pyrepelt_tex
+EU-EN	Common	Common	Common	Summon: Swift Blood Moon Courser	False		icon_skills.vehicle_ghosthorse_d_tex
+EU-EN	Common	Common	Common	Summon: Swift Black Steed	False		icon_skills.vehicle_horse_lord_a_tex
+EU-EN	Common	Common	Common	Summon: Swift White Steed	False		icon_skills.vehicle_horse_lord_cn_a_tex
+EU-EN	Common	Common	Common	Flight: Polar Reindeer	False		icon_skills.vehicle_reindeer_tex
+EU-EN	Common	Common	Common	Flight: Halrath	False		icon_skills.vehicle_halrath_tex
+EU-EN	Common	Common	Common	Flight: Fluffy Cloud	False		icon_skills.vehicle_cloud_tex
+EU-EN	Common	Common	Common	Summon: Fat Kitty	False		icon_skills.vehicle_fatkitty_tex
+EU-EN	Common	Common	Common	Flight: Capybara	False		icon_skills.vehicle_capybara_tex
+EU-EN	Common	Common	Common	Flight: Capybara with Chick and Turtle	False		icon_skills.vehicle_capybaraanimals_tex
+EU-EN	Common	Common	Common	Flight: Cozy Capybara	False		icon_skills.vehicle_cozycapybara_tex
+EU-EN	Common	Common	Common	Flight: Cozy Capybara with Chick	False		icon_skills.vehicle_cozycapybaraanimals_tex
+EU-EN	Common	Common	Common	Flying Skill: Ancient Mighty Stygian War Gryphon	False		icon_skills.vehicle_statdragon_e_tex
+EU-EN	Common	Common	Common	Flying Skill: Ancient Mighty Empyrean War Gryphon	False		icon_skills.vehicle_statdragon_f_tex
+EU-EN	Common	Common	Common	Flight: Kami	False		icon_skills.vehicle_gianthaechi_a_tex
+EU-EN	Common	Common	Common	Summon: Swift Arcadian Dapple	False		icon_skills.horsepaint_tex
+EU-EN	Common	Common	Common	Summon: Swift Chestnut Gelding	False		icon_skills.horseyellow_tex
+EU-EN	Common	Common	Common	Summon: Swift Velikan Gray	False		icon_skills.horsegray_tex
+EU-EN	Common	Common	Common	Summon: Swift Pinto	False		icon_skills.horseyellowdot_tex
+EU-EN	Common	Common	Common	Summon: Swift Blue Roan	False		icon_skills.horsebluedot_tex
+EU-EN	Common	Common	Common	Summon: Swift White Stallion	False		icon_skills.mounthorse04_tex
+EU-EN	Common	Common	Common	Summon: Swift Regal Frostlion	False		icon_skills.trans_lion_white_tex
+EU-EN	Common	Common	Common	Summon: Thrall Lord	False		icon_skills.vehicle_kingblob_tex
+EU-EN	Common	Common	Common	Summon: Tantibus	False		icon_items.tantibusmount_tex
+EU-EN	Common	Common	Common	Summon: Golden Tantibus	False		icon_items.fireworks_ding_question_tex
+EU-EN	Common	Common	Common	Summon: Dragonsire Vergos	False		icon_status.summonvergos_tex
+EU-EN	Common	Common	Common	Summon: Swift White Pegasus	False		icon_skills.vehicle_pegasus_tex
+EU-EN	Common	Common	Common	Summon: Swift Black Pegasus	False		icon_skills.vehicle_pegasus_black_tex
+EU-EN	Common	Common	Common	Summon: Mythical Swift Star Trail	False		icon_skills.vehicle_unicon_bf_b_tex
+EU-EN	Common	Common	Common	Summon: Mythical Swift Frost Monarch	False		icon_skills.vehicle_winterdragon_b_tex
+EU-EN	Common	Common	Common	Flight: Starwynder	False		icon_skills.vehicle_starphoenix_tex
+EU-EN	Common	Common	Common	Summon: Mighty Shandra Manaya	False		icon_skills.vehicle_sandramanaia_a_tex
+EU-EN	Common	Common	Common	Summon: Mighty Shandra Manaya (Limited Time)	False		icon_skills.vehicle_sandramanaia_a_tex
+EU-EN	Common	Common	Lancer	Menacing Wave	False		icon_skills.menacewave_tex
+EU-EN	Common	Common	Priest	Blessing of Seren	False		icon_skills.agilitybless_tex
+EU-EN	Common	Common	Priest	Blessing of Balder	False		icon_skills.refreshbless_tex
+EU-EN	Common	Common	Sorcerer	Fireblast I	False		icon_status.firedamage_tex
+EU-EN	Common	Common	Sorcerer	Fireblast II	False		icon_status.firedamage_tex
+EU-EN	Common	Common	Sorcerer	Fireblast III	False		icon_status.firedamage_tex
+EU-EN	Common	Common	Sorcerer	Fireblast IV	False		icon_status.firedamage_tex
+EU-EN	Common	Common	Sorcerer	Fireblast V	False		icon_status.firedamage_tex
+EU-EN	Common	Common	Sorcerer	Fireblast VI	False		icon_status.firedamage_tex
+EU-EN	Common	Common	Sorcerer	Fireblast VII	False		icon_status.firedamage_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb I	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb I	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb II	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb II	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb III	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb III	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb IV	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb IV	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb V	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb V	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb VI	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb VI	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb VII	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb VII	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb VIII	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb VIII	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb IX	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb IX	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb X	False		icon_skills.howitzer_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb X	False		icon_skills.voidtrap_tex
+EU-EN	Common	Common	Sorcerer	Magma Bomb XI	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Archer	Tir percutant X	False		icon_skills.thunderdrake_tex
+EU-FR	Common	Common	Lancer	Vague menaçante	False		icon_skills.menacewave_tex
+EU-FR	Common	Common	Priest	Bénédiction de Seren	False		icon_skills.agilitybless_tex
+EU-FR	Common	Common	Priest	Bénédiction de Balder	False		icon_skills.agilitybless_tex
+EU-FR	Common	Common	Sorcerer	Explosion de flammes I	False		icon_skills.hellfire_tex
+EU-FR	Common	Common	Sorcerer	Explosion de flammes II	False		icon_skills.hellfire_tex
+EU-FR	Common	Common	Sorcerer	Explosion de flammes III	False		icon_skills.hellfire_tex
+EU-FR	Common	Common	Sorcerer	Explosion de flammes IV	False		icon_skills.hellfire_tex
+EU-FR	Common	Common	Sorcerer	Explosion de flammes V	False		icon_skills.hellfire_tex
+EU-FR	Common	Common	Sorcerer	Explosion de flammes VI	False		icon_skills.hellfire_tex
+EU-FR	Common	Common	Sorcerer	Explosion de flammes VII	False		icon_skills.hellfire_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma I	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma I	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma II	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma II	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma III	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma III	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma IV	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma IV	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma V	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma V	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma VI	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma VI	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma VII	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma VII	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma VIII	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma VIII	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma IX	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma IX	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma X	False		icon_skills.howitzer_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma X	False		icon_skills.voidtrap_tex
+EU-FR	Common	Common	Sorcerer	Bombe de magma XI	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Archer	Donnerkeil X	False		icon_skills.thunderdrake_tex
+EU-GER	Common	Common	Lancer	Bedrohliche Welle	False		icon_skills.menacewave_tex
+EU-GER	Common	Common	Priest	Serens Segen	False		icon_skills.agilitybless_tex
+EU-GER	Common	Common	Priest	Segen Balders	False		icon_skills.agilitybless_tex
+EU-GER	Common	Common	Sorcerer	Feuerstoß I	False		icon_skills.hellfire_tex
+EU-GER	Common	Common	Sorcerer	Feuerstoß II	False		icon_skills.hellfire_tex
+EU-GER	Common	Common	Sorcerer	Feuerstoß III	False		icon_skills.hellfire_tex
+EU-GER	Common	Common	Sorcerer	Feuerstoß IV	False		icon_skills.hellfire_tex
+EU-GER	Common	Common	Sorcerer	Feuerstoß V	False		icon_skills.hellfire_tex
+EU-GER	Common	Common	Sorcerer	Feuerstoß VI	False		icon_skills.hellfire_tex
+EU-GER	Common	Common	Sorcerer	Feuerstoß VII	False		icon_skills.hellfire_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe I	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe I	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe II	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe II	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe III	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe III	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe IV	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe IV	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe V	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe V	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe VI	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe VI	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe VII	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe VII	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe VIII	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe VIII	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe IX	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe IX	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe X	False		icon_skills.howitzer_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe X	False		icon_skills.voidtrap_tex
+EU-GER	Common	Common	Sorcerer	Magmabombe XI	False		icon_skills.howitzer_tex
+RU	Common	Common	Archer	Грозовой разряд X	False		icon_skills.thunderdrake_tex
+RU	Common	Common	Lancer	Грозный вал	False		icon_skills.menacewave_tex
+RU	Common	Common	Priest	Благословение Серен	False		icon_skills.agilitybless_tex
+RU	Common	Common	Priest	Благословение Балдера	False		icon_skills.agilitybless_tex
+RU	Common	Common	Sorcerer	Огненный взрыв I	False		icon_skills.hellfire_tex
+RU	Common	Common	Sorcerer	Огненный взрыв II	False		icon_skills.hellfire_tex
+RU	Common	Common	Sorcerer	Огненный взрыв III	False		icon_skills.hellfire_tex
+RU	Common	Common	Sorcerer	Огненный взрыв IV	False		icon_skills.hellfire_tex
+RU	Common	Common	Sorcerer	Огненный взрыв V	False		icon_skills.hellfire_tex
+RU	Common	Common	Sorcerer	Огненный взрыв VI	False		icon_skills.hellfire_tex
+RU	Common	Common	Sorcerer	Огненный взрыв VII	False		icon_skills.hellfire_tex
+RU	Common	Common	Sorcerer	Магмовая бомба I	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба I	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба II	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба II	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба III	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба III	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба IV	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба IV	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба V	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба V	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба VI	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба VI	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба VII	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба VII	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба VIII	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба VIII	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба IX	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба IX	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба X	False		icon_skills.howitzer_tex
+RU	Common	Common	Sorcerer	Магмовая бомба X	False		icon_skills.voidtrap_tex
+RU	Common	Common	Sorcerer	Магмовая бомба XI	False		icon_skills.howitzer_tex

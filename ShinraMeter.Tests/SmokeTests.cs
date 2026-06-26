@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 using Data.Actions.Notify.SoundElements;
 using Tera;
 using Tera.Game;
@@ -94,6 +95,133 @@ public class SmokeTests
     }
 
     [Fact]
+    public void ClassicPlusRuntimeData_MatchesPackagedElinuData()
+    {
+        var runtimeData = ProjectPath("resources", "data");
+        var packagedData = ProjectPath("DamageMeter.UI", "Resources", "data");
+
+        foreach (var relativePath in ClassicPlusDataFiles())
+        {
+            Assert.Equal(
+                ReadNormalizedDataFile(Path.Combine(packagedData, relativePath)),
+                ReadNormalizedDataFile(Path.Combine(runtimeData, relativePath))
+            );
+        }
+    }
+
+    [Fact]
+    public void ClassicPlusSkillRows_UseShinraClassesAndUniqueRuntimeKeys()
+    {
+        foreach (var dataRoot in new[]
+        {
+            ProjectPath("resources", "data"),
+            ProjectPath("DamageMeter.UI", "Resources", "data"),
+        })
+        {
+            foreach (var language in ClassicPlusLanguages())
+            {
+                var seen = new HashSet<string>();
+                var path = Path.Combine(dataRoot, "skills", $"skills-{language}.tsv");
+
+                foreach (var line in File.ReadLines(path))
+                {
+                    var parts = line.Split('\t');
+                    Assert.True(parts.Length >= 8, $"{path} has malformed skill row: {line}");
+                    Assert.True(Enum.TryParse<PlayerClass>(parts[3], out _), $"{path} has unknown class {parts[3]} in row: {line}");
+                    Assert.True(seen.Add(string.Join('\t', parts.Take(4))), $"{path} has duplicate skill key: {line}");
+                }
+            }
+        }
+    }
+
+    [Fact]
+    public void ClassicPlusHotDotRows_HaveExpectedFieldCount()
+    {
+        foreach (var dataRoot in new[]
+        {
+            ProjectPath("resources", "data"),
+            ProjectPath("DamageMeter.UI", "Resources", "data"),
+        })
+        {
+            foreach (var language in ClassicPlusLanguages())
+            {
+                var path = Path.Combine(dataRoot, "hotdot", $"hotdot-{language}.tsv");
+
+                foreach (var line in File.ReadLines(path))
+                {
+                    if (string.IsNullOrWhiteSpace(line)) { continue; }
+
+                    var parts = line.Split('\t');
+                    Assert.True(parts.Length >= 15, $"{path} has malformed hotdot row: {line}");
+                    Assert.True(int.TryParse(parts[0], out _), $"{path} has non-numeric hotdot id: {line}");
+                    Assert.True(bool.TryParse(parts[3], out _), $"{path} has non-boolean hotdot isBuff: {line}");
+                    Assert.True(bool.TryParse(parts[14], out _), $"{path} has non-boolean hotdot isShow: {line}");
+                }
+            }
+        }
+    }
+
+    [Fact]
+    public void ClassicPlusMonsterRows_ParseAndUseUniqueZoneTemplateKeys()
+    {
+        foreach (var dataRoot in new[]
+        {
+            ProjectPath("resources", "data"),
+            ProjectPath("DamageMeter.UI", "Resources", "data"),
+        })
+        {
+            foreach (var language in ClassicPlusLanguages())
+            {
+                var path = Path.Combine(dataRoot, "monsters", $"monsters-{language}.xml");
+                var seen = new HashSet<string>();
+                var document = XDocument.Load(path);
+
+                foreach (var zone in document.Root!.Elements("Zone"))
+                {
+                    var zoneId = zone.Attribute("id")?.Value;
+                    Assert.False(string.IsNullOrWhiteSpace(zoneId), $"{path} has a zone without id");
+
+                    foreach (var monster in zone.Elements("Monster"))
+                    {
+                        var monsterId = monster.Attribute("id")?.Value;
+                        Assert.False(string.IsNullOrWhiteSpace(monster.Attribute("name")?.Value), $"{path} has a monster without name");
+                        Assert.True(int.TryParse(monsterId, out _), $"{path} has non-numeric monster id");
+                        Assert.True(long.TryParse(monster.Attribute("hp")?.Value, out _), $"{path} has non-numeric monster hp");
+                        Assert.True(int.TryParse(monster.Attribute("speciesId")?.Value, out _), $"{path} has non-numeric monster speciesId");
+                        Assert.True(bool.TryParse(monster.Attribute("isBoss")?.Value, out _), $"{path} has non-boolean monster isBoss");
+                        Assert.True(seen.Add($"{zoneId}:{monsterId}"), $"{path} has duplicate monster key {zoneId}:{monsterId}");
+                    }
+                }
+            }
+        }
+    }
+
+    [Fact]
+    public void PackagedServerOverrides_IncludeClassicPlusMirror()
+    {
+        var overrides = File.ReadAllText(ProjectPath("DamageMeter.UI", "Resources", "config", "server-overrides.txt"));
+
+        Assert.Contains("127.0.0.1 EUC Classic+", overrides);
+        Assert.Contains("88.99.102.67 EUC Classic+", overrides);
+    }
+
+    [Fact]
+    public void ClassicPlusElinuArcherOverrides_CoverKnownDamageIds()
+    {
+        foreach (var dataRoot in new[]
+        {
+            ProjectPath("resources", "data"),
+            ProjectPath("DamageMeter.UI", "Resources", "data"),
+        })
+        {
+            foreach (var skillId in new[] { 80101, 80601, 80700, 81206, 51053 })
+            {
+                Assert.True(ContainsArcherSkill(dataRoot, "EU-EN", skillId), $"{dataRoot} missing Archer skill {skillId}");
+            }
+        }
+    }
+
+    [Fact]
     public void TextToSpeech_CanBeDisabledPerAlert()
     {
         var tts = new TextToSpeech("Use Nostrum", VoiceGender.Female, VoiceAge.Adult, 0, "en-US", 30, 0, false);
@@ -175,6 +303,57 @@ public class SmokeTests
         pathParts.AddRange(parts);
 
         return Path.GetFullPath(Path.Combine(pathParts.ToArray()));
+    }
+
+    private static IEnumerable<string> ClassicPlusDataFiles()
+    {
+        foreach (var language in ClassicPlusLanguages())
+        {
+            yield return Path.Combine("skills", $"skills-{language}.tsv");
+            yield return Path.Combine("skills", $"skills-override-{language}.tsv");
+            yield return Path.Combine("skills", $"pets-skills-{language}.tsv");
+            yield return Path.Combine("hotdot", $"hotdot-{language}.tsv");
+            yield return Path.Combine("regions", $"regions-{language}.tsv");
+            yield return Path.Combine("monsters", $"monsters-{language}.xml");
+            yield return Path.Combine("world_map", $"world_map-{language}.xml");
+        }
+
+        foreach (var protocol in new[] { "387166", "387396", "387400", "387463" })
+        {
+            yield return Path.Combine("opcodes", $"protocol.{protocol}.map");
+        }
+
+        yield return "servers.txt";
+    }
+
+    private static IEnumerable<string> ClassicPlusLanguages()
+    {
+        return new[] { "EU-EN", "EU-FR", "EU-GER", "RU" };
+    }
+
+    private static string ReadNormalizedDataFile(string path)
+    {
+        return File.ReadAllText(path).Replace("\r\n", "\n");
+    }
+
+    private static bool ContainsArcherSkill(string dataRoot, string language, int skillId)
+    {
+        var expectedStart = $"{skillId}\t";
+        foreach (var fileName in new[] { $"skills-{language}.tsv", $"skills-override-{language}.tsv" })
+        {
+            var path = Path.Combine(dataRoot, "skills", fileName);
+            if (File.ReadLines(path).Any(line =>
+            {
+                if (!line.StartsWith(expectedStart, StringComparison.Ordinal)) { return false; }
+                var parts = line.Split('\t');
+                return parts.Length >= 4 && parts[3] == "Archer";
+            }))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static byte[] BuildEachSkillResultPacket(ushort opcode, long amount)

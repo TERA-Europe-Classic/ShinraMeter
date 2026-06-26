@@ -1,0 +1,18 @@
+{
+  "EU-EN": {
+    "monsters": 26688,
+    "skills": 13793
+  },
+  "EU-FR": {
+    "monsters": 26629,
+    "skills": 13177
+  },
+  "EU-GER": {
+    "monsters": 26629,
+    "skills": 13142
+  },
+  "RU": {
+    "monsters": 26629,
+    "skills": 14317
+  }
+}

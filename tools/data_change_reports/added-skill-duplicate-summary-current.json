@@ -1,0 +1,94 @@
+[
+  {
+    "locale": "EU-EN",
+    "old_skills": 13634,
+    "current_skills": 13793,
+    "added": 159,
+    "modified": 40,
+    "removed": 0,
+    "invalid_classes": 0,
+    "added_already_in_override": 0,
+    "duplicate_runtime_keys": 0,
+    "duplicate_exact_rows": 0,
+    "example_11000_assassin_present": false,
+    "example_11000_ninja": [
+      "11000",
+      "Common",
+      "Common",
+      "Ninja",
+      "Combo Attack X",
+      "False",
+      "hit 1",
+      "icon_skills.c12_meleecombo"
+    ]
+  },
+  {
+    "locale": "EU-FR",
+    "old_skills": 13145,
+    "current_skills": 13177,
+    "added": 32,
+    "modified": 24,
+    "removed": 0,
+    "invalid_classes": 0,
+    "added_already_in_override": 0,
+    "duplicate_runtime_keys": 0,
+    "duplicate_exact_rows": 0,
+    "example_11000_assassin_present": false,
+    "example_11000_ninja": [
+      "11000",
+      "Common",
+      "Common",
+      "Ninja",
+      "Étoiles acharnées X",
+      "False",
+      "hit 1",
+      "icon_skills.c12_meleecombo"
+    ]
+  },
+  {
+    "locale": "EU-GER",
+    "old_skills": 13110,
+    "current_skills": 13142,
+    "added": 32,
+    "modified": 24,
+    "removed": 0,
+    "invalid_classes": 0,
+    "added_already_in_override": 0,
+    "duplicate_runtime_keys": 0,
+    "duplicate_exact_rows": 0,
+    "example_11000_assassin_present": false,
+    "example_11000_ninja": [
+      "11000",
+      "Common",
+      "Common",
+      "Ninja",
+      "Wurfsternattacke X",
+      "False",
+      "hit 1",
+      "icon_skills.c12_meleecombo"
+    ]
+  },
+  {
+    "locale": "RU",
+    "old_skills": 14285,
+    "current_skills": 14317,
+    "added": 32,
+    "modified": 22,
+    "removed": 0,
+    "invalid_classes": 0,
+    "added_already_in_override": 0,
+    "duplicate_runtime_keys": 0,
+    "duplicate_exact_rows": 0,
+    "example_11000_assassin_present": false,
+    "example_11000_ninja": [
+      "11000",
+      "Common",
+      "Common",
+      "Ninja",
+      "Комбо-атака X",
+      "False",
+      "hit 1",
+      "icon_skills.c12_meleecombo"
+    ]
+  }
+]
