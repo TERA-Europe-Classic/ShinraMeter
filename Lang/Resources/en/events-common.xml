@@ -59,7 +59,7 @@
 	</abnormality>
 	
 	<!-- Notification when something happen & you are not on the Tera windows -->
-	<common_afk priority="0">
+	<common_afk active="false" priority="0">
 		<actions>
 				<notify>
 					<balloon title_text="{afk_title}" body_text="{afk_body}" display_time="3000" />
@@ -159,7 +159,7 @@
 	</abnormality>
 		
 	<!-- Joy of party is at 100% (everyone is in the dungeons) -->
-	<abnormality ingame="false" priority="0" trigger="Added" target="Self" out_of_combat="true">
+	<abnormality active="false" ingame="false" priority="0" trigger="Added" target="Self" out_of_combat="true">
 		<abnormalities>
 			<abnormality>999001021</abnormality>
 		</abnormalities>
@@ -172,7 +172,7 @@
 	</abnormality>
 		
 	<!-- Joy of party is at 100% (everyone is in the dungeons) -->
-	<abnormality ingame="true" priority="0" trigger="Removed" target="Self">
+	<abnormality active="false" ingame="true" priority="0" trigger="Removed" target="Self">
 		<abnormalities>
 			<abnormality>999001021</abnormality>
 		</abnormalities>
@@ -211,48 +211,6 @@
 		</actions>
 	</abnormality>
 	
-	<!-- Everful Nostrum for yourself -->
-	<abnormality ingame="true" priority="7" remaining_seconds_before_trigger="20" rewarn_timeout_seconds="3" trigger="MissingDuringFight" target="Self">
-		<abnormalities>
-			<abnormality>4031</abnormality>
-			<abnormality>4030</abnormality>
-			<abnormality>4020</abnormality>
-			<abnormality>4021</abnormality>
-			<abnormality>4024</abnormality>
-			<abnormality>4025</abnormality>
-			<abnormality>4040</abnormality>
-			<abnormality>4041</abnormality>
-			<abnormality>4042</abnormality>
-			<abnormality>4043</abnormality>
-		</abnormalities>
-		<actions>
-			<notify>
-				<text_to_speech text="Nostrum" voice_gender="Female" voice_age="Adult"  voice_position="0" volume="30" rate="0"/>
-			</notify>
-		</actions>
-	</abnormality>
-	
-	<!-- Everful Nostrum for your party members -->
-	<abnormality ingame="true" priority="4" remaining_seconds_before_trigger="20" rewarn_timeout_seconds="40" trigger="MissingDuringFight" target="PartySelfExcluded">
-		<abnormalities>
-			<abnormality>4031</abnormality>
-			<abnormality>4030</abnormality>
-			<abnormality>4020</abnormality>
-			<abnormality>4021</abnormality>
-			<abnormality>4024</abnormality>
-			<abnormality>4025</abnormality>
-			<abnormality>4040</abnormality>
-			<abnormality>4041</abnormality>
-			<abnormality>4042</abnormality>
-			<abnormality>4043</abnormality>
-		</abnormalities>
-		<actions>
-			<notify>
-				<balloon title_text="{abnormality_name}" body_text="{player_name} {time_left}" display_time="3000" />
-			</notify>
-		</actions>
-	</abnormality>
-
 	<!-- Noctenium for yourself -->
 	<abnormality active="false" ingame="true" remaining_seconds_before_trigger="15" rewarn_timeout_seconds="3" trigger="MissingDuringFight" target="Self" priority="2">
 		<abnormalities>

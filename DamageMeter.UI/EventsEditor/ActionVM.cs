@@ -9,6 +9,8 @@ namespace DamageMeter.UI
 {
     public class ActionVM : TSPropertyChanged
     {
+        private readonly NotifyAction _action;
+        private Balloon _balloon;
         private string _balloonTitle;
         private string _balloonBody;
         private int _balloonDisplayTime;
@@ -23,13 +25,14 @@ namespace DamageMeter.UI
             {
                 if (_soundType == value) return;
                 _soundType = value;
-                SoundData = _soundType switch
+                _action.Sound = _soundType switch
                 {
-                    SoundType.Music => new MusicDataVM(new Music("", 100, 1000)),
-                    SoundType.Beeps => new BeepsDataVM(new Beeps(new List<Beep> { new(250, 500), new(0, 250), new(250, 500) })),
-                    SoundType.TTS => new TtsDataVM(new TextToSpeech("", VoiceGender.Neutral, VoiceAge.Adult, 0, BasicTeraData.Instance.WindowData.UILanguage, 100, 0)),
+                    SoundType.Music => new Music("", 1, 1000),
+                    SoundType.Beeps => new Beeps(new List<Beep> { new(250, 500), new(0, 250), new(250, 500) }),
+                    SoundType.TTS => new TextToSpeech("", VoiceGender.Neutral, VoiceAge.Adult, 0, BasicTeraData.Instance.WindowData.UILanguage, 100, 0),
                     _ => null
                 };
+                SoundData = CreateSoundData(_action.Sound);
                 NotifyPropertyChanged();
             }
         }
@@ -41,6 +44,26 @@ namespace DamageMeter.UI
             {
                 if (_hasBalloon == value) return;
                 _hasBalloon = value;
+                if (value)
+                {
+                    _balloon ??= new Balloon("", "", 3000, EventType.MissingAb);
+                    _action.Balloon = _balloon;
+                }
+                else
+                {
+                    _action.Balloon = null;
+                }
+                if (value)
+                {
+                    _balloonTitle = _balloon.TitleText;
+                    _balloonBody = _balloon.BodyText;
+                    _balloonDisplayTime = _balloon.DisplayTime;
+                    _eventType = _balloon.EventType;
+                    NotifyPropertyChanged(nameof(BalloonTitle));
+                    NotifyPropertyChanged(nameof(BalloonText));
+                    NotifyPropertyChanged(nameof(BalloonDisplayTime));
+                    NotifyPropertyChanged(nameof(EventType));
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -52,6 +75,7 @@ namespace DamageMeter.UI
             {
                 if (_balloonTitle == value) return;
                 _balloonTitle = value;
+                if (_balloon != null) _balloon.TitleText = value;
                 NotifyPropertyChanged();
             }
         }
@@ -63,6 +87,7 @@ namespace DamageMeter.UI
             {
                 if (_balloonBody == value) return;
                 _balloonBody = value;
+                if (_balloon != null) _balloon.BodyText = value;
                 NotifyPropertyChanged();
             }
         }
@@ -74,6 +99,7 @@ namespace DamageMeter.UI
             {
                 if (_balloonDisplayTime == value) return;
                 _balloonDisplayTime = value;
+                if (_balloon != null) _balloon.DisplayTime = value;
                 NotifyPropertyChanged();
             }
         }
@@ -85,6 +111,7 @@ namespace DamageMeter.UI
             {
                 if (_eventType == value) return;
                 _eventType = value;
+                if (_balloon != null) _balloon.EventType = value;
                 NotifyPropertyChanged();
             }
         }
@@ -102,23 +129,26 @@ namespace DamageMeter.UI
             }
         }
 
-        public ActionVM(Balloon balloon, SoundInterface s)
+        public ActionVM(NotifyAction action)
         {
-            if (balloon != null)
+            _action = action;
+            _balloon = action.Balloon;
+
+            if (_balloon != null)
             {
                 _hasBalloon = true;
 
-                _balloonTitle = balloon.TitleText;
-                _balloonBody = balloon.BodyText;
+                _balloonTitle = _balloon.TitleText;
+                _balloonBody = _balloon.BodyText;
 
-                _balloonDisplayTime = balloon.DisplayTime;
+                _balloonDisplayTime = _balloon.DisplayTime;
 
-                _eventType = balloon.EventType;
+                _eventType = _balloon.EventType;
             }
 
-            if (s != null)
+            if (action.Sound != null)
             {
-                _soundType = s switch
+                _soundType = action.Sound switch
                 {
                     Music => SoundType.Music,
                     Beeps => SoundType.Beeps,
@@ -126,14 +156,19 @@ namespace DamageMeter.UI
                     _ => SoundType.None
                 };
 
-                SoundData = s switch
-                {
-                    Music m => new MusicDataVM(m),
-                    Beeps b => new BeepsDataVM(b),
-                    TextToSpeech tts => new TtsDataVM(tts),
-                    _ => null
-                };
+                SoundData = CreateSoundData(action.Sound);
             }
+        }
+
+        private static BaseSoundVM CreateSoundData(SoundInterface sound)
+        {
+            return sound switch
+            {
+                Music m => new MusicDataVM(m),
+                Beeps b => new BeepsDataVM(b),
+                TextToSpeech tts => new TtsDataVM(tts),
+                _ => null
+            };
         }
     }
 }

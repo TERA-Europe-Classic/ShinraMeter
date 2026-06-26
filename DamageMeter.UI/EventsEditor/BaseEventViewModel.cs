@@ -8,6 +8,7 @@ namespace DamageMeter.UI
 {
     public class BaseEventViewModel : TSPropertyChanged
     {
+        protected readonly Event Event;
         private bool _active;
         private bool _ingame;
         private int _priority;
@@ -20,7 +21,9 @@ namespace DamageMeter.UI
             {
                 if (_active == value) return;
                 _active = value;
+                Event.Active = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SearchText));
             }
         }
 
@@ -31,7 +34,9 @@ namespace DamageMeter.UI
             {
                 if (_ingame == value) return;
                 _ingame = value;
+                Event.InGame = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SearchText));
             }
         }
 
@@ -42,7 +47,9 @@ namespace DamageMeter.UI
             {
                 if (_outOfCombat == value) return;
                 _outOfCombat = value;
+                Event.OutOfCombat = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SearchText));
             }
         }
 
@@ -53,11 +60,15 @@ namespace DamageMeter.UI
             {
                 if (_priority == value) return;
                 _priority = value;
+                Event.Priority = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SearchText));
             }
         }
 
         public virtual string Type => "Event";
+        public virtual string Summary => Type;
+        public virtual string SearchText => $"{Type} {Summary} {(Active ? "active" : "inactive")} {(InGame ? "ingame" : "outgame")} priority {Priority}";
 
         public SynchronizedObservableCollection<BlackListItemVM> BlacklistedBosses { get; }
         public SynchronizedObservableCollection<PlayerClass> BlacklistedClasses { get; }
@@ -65,6 +76,7 @@ namespace DamageMeter.UI
 
         public BaseEventViewModel(Event ev, List<Action> act)
         {
+            Event = ev;
             BlacklistedBosses = new SynchronizedObservableCollection<BlackListItemVM>();
             BlacklistedClasses = new SynchronizedObservableCollection<PlayerClass>();
             Actions = new SynchronizedObservableCollection<ActionVM>();
@@ -78,7 +90,7 @@ namespace DamageMeter.UI
             act.ForEach(action =>
             {
                 if (action is not NotifyAction na) return;
-                Actions.Add(new ActionVM(na.Balloon, na.Sound));
+                Actions.Add(new ActionVM(na));
             });
         }
     }

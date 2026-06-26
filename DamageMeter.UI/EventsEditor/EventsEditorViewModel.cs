@@ -1,12 +1,15 @@
-﻿using Data;
+using Data;
 using Data.Actions.Notify.SoundElements;
 using Data.Events;
 using Data.Events.Abnormality;
 using Nostrum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using Tera.Game;
@@ -56,17 +59,46 @@ namespace DamageMeter.UI
         public static Color SelfColor => BasicTeraData.Instance.WindowData.PlayerColor;
 
         private readonly EventsData _data;
+        private string _searchText;
+        private bool _showActiveOnly;
 
         public ICommand LoadCommand { get; }
         public ICommand ApplyCommand { get; }
 
         public SynchronizedObservableCollection<BaseEventViewModel> CommonEvents { get; }
+        public ICollectionView EventsView { get; }
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText == value) return;
+                _searchText = value;
+                NotifyPropertyChanged();
+                EventsView.Refresh();
+            }
+        }
+
+        public bool ShowActiveOnly
+        {
+            get => _showActiveOnly;
+            set
+            {
+                if (_showActiveOnly == value) return;
+                _showActiveOnly = value;
+                NotifyPropertyChanged();
+                EventsView.Refresh();
+            }
+        }
 
         public EventsEditorViewModel()
         {
             _data = BasicTeraData.Instance.EventsData;
 
             CommonEvents = new SynchronizedObservableCollection<BaseEventViewModel>();
+            EventsView = CollectionViewSource.GetDefaultView(CommonEvents);
+            EventsView.Filter = FilterEvent;
 
             LoadCommand = new RelayCommand(_ => Load());
             ApplyCommand = new RelayCommand(_ => Apply());
@@ -81,10 +113,12 @@ namespace DamageMeter.UI
 
         private void Load()
         {
+            CommonEvents.Clear();
+
             // load data from model
             foreach (var (commonEvent, actions) in _data.EventsCommon)
             {
-                CommonEvents.Add(commonEvent switch
+                AddEvent(commonEvent switch
                 {
                     AbnormalityEvent ab => new AbnormalityEventViewModel(ab, actions),
                     CooldownEvent cd => new CooldownEventViewModel(cd, actions),
@@ -92,6 +126,29 @@ namespace DamageMeter.UI
                     _ => throw new ArgumentOutOfRangeException()
                 });
             }
+        }
+
+        private void AddEvent(BaseEventViewModel ev)
+        {
+            ev.PropertyChanged += (_, args) =>
+            {
+                if (args.PropertyName == nameof(BaseEventViewModel.Active) || args.PropertyName == nameof(BaseEventViewModel.SearchText))
+                {
+                    EventsView.Refresh();
+                }
+            };
+            CommonEvents.Add(ev);
+        }
+
+        private bool FilterEvent(object item)
+        {
+            if (item is not BaseEventViewModel ev) return false;
+            if (ShowActiveOnly && !ev.Active) return false;
+            if (string.IsNullOrWhiteSpace(SearchText)) return true;
+            return CultureInfo.InvariantCulture.CompareInfo.IndexOf(
+                ev.SearchText ?? string.Empty,
+                SearchText,
+                CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace) >= 0;
         }
     }
 

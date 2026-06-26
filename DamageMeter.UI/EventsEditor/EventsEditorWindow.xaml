@@ -473,11 +473,21 @@
                                                       IsEnabled="{Binding Active}" />
                                         <ItemsControl ItemsSource="{Binding BlacklistedBosses}"
                                                       IsEnabled="{Binding Active}" />-->
-                            <TextBlock VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   Grid.Column="0" Grid.ColumnSpan="3"
-                                                   Margin="0"
-                                                   Foreground="#9fff" Text="{Binding Type}" />
+                            <StackPanel VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Grid.Column="1"
+                                        Margin="6 2">
+                                <TextBlock Foreground="#9fff"
+                                           Text="{Binding Type}"
+                                           HorizontalAlignment="Center"
+                                           FontSize="10" />
+                                <TextBlock Foreground="#cfff"
+                                           Text="{Binding Summary}"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           MaxWidth="430" />
+                            </StackPanel>
                             <settings:ValueSetting SettingName="Priority"
                                                                Grid.Column="2"
                                                                Value="{Binding Priority, Mode=TwoWay}"
@@ -500,6 +510,7 @@
         <!-- Title bar -->
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Background="#1000" MouseDown="Drag">
@@ -542,9 +553,38 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ScrollViewer Grid.Row="1" Margin="5 5 0 5" UseLayoutRounding="True">
+        <Border Grid.Row="1" Background="#08000000" BorderBrush="#1fff" BorderThickness="0 1 0 1" Padding="10 7">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Search"
+                           Foreground="#9fff"
+                           VerticalAlignment="Center"
+                           Margin="0 0 8 0" />
+                <TextBox Grid.Column="1"
+                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         MinWidth="280"
+                         Height="24"
+                         VerticalContentAlignment="Center"
+                         Foreground="#cfff"
+                         Background="#14000000"
+                         BorderBrush="#2fff"
+                         CaretBrush="White"
+                         Padding="6 0" />
+                <CheckBox Grid.Column="2"
+                          Content="Active only"
+                          IsChecked="{Binding ShowActiveOnly, Mode=TwoWay}"
+                          VerticalAlignment="Center"
+                          Foreground="#9fff"
+                          Margin="12 0 0 0" />
+            </Grid>
+        </Border>
+        <ScrollViewer Grid.Row="2" Margin="5 5 0 5" UseLayoutRounding="True">
             <ItemsControl HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                          ItemsSource="{Binding CommonEvents}" ScrollViewer.CanContentScroll="False"
+                          ItemsSource="{Binding EventsView}" ScrollViewer.CanContentScroll="False"
                           ItemTemplate="{StaticResource EventTemplate}"/>
         </ScrollViewer>
     </Grid>
