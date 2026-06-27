@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Threading;
 using System.Windows.Input;
 using Data.Actions.Notify.SoundElements;
 using Nostrum;
@@ -40,7 +41,7 @@ namespace DamageMeter.UI
         public ICommand DeleteBeepCommand { get; }
         public Beep Beep => _beep;
 
-        public BeepVM(Beep beep)
+        public BeepVM(Beep beep) : base(Dispatcher.CurrentDispatcher)
         {
             _beep = beep;
             _frequency = beep.Frequency;

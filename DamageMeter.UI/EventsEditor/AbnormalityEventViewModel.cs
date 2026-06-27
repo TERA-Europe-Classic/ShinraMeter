@@ -2,12 +2,14 @@ using Data;
 using Data.Actions;
 using Data.Events.Abnormality;
 using System.Collections.Generic;
+using System.Windows.Threading;
 
 namespace DamageMeter.UI
 {
     public class AbnormalityEventViewModel : BaseEventViewModel
     {
         private readonly AbnormalityEvent _event;
+        private readonly List<string> _eventNames;
 
         public SynchronizedObservableCollection<AbnormalityVM> Abnormalities { get; }
 
@@ -26,7 +28,7 @@ namespace DamageMeter.UI
                 _event.Target = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Summary));
-                NotifyPropertyChanged(nameof(SearchText));
+                RefreshSearchText();
             }
         }
 
@@ -40,7 +42,7 @@ namespace DamageMeter.UI
                 _event.Trigger = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Summary));
-                NotifyPropertyChanged(nameof(SearchText));
+                RefreshSearchText();
             }
         }
 
@@ -53,7 +55,7 @@ namespace DamageMeter.UI
                 _secondsBeforeTrigger = value;
                 _event.RemainingSecondBeforeTrigger = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SearchText));
+                RefreshSearchText();
             }
         }
 
@@ -66,18 +68,18 @@ namespace DamageMeter.UI
                 _rewarnTimeout = value;
                 _event.RewarnTimeoutSeconds = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SearchText));
+                RefreshSearchText();
             }
         }
 
         public override string Type => "Abnormality event";
-        public override string Summary => $"{Trigger} {Target}: {string.Join(", ", EventNames())}";
-        public override string SearchText => $"{base.SearchText} {Target} {Trigger} {SecondsBeforeTrigger} {RewarnTimeout} {string.Join(" ", EventNames())}";
+        public override string Summary => $"{Trigger} {Target}: {string.Join(", ", _eventNames)}";
+        protected override string BuildSearchText() => $"{base.BuildSearchText()} {Target} {Trigger} {SecondsBeforeTrigger} {RewarnTimeout} {string.Join(" ", _eventNames)}";
 
         public AbnormalityEventViewModel(AbnormalityEvent ev, List<Action> act) : base(ev, act)
         {
             _event = ev;
-            Abnormalities = new SynchronizedObservableCollection<AbnormalityVM>();
+            Abnormalities = new SynchronizedObservableCollection<AbnormalityVM>(Dispatcher.CurrentDispatcher);
 
             _target = ev.Target;
             _trigger = ev.Trigger;
@@ -93,6 +95,9 @@ namespace DamageMeter.UI
             {
                 Abnormalities.Add(new AbnormalityVM(type));
             }
+
+            _eventNames = new List<string>(EventNames());
+            RefreshSearchText();
         }
 
         private IEnumerable<string> EventNames()

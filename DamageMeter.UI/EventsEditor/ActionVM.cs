@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using Data;
 using Data.Actions.Notify;
 using Data.Actions.Notify.SoundElements;
+using System.Windows.Threading;
 
 namespace DamageMeter.UI
 {
@@ -34,8 +36,36 @@ namespace DamageMeter.UI
                 };
                 SoundData = CreateSoundData(_action.Sound);
                 NotifyPropertyChanged();
+                NotifySearchChanged();
             }
         }
+
+        public string DeliverySummary
+        {
+            get
+            {
+                var notification = HasBalloon ? "Notification" : "No notification";
+                var sound = SoundType == SoundType.None ? "No sound" : SoundType.ToString();
+                return $"{notification} / {sound}";
+            }
+        }
+
+        public string SearchText => string.Join(" ", new[]
+        {
+            HasBalloon ? "notification balloon popup toast" : "no notification",
+            BalloonTitle,
+            BalloonText,
+            BalloonDisplayTime.ToString(CultureInfo.InvariantCulture),
+            EventType.ToString(),
+            SoundType.ToString(),
+            SoundData switch
+            {
+                TtsDataVM tts => $"tts text to speech {tts.Text} {tts.Gender} {tts.Age} {tts.Culture} {tts.Volume} {tts.Rate}",
+                MusicDataVM music => $"music {music.File} {music.Volume} {music.Duration}",
+                BeepsDataVM beeps => $"beep beeps {beeps.Beeps.Count}",
+                _ => string.Empty
+            }
+        });
 
         public bool HasBalloon
         {
@@ -65,6 +95,7 @@ namespace DamageMeter.UI
                     NotifyPropertyChanged(nameof(EventType));
                 }
                 NotifyPropertyChanged();
+                NotifySearchChanged();
             }
         }
 
@@ -77,6 +108,7 @@ namespace DamageMeter.UI
                 _balloonTitle = value;
                 if (_balloon != null) _balloon.TitleText = value;
                 NotifyPropertyChanged();
+                NotifySearchChanged();
             }
         }
 
@@ -89,6 +121,7 @@ namespace DamageMeter.UI
                 _balloonBody = value;
                 if (_balloon != null) _balloon.BodyText = value;
                 NotifyPropertyChanged();
+                NotifySearchChanged();
             }
         }
 
@@ -101,6 +134,7 @@ namespace DamageMeter.UI
                 _balloonDisplayTime = value;
                 if (_balloon != null) _balloon.DisplayTime = value;
                 NotifyPropertyChanged();
+                NotifySearchChanged();
             }
         }
 
@@ -113,6 +147,7 @@ namespace DamageMeter.UI
                 _eventType = value;
                 if (_balloon != null) _balloon.EventType = value;
                 NotifyPropertyChanged();
+                NotifySearchChanged();
             }
         }
 
@@ -124,12 +159,15 @@ namespace DamageMeter.UI
             set
             {
                 if (_soundData == value) return;
+                if (_soundData != null) _soundData.PropertyChanged -= OnSoundDataPropertyChanged;
                 _soundData = value;
+                if (_soundData != null) _soundData.PropertyChanged += OnSoundDataPropertyChanged;
                 NotifyPropertyChanged();
+                NotifySearchChanged();
             }
         }
 
-        public ActionVM(NotifyAction action)
+        public ActionVM(NotifyAction action) : base(Dispatcher.CurrentDispatcher)
         {
             _action = action;
             _balloon = action.Balloon;
@@ -169,6 +207,17 @@ namespace DamageMeter.UI
                 TextToSpeech tts => new TtsDataVM(tts),
                 _ => null
             };
+        }
+
+        private void OnSoundDataPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            NotifySearchChanged();
+        }
+
+        private void NotifySearchChanged()
+        {
+            NotifyPropertyChanged(nameof(DeliverySummary));
+            NotifyPropertyChanged(nameof(SearchText));
         }
     }
 }

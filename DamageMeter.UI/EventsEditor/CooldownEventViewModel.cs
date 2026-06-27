@@ -20,7 +20,7 @@ namespace DamageMeter.UI
                 _event.SkillId = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Summary));
-                NotifyPropertyChanged(nameof(SearchText));
+                RefreshSearchText();
             }
         }
 
@@ -34,19 +34,20 @@ namespace DamageMeter.UI
                 _event.OnlyResetted = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Summary));
-                NotifyPropertyChanged(nameof(SearchText));
+                RefreshSearchText();
             }
         }
 
         public override string Type => "Cooldown event";
         public override string Summary => ResetOnly ? $"Skill {SkillId} reset" : $"Skill {SkillId} cooldown";
-        public override string SearchText => $"{base.SearchText} skill {SkillId} cooldown reset {ResetOnly}";
+        protected override string BuildSearchText() => $"{base.BuildSearchText()} skill {SkillId} cooldown reset {ResetOnly}";
 
         public CooldownEventViewModel(CooldownEvent ev, List<Action> act) : base(ev, act)
         {
             _event = ev;
             _skillId = ev.SkillId;
             _resetOnly = ev.OnlyResetted;
+            RefreshSearchText();
         }
     }
 }

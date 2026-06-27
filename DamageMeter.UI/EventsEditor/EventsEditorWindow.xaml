@@ -12,12 +12,17 @@
         xmlns:windows="clr-namespace:DamageMeter.UI.Windows"
         xmlns:extensions="clr-namespace:Nostrum.Extensions;assembly=Nostrum"
         mc:Ignorable="d"
-        SizeToContent="Width"
         Background="{StaticResource MainBgBrush}"
-        Title="EventsEditorWindow" Height="600" Width="800" d:DataContext="{d:DesignInstance ui:EventsEditorViewModel}">
+        Title="EventsEditorWindow"
+        Height="720"
+        Width="980"
+        MinHeight="520"
+        MinWidth="760"
+        ResizeMode="CanResizeWithGrip"
+        d:DataContext="{d:DesignInstance ui:EventsEditorViewModel}">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
-                      ResizeBorderThickness="0"
+                      ResizeBorderThickness="6"
                       GlassFrameThickness="0 0 0 1"
                       CornerRadius="0" />
     </WindowChrome.WindowChrome>
@@ -408,102 +413,119 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="EventTemplate" DataType="ui:BaseEventViewModel">
-            <Border Margin="5" Padding="5 5 5 0" BorderThickness="1"
-                                CornerRadius="5"
-                                BorderBrush="#2fff"
-                                Background="{StaticResource MainBgDarkBrush}">
-                <Border.Effect>
-                    <DropShadowEffect Direction="-90" BlurRadius="10" Opacity=".2" />
-                </Border.Effect>
-                <StackPanel HorizontalAlignment="Stretch">
-                    <Border Background="#1fff" Margin="-5 -5 -5 0" CornerRadius="5 5 0 0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+            <Expander IsExpanded="{Binding IsExpanded, Mode=TwoWay}"
+                      Margin="6 4"
+                      Background="{StaticResource MainBgDarkBrush}"
+                      BorderBrush="#2fff"
+                      BorderThickness="1">
+                <Expander.Header>
+                    <Grid MinHeight="48" Margin="4 2 8 2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <StackPanel.Resources>
+                                <Style TargetType="ToggleButton"
+                                       BasedOn="{StaticResource ToggleButtonStyle}">
+                                    <Setter Property="Width" Value="24" />
+                                    <Setter Property="Height" Value="24" />
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="Margin" Value="3" />
+                                </Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="Fill" Value="White" />
+                                    <Setter Property="Stretch" Value="Uniform" />
+                                    <Setter Property="Width" Value="14" />
+                                    <Setter Property="Height" Value="14" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <ToggleButton IsChecked="{Binding Active, Mode=TwoWay}" ToolTip="Enabled">
+                                <Path Data="{StaticResource Svg.Power}" Width="13" Height="13" Margin="0 0 0 1">
+                                    <Path.Fill>
+                                        <SolidColorBrush Color="{x:Static ui:EventsEditorViewModel.SelfColor}"/>
+                                    </Path.Fill>
+                                </Path>
+                            </ToggleButton>
+                            <ToggleButton IsChecked="{Binding OutOfCombat, Mode=TwoWay}"
+                                          ToolTip="Out of combat"
+                                          IsEnabled="{Binding Active}">
+                                <Grid>
+                                    <Path Data="{StaticResource Svg.Sword}" />
+                                    <Line Stroke="#f55" X1="0" Y1="0" X2="1" Y2="-1"
+                                          Margin="5"
+                                          Stretch="Fill"
+                                          StrokeEndLineCap="Round"
+                                          StrokeStartLineCap="Round"
+                                          StrokeThickness="2" />
+                                </Grid>
+                            </ToggleButton>
+                            <ToggleButton IsChecked="{Binding InGame, Mode=TwoWay}"
+                                          ToolTip="In game"
+                                          IsEnabled="{Binding Active}">
+                                <Path Data="{StaticResource Svg.Gamepad}" />
+                            </ToggleButton>
+                        </StackPanel>
+                        <Grid Grid.Column="1" Margin="10 0" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal">
-                                <StackPanel.Resources>
-                                    <Style TargetType="ToggleButton"
-                                                       BasedOn="{StaticResource ToggleButtonStyle}">
-                                        <Setter Property="Width" Value="24" />
-                                        <Setter Property="Height" Value="24" />
-                                        <Setter Property="Padding" Value="0" />
-                                        <Setter Property="Margin" Value="4" />
-                                    </Style>
-                                    <Style TargetType="Path">
-                                        <Setter Property="Fill" Value="White" />
-                                        <Setter Property="Stretch" Value="Uniform" />
-                                        <Setter Property="Width" Value="14" />
-                                        <Setter Property="Height" Value="14" />
-                                        <Setter Property="Margin" Value="0" />
-                                        <Setter Property="VerticalAlignment" Value="Center" />
-                                        <Setter Property="HorizontalAlignment" Value="Center" />
-                                    </Style>
-                                </StackPanel.Resources>
-                                <ToggleButton IsChecked="{Binding Active, Mode=TwoWay}"
-                                                          ToolTip="Toggle">
-                                    <Path Data="{StaticResource Svg.Power}" Width="13" Height="13" Margin="0 0 0 1">
-                                        <Path.Fill>
-                                            <SolidColorBrush Color="{x:Static ui:EventsEditorViewModel.SelfColor}"/>
-                                        </Path.Fill>
-                                    </Path>
-                                </ToggleButton>
-                                <ToggleButton IsChecked="{Binding OutOfCombat, Mode=TwoWay}"
-                                                          ToolTip="Out of combat"
-                                                          IsEnabled="{Binding Active}">
-                                    <Grid>
-                                        <Path Data="{StaticResource Svg.Sword}" />
-                                        <Line Stroke="#f55" X1="0" Y1="0" X2="1" Y2="-1"
-                                                          Margin="5"
-                                                          Stretch="Fill"
-                                                          StrokeEndLineCap="Round" StrokeStartLineCap="Round"
-                                                          StrokeThickness="2" />
-                                    </Grid>
-                                </ToggleButton>
-                                <ToggleButton IsChecked="{Binding InGame, Mode=TwoWay}"
-                                                          ToolTip="In game"
-                                                          IsEnabled="{Binding Active}">
-                                    <Path Data="{StaticResource Svg.Gamepad}" />
-                                </ToggleButton>
-                            </StackPanel>
-
-                            <!--<ItemsControl ItemsSource="{Binding BlacklistedClasses}"
-                                                      IsEnabled="{Binding Active}" />
-                                        <ItemsControl ItemsSource="{Binding BlacklistedBosses}"
-                                                      IsEnabled="{Binding Active}" />-->
-                            <StackPanel VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Grid.Column="1"
-                                        Margin="6 2">
                                 <TextBlock Foreground="#9fff"
                                            Text="{Binding Type}"
-                                           HorizontalAlignment="Center"
+                                           FontSize="10"
+                                           Margin="0 0 8 0" />
+                                <TextBlock Foreground="#7fff"
+                                           Text="{Binding StatusText}"
+                                           FontSize="10"
+                                           Margin="0 0 8 0" />
+                                <TextBlock Foreground="#7fff"
+                                           Text="{Binding DeliverySummary}"
                                            FontSize="10" />
-                                <TextBlock Foreground="#cfff"
-                                           Text="{Binding Summary}"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"
-                                           TextWrapping="Wrap"
-                                           MaxWidth="430" />
                             </StackPanel>
-                            <settings:ValueSetting SettingName="Priority"
-                                                               Grid.Column="2"
-                                                               Value="{Binding Priority, Mode=TwoWay}"
-                                                               UseSpinner="True"
-                                                               UseMin="True" Min="0"
-                                                               IsEnabled="{Binding Active}" />
+                            <TextBlock Grid.Row="1"
+                                       Foreground="#dfff"
+                                       Text="{Binding Summary}"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="CharacterEllipsis"
+                                       MaxHeight="36" />
                         </Grid>
-                    </Border>
-                    <ContentControl Content="{Binding}" 
-                                                Margin="0 2 0 0"
-                                                ContentTemplateSelector="{StaticResource EventTemplateSelector}" />
-                    <Separator Width="Auto" Margin="-5 2" Opacity=".5" />
-
-                    <ItemsControl ItemsSource="{Binding Actions}" IsEnabled="{Binding Active}" Margin="0" ItemTemplate="{StaticResource ActionTemplate}"/>
-                </StackPanel>
-            </Border>
+                        <settings:ValueSetting SettingName="Priority"
+                                               Grid.Column="2"
+                                               Value="{Binding Priority, Mode=TwoWay}"
+                                               UseSpinner="True"
+                                               UseMin="True"
+                                               Min="0"
+                                               IsEnabled="{Binding Active}" />
+                    </Grid>
+                </Expander.Header>
+                <Border Padding="8 6 8 8" BorderBrush="#1fff" BorderThickness="0 1 0 0">
+                    <StackPanel>
+                        <TextBlock Text="Trigger"
+                                   Foreground="#9fff"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0 0 0 2" />
+                        <ContentControl Content="{Binding}"
+                                        Margin="0 0 0 4"
+                                        ContentTemplateSelector="{StaticResource EventTemplateSelector}" />
+                        <Separator Width="Auto" Margin="-4 4" Opacity=".5" />
+                        <TextBlock Text="Delivery"
+                                   Foreground="#9fff"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0 0 0 2" />
+                        <ItemsControl ItemsSource="{Binding Actions}"
+                                      IsEnabled="{Binding Active}"
+                                      Margin="0"
+                                      ItemTemplate="{StaticResource ActionTemplate}" />
+                    </StackPanel>
+                </Border>
+            </Expander>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -559,22 +581,28 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Search"
                            Foreground="#9fff"
                            VerticalAlignment="Center"
                            Margin="0 0 8 0" />
                 <TextBox Grid.Column="1"
-                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=200}"
                          MinWidth="280"
-                         Height="24"
+                         Height="28"
                          VerticalContentAlignment="Center"
                          Foreground="#cfff"
                          Background="#14000000"
                          BorderBrush="#2fff"
                          CaretBrush="White"
-                         Padding="6 0" />
-                <CheckBox Grid.Column="2"
+                         Padding="8 0" />
+                <TextBlock Grid.Column="2"
+                           Text="{Binding ResultSummary}"
+                           VerticalAlignment="Center"
+                           Foreground="#7fff"
+                           Margin="12 0 0 0" />
+                <CheckBox Grid.Column="3"
                           Content="Active only"
                           IsChecked="{Binding ShowActiveOnly, Mode=TwoWay}"
                           VerticalAlignment="Center"
@@ -582,10 +610,52 @@
                           Margin="12 0 0 0" />
             </Grid>
         </Border>
-        <ScrollViewer Grid.Row="2" Margin="5 5 0 5" UseLayoutRounding="True">
-            <ItemsControl HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                          ItemsSource="{Binding EventsView}" ScrollViewer.CanContentScroll="False"
-                          ItemTemplate="{StaticResource EventTemplate}"/>
-        </ScrollViewer>
+        <Grid Grid.Row="2" Margin="5 5 0 5" UseLayoutRounding="True">
+            <ListBox ItemsSource="{Binding VisibleEvents}"
+                     ItemTemplate="{StaticResource EventTemplate}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     ScrollViewer.CanContentScroll="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     VirtualizingPanel.IsVirtualizing="True"
+                     VirtualizingPanel.VirtualizationMode="Recycling"
+                     VirtualizingPanel.ScrollUnit="Pixel">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <Border Background="#cc1e2529"
+                    BorderBrush="#2fff"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="24"
+                    ToolTip="No events match"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding HasNoResults, Converter={converters:BoolToVisibility}}">
+                <TextBlock Text="{Binding EmptySearchMessage}"
+                           Foreground="#cfff"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           MaxWidth="460" />
+            </Border>
+        </Grid>
     </Grid>
 </Window>

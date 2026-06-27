@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -122,11 +123,22 @@ namespace DamageMeter
 
     public class TSPropertyChanged : INotifyPropertyChanged
     {
+        private readonly Dispatcher _dispatcher;
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public TSPropertyChanged() : this(Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher)
+        {
+        }
+
+        protected TSPropertyChanged(Dispatcher dispatcher)
+        {
+            _dispatcher = dispatcher ?? Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        }
 
         protected void NotifyPropertyChanged([CallerMemberName] string v = null)
         {
-            Application.Current.Dispatcher.InvokeIfRequired(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v)), DispatcherPriority.DataBind);
+            _dispatcher.InvokeIfRequired(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v)), DispatcherPriority.DataBind);
         }
 
         public void NotifyPropertyChangedEx(string v)
@@ -140,9 +152,13 @@ namespace DamageMeter
         private readonly Dispatcher _dispatcher;
         private readonly ReaderWriterLockSlim _lock;
 
-        public SynchronizedObservableCollection()
+        public SynchronizedObservableCollection() : this(Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher)
         {
-            _dispatcher = Application.Current.Dispatcher;
+        }
+
+        public SynchronizedObservableCollection(Dispatcher dispatcher)
+        {
+            _dispatcher = dispatcher ?? Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
             _lock = new ReaderWriterLockSlim();
         }
 
@@ -198,6 +214,26 @@ namespace DamageMeter
             {
                 _lock.EnterWriteLock();
                 try { base.SetItem(index, item); }
+                finally { _lock.ExitWriteLock(); }
+            }, DispatcherPriority.DataBind);
+        }
+
+        public void ReplaceWith(IEnumerable<T> items)
+        {
+            _dispatcher.InvokeIfRequired(() =>
+            {
+                _lock.EnterWriteLock();
+                try
+                {
+                    Items.Clear();
+                    foreach (var item in items)
+                    {
+                        Items.Add(item);
+                    }
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
+                    OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                }
                 finally { _lock.ExitWriteLock(); }
             }, DispatcherPriority.DataBind);
         }

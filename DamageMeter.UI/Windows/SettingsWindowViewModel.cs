@@ -1057,7 +1057,7 @@ namespace DamageMeter.UI.Windows
                     case "border": BorderColor = WindowData.DefaultBorderColor; break;
                 }
             });
-            OpenEventEditorCommand = new RelayCommand(_ => new EventsEditorWindow().ShowDialog());
+            OpenEventEditorCommand = new RelayCommand(_ => EventsEditorService.Show());
 
             var count = 0;
             Hotkeys.Copy.ForEach(h => CopyKeys.Add(new CopyKeyVM($"DPS paste {++count}", h)));
