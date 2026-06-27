@@ -1,4 +1,5 @@
-﻿using Tera.Game;
+using System.Windows.Threading;
+using Tera.Game;
 
 namespace DamageMeter.UI
 {
@@ -53,14 +54,14 @@ namespace DamageMeter.UI
             }
         }
 
-        public AbnormalityVM(int id, int stacks)
+        public AbnormalityVM(int id, int stacks) : base(Dispatcher.CurrentDispatcher)
         {
             IsCategory = false;
             _abnormalityId = id;
             _stacks = stacks;
         }
 
-        public AbnormalityVM(HotDot.Types category)
+        public AbnormalityVM(HotDot.Types category) : base(Dispatcher.CurrentDispatcher)
         {
             IsCategory = true;
             Category = category;

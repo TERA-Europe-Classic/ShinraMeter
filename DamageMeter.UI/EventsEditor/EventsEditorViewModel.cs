@@ -5,13 +5,15 @@ using Data.Events.Abnormality;
 using Nostrum;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Tera.Game;
 
 namespace DamageMeter.UI
@@ -59,14 +61,19 @@ namespace DamageMeter.UI
         public static Color SelfColor => BasicTeraData.Instance.WindowData.PlayerColor;
 
         private readonly EventsData _data;
-        private string _searchText;
+        private readonly Dispatcher _dispatcher;
+        private readonly List<BaseEventViewModel> _allEvents;
+        private CancellationTokenSource? _filterCancellation;
+        private int _filterVersion;
+        private string _searchText = string.Empty;
         private bool _showActiveOnly;
+        private int _visibleEventCount;
 
         public ICommand LoadCommand { get; }
         public ICommand ApplyCommand { get; }
 
         public SynchronizedObservableCollection<BaseEventViewModel> CommonEvents { get; }
-        public ICollectionView EventsView { get; }
+        public SynchronizedObservableCollection<BaseEventViewModel> VisibleEvents { get; }
 
         public string SearchText
         {
@@ -76,7 +83,7 @@ namespace DamageMeter.UI
                 if (_searchText == value) return;
                 _searchText = value;
                 NotifyPropertyChanged();
-                EventsView.Refresh();
+                RefreshEventsView();
             }
         }
 
@@ -88,17 +95,48 @@ namespace DamageMeter.UI
                 if (_showActiveOnly == value) return;
                 _showActiveOnly = value;
                 NotifyPropertyChanged();
-                EventsView.Refresh();
+                RefreshEventsView();
             }
         }
 
-        public EventsEditorViewModel()
+        public int VisibleEventCount
         {
-            _data = BasicTeraData.Instance.EventsData;
+            get => _visibleEventCount;
+            private set
+            {
+                if (_visibleEventCount == value) return;
+                _visibleEventCount = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(HasNoResults));
+                NotifyPropertyChanged(nameof(ResultSummary));
+            }
+        }
 
-            CommonEvents = new SynchronizedObservableCollection<BaseEventViewModel>();
-            EventsView = CollectionViewSource.GetDefaultView(CommonEvents);
-            EventsView.Filter = FilterEvent;
+        public bool HasNoResults => VisibleEventCount == 0;
+
+        public string ResultSummary => $"{VisibleEventCount} of {CommonEvents.Count} events";
+
+        public string EmptySearchMessage
+        {
+            get
+            {
+                if (SearchText?.IndexOf("nostrum", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                {
+                    return "No events match. Nostrum alerts were removed from the Classic+ preset because they do not apply to this version.";
+                }
+
+                return "No events match. Clear search or turn off Active only.";
+            }
+        }
+
+        public EventsEditorViewModel() : base(Dispatcher.CurrentDispatcher)
+        {
+            _dispatcher = Dispatcher.CurrentDispatcher;
+            _data = BasicTeraData.Instance.EventsData;
+            _allEvents = new List<BaseEventViewModel>();
+
+            CommonEvents = new SynchronizedObservableCollection<BaseEventViewModel>(_dispatcher);
+            VisibleEvents = new SynchronizedObservableCollection<BaseEventViewModel>(_dispatcher);
 
             LoadCommand = new RelayCommand(_ => Load());
             ApplyCommand = new RelayCommand(_ => Apply());
@@ -114,6 +152,8 @@ namespace DamageMeter.UI
         private void Load()
         {
             CommonEvents.Clear();
+            VisibleEvents.Clear();
+            _allEvents.Clear();
 
             // load data from model
             foreach (var (commonEvent, actions) in _data.EventsCommon)
@@ -126,6 +166,8 @@ namespace DamageMeter.UI
                     _ => throw new ArgumentOutOfRangeException()
                 });
             }
+
+            RefreshEventsView();
         }
 
         private void AddEvent(BaseEventViewModel ev)
@@ -134,21 +176,59 @@ namespace DamageMeter.UI
             {
                 if (args.PropertyName == nameof(BaseEventViewModel.Active) || args.PropertyName == nameof(BaseEventViewModel.SearchText))
                 {
-                    EventsView.Refresh();
+                    RefreshEventsView();
                 }
             };
+            _allEvents.Add(ev);
             CommonEvents.Add(ev);
         }
 
-        private bool FilterEvent(object item)
+        private static bool FilterEvent(BaseEventViewModel ev, bool showActiveOnly, string searchText)
         {
-            if (item is not BaseEventViewModel ev) return false;
-            if (ShowActiveOnly && !ev.Active) return false;
-            if (string.IsNullOrWhiteSpace(SearchText)) return true;
+            if (showActiveOnly && !ev.Active) return false;
+            if (string.IsNullOrWhiteSpace(searchText)) return true;
             return CultureInfo.InvariantCulture.CompareInfo.IndexOf(
                 ev.SearchText ?? string.Empty,
-                SearchText,
+                searchText,
                 CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace) >= 0;
+        }
+
+        private void RefreshEventsView()
+        {
+            _filterCancellation?.Cancel();
+            var cancellation = new CancellationTokenSource();
+            _filterCancellation = cancellation;
+
+            var version = ++_filterVersion;
+            var searchText = SearchText;
+            var showActiveOnly = ShowActiveOnly;
+            var events = _allEvents.ToArray();
+
+            Task.Run(() =>
+            {
+                cancellation.Token.ThrowIfCancellationRequested();
+                return events.Where(ev => FilterEvent(ev, showActiveOnly, searchText)).ToList();
+            }, cancellation.Token).ContinueWith(task =>
+            {
+                if (task.IsCanceled || task.IsFaulted) return;
+
+                _dispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (version != _filterVersion || cancellation.IsCancellationRequested) return;
+                    VisibleEvents.ReplaceWith(task.Result);
+                    RefreshEventCounts();
+                    NotifyPropertyChanged(nameof(EmptySearchMessage));
+                }), DispatcherPriority.Background);
+            }, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+
+            NotifyPropertyChanged(nameof(EmptySearchMessage));
+        }
+
+        private void RefreshEventCounts()
+        {
+            VisibleEventCount = VisibleEvents.Count;
+            NotifyPropertyChanged(nameof(ResultSummary));
+            NotifyPropertyChanged(nameof(HasNoResults));
         }
     }
 

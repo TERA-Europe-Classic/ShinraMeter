@@ -124,6 +124,69 @@ public class SmokeTests
     }
 
     [Fact]
+    public void EventsEditor_UsesVirtualizedSearchableList()
+    {
+        var xamlSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorWindow.xaml"));
+        var windowSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorWindow.xaml.cs"));
+
+        Assert.Contains("VirtualizingPanel.IsVirtualizing=\"True\"", xamlSource);
+        Assert.Contains("VirtualizingPanel.VirtualizationMode=\"Recycling\"", xamlSource);
+        Assert.Contains("ScrollViewer.CanContentScroll=\"True\"", xamlSource);
+        Assert.Contains("ItemsSource=\"{Binding VisibleEvents}\"", xamlSource);
+        Assert.Contains("Delay=200", xamlSource);
+        Assert.Contains("No events match", xamlSource);
+        Assert.Contains("WindowInteropHelper", windowSource);
+        Assert.Contains("Topmost =", windowSource);
+    }
+
+    [Fact]
+    public void EventsEditor_SearchIndexesNotificationAndSoundText()
+    {
+        var actionSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "ActionVM.cs"));
+        var eventSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "BaseEventViewModel.cs"));
+
+        Assert.Contains("public string SearchText", actionSource);
+        Assert.Contains("BalloonTitle", actionSource);
+        Assert.Contains("BalloonText", actionSource);
+        Assert.Contains("TtsDataVM tts", actionSource);
+        Assert.Contains("Actions.Select(a => a.SearchText)", eventSource);
+    }
+
+    [Fact]
+    public void EventsEditor_FiltersResultsOffTheEditorDispatcher()
+    {
+        var editorSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorViewModel.cs"));
+        var utilsSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "Utils.cs"));
+
+        Assert.Contains("Task.Run", editorSource);
+        Assert.Contains("CancellationTokenSource", editorSource);
+        Assert.Contains("VisibleEvents.ReplaceWith", editorSource);
+        Assert.DoesNotContain("CollectionViewSource.GetDefaultView", editorSource);
+        Assert.Contains("public void ReplaceWith(IEnumerable<T> items)", utilsSource);
+        Assert.Contains("NotifyCollectionChangedAction.Reset", utilsSource);
+    }
+
+    [Fact]
+    public void EventsEditor_RunsOnDedicatedDispatcherThread()
+    {
+        var settingsSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindowViewModel.cs"));
+        var serviceSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorService.cs"));
+        var baseEventSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "BaseEventViewModel.cs"));
+        var baseSoundSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "BaseSoundVM.cs"));
+        var utilsSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "Utils.cs"));
+
+        Assert.Contains("EventsEditorService.Show", settingsSource);
+        Assert.Contains("SetApartmentState(ApartmentState.STA)", serviceSource);
+        Assert.Contains("Dispatcher.Run()", serviceSource);
+        Assert.Contains("BeginInvokeShutdown", serviceSource);
+        Assert.Contains("WindowInteropHelper", serviceSource);
+        Assert.Contains("base(Dispatcher.CurrentDispatcher)", baseEventSource);
+        Assert.Contains("new SynchronizedObservableCollection<ActionVM>(dispatcher)", baseEventSource);
+        Assert.Contains("base(Dispatcher.CurrentDispatcher)", baseSoundSource);
+        Assert.Contains("TSPropertyChanged(Dispatcher dispatcher)", utilsSource);
+    }
+
+    [Fact]
     public void TtsSettingsTab_OpensPerAlertTtsEditor()
     {
         var settingsSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindow.xaml"));

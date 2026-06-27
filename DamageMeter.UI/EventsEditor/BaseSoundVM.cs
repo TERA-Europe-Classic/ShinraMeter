@@ -1,8 +1,10 @@
-﻿namespace DamageMeter.UI
+using System.Windows.Threading;
+
+namespace DamageMeter.UI
 {
     public class BaseSoundVM : TSPropertyChanged
     {
-        public BaseSoundVM()
+        public BaseSoundVM() : base(Dispatcher.CurrentDispatcher)
         {
         }
     }

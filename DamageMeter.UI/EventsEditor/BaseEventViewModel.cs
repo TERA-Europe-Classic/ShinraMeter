@@ -2,6 +2,8 @@
 using Data.Actions.Notify;
 using Data.Events;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Threading;
 using Tera.Game;
 
 namespace DamageMeter.UI
@@ -11,8 +13,10 @@ namespace DamageMeter.UI
         protected readonly Event Event;
         private bool _active;
         private bool _ingame;
+        private bool _isExpanded;
         private int _priority;
         private bool _outOfCombat;
+        private string _searchText = string.Empty;
 
         public bool Active
         {
@@ -23,7 +27,8 @@ namespace DamageMeter.UI
                 _active = value;
                 Event.Active = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SearchText));
+                NotifyPropertyChanged(nameof(StatusText));
+                RefreshSearchText();
             }
         }
 
@@ -36,7 +41,8 @@ namespace DamageMeter.UI
                 _ingame = value;
                 Event.InGame = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SearchText));
+                NotifyPropertyChanged(nameof(StatusText));
+                RefreshSearchText();
             }
         }
 
@@ -49,7 +55,8 @@ namespace DamageMeter.UI
                 _outOfCombat = value;
                 Event.OutOfCombat = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SearchText));
+                NotifyPropertyChanged(nameof(StatusText));
+                RefreshSearchText();
             }
         }
 
@@ -62,24 +69,38 @@ namespace DamageMeter.UI
                 _priority = value;
                 Event.Priority = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(SearchText));
+                RefreshSearchText();
             }
         }
 
         public virtual string Type => "Event";
         public virtual string Summary => Type;
-        public virtual string SearchText => $"{Type} {Summary} {(Active ? "active" : "inactive")} {(InGame ? "ingame" : "outgame")} priority {Priority}";
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set
+            {
+                if (_isExpanded == value) return;
+                _isExpanded = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string StatusText => $"{(Active ? "Enabled" : "Off")} / {(InGame ? "In game" : "Out of game")}{(OutOfCombat ? " / OOC" : "")}";
+        public string DeliverySummary => Actions.Count == 0 ? "No actions" : string.Join(", ", Actions.Select(a => a.DeliverySummary));
+        public string SearchText => _searchText;
 
         public SynchronizedObservableCollection<BlackListItemVM> BlacklistedBosses { get; }
         public SynchronizedObservableCollection<PlayerClass> BlacklistedClasses { get; }
         public SynchronizedObservableCollection<ActionVM> Actions { get; }
 
-        public BaseEventViewModel(Event ev, List<Action> act)
+        public BaseEventViewModel(Event ev, List<Action> act) : base(Dispatcher.CurrentDispatcher)
         {
             Event = ev;
-            BlacklistedBosses = new SynchronizedObservableCollection<BlackListItemVM>();
-            BlacklistedClasses = new SynchronizedObservableCollection<PlayerClass>();
-            Actions = new SynchronizedObservableCollection<ActionVM>();
+            var dispatcher = Dispatcher.CurrentDispatcher;
+            BlacklistedBosses = new SynchronizedObservableCollection<BlackListItemVM>(dispatcher);
+            BlacklistedClasses = new SynchronizedObservableCollection<PlayerClass>(dispatcher);
+            Actions = new SynchronizedObservableCollection<ActionVM>(dispatcher);
             _active = ev.Active;
             _ingame = ev.InGame;
             _priority = ev.Priority;
@@ -90,8 +111,28 @@ namespace DamageMeter.UI
             act.ForEach(action =>
             {
                 if (action is not NotifyAction na) return;
-                Actions.Add(new ActionVM(na));
+                var actionVm = new ActionVM(na);
+                actionVm.PropertyChanged += (_, args) =>
+                {
+                    if (args.PropertyName == nameof(ActionVM.SearchText) || args.PropertyName == nameof(ActionVM.DeliverySummary))
+                    {
+                        NotifyPropertyChanged(nameof(DeliverySummary));
+                        RefreshSearchText();
+                    }
+                };
+                Actions.Add(actionVm);
             });
+        }
+
+        protected virtual string BuildSearchText()
+        {
+            return $"{Type} {Summary} {(Active ? "active enabled on" : "inactive disabled off")} {(InGame ? "ingame in game" : "outgame out of game")} {(OutOfCombat ? "out of combat ooc" : "")} priority {Priority} {DeliverySummary} {string.Join(" ", Actions.Select(a => a.SearchText))}";
+        }
+
+        protected void RefreshSearchText()
+        {
+            _searchText = BuildSearchText();
+            NotifyPropertyChanged(nameof(SearchText));
         }
     }
 }

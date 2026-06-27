@@ -1,4 +1,6 @@
-﻿namespace DamageMeter.UI
+using System.Windows.Threading;
+
+namespace DamageMeter.UI
 {
     public class BlackListItemVM : TSPropertyChanged
     {
@@ -27,7 +29,7 @@
             }
         }
 
-        public BlackListItemVM(int areaId, int bossId)
+        public BlackListItemVM(int areaId, int bossId) : base(Dispatcher.CurrentDispatcher)
         {
             _areaId = areaId;
             _bossId = bossId;

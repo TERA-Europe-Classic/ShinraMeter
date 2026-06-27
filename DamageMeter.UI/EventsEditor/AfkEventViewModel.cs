@@ -11,6 +11,7 @@ namespace DamageMeter.UI
 
         public AfkEventViewModel(CommonAFKEvent ev, List<Action> act) : base(ev, act)
         {
+            RefreshSearchText();
         }
     }
 }

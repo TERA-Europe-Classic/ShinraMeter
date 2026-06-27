@@ -1,6 +1,7 @@
 ﻿using Data.Actions.Notify.SoundElements;
 using System.Windows.Input;
 using Nostrum;
+using System.Windows.Threading;
 
 namespace DamageMeter.UI
 {
@@ -14,7 +15,7 @@ namespace DamageMeter.UI
         public BeepsDataVM(Beeps beeps)
         {
             _beeps = beeps;
-            Beeps = new SynchronizedObservableCollection<BeepVM>();
+            Beeps = new SynchronizedObservableCollection<BeepVM>(Dispatcher.CurrentDispatcher);
             BeepVM.DeleteBeepEvent += OnDeleteBeepEvent;
 
             beeps.BeepList.ForEach(b => Beeps.Add(new BeepVM(b)));
