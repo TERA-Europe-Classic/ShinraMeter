@@ -1,3 +1,5 @@
+using Data;
+using System.Linq;
 using System.Windows.Threading;
 using Tera.Game;
 
@@ -18,6 +20,7 @@ namespace DamageMeter.UI
                 if (_abnormalityId == value) return;
                 _abnormalityId = value;
                 NotifyPropertyChanged();
+                NotifyDisplayChanged();
             }
         }
 
@@ -29,6 +32,7 @@ namespace DamageMeter.UI
                 if (_stacks == value) return;
                 _stacks = value;
                 NotifyPropertyChanged();
+                NotifyDisplayChanged();
             }
         }
 
@@ -40,6 +44,7 @@ namespace DamageMeter.UI
                 if (_isCategory == value) return;
                 _isCategory = value;
                 NotifyPropertyChanged();
+                NotifyDisplayChanged();
             }
         }
 
@@ -51,6 +56,39 @@ namespace DamageMeter.UI
                 if (_category == value) return;
                 _category = value;
                 NotifyPropertyChanged();
+                NotifyDisplayChanged();
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                if (IsCategory) { return $"Category: {Category}"; }
+
+                var hotDot = BasicTeraData.Instance.HotDotDatabase?.Get(AbnormalityId);
+                return string.IsNullOrWhiteSpace(hotDot?.Name)
+                    ? $"Unknown abnormality ({AbnormalityId})"
+                    : $"{hotDot.Name} ({AbnormalityId})";
+            }
+        }
+
+        public string DetailsText
+        {
+            get
+            {
+                if (IsCategory) { return $"Category trigger: {Category}"; }
+
+                var hotDot = BasicTeraData.Instance.HotDotDatabase?.Get(AbnormalityId);
+                var stackText = Stacks > 0 ? $"Stack: {Stacks}" : "Any stack";
+                if (hotDot == null)
+                {
+                    return $"ID: {AbnormalityId}\n{stackText}\nNot found in the current abnormality database.";
+                }
+
+                var effects = string.Join(", ", hotDot.Effects.Select(e => e.Type.ToString()));
+                var tooltip = string.IsNullOrWhiteSpace(hotDot.Tooltip) ? "" : $"\n{hotDot.Tooltip}";
+                return $"ID: {AbnormalityId}\n{stackText}\nType: {hotDot.AbType}\nEffects: {effects}{tooltip}";
             }
         }
 
@@ -65,6 +103,12 @@ namespace DamageMeter.UI
         {
             IsCategory = true;
             Category = category;
+        }
+
+        private void NotifyDisplayChanged()
+        {
+            NotifyPropertyChanged(nameof(DisplayName));
+            NotifyPropertyChanged(nameof(DetailsText));
         }
     }
 }

@@ -315,6 +315,42 @@ public class SmokeTests
     }
 
     [Fact]
+    public void EventsEditor_ExplainsAbnormalityIdsInExpandedRows()
+    {
+        var abnormalitySource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "AbnormalityVM.cs"));
+        var eventSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "AbnormalityEventViewModel.cs"));
+        var xamlSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorWindow.xaml"));
+
+        Assert.Contains("public string DisplayName", abnormalitySource);
+        Assert.Contains("public string DetailsText", abnormalitySource);
+        Assert.Contains("HotDotDatabase?.Get(AbnormalityId)", abnormalitySource);
+        Assert.Contains("item.PropertyChanged", eventSource);
+        Assert.Contains("Text=\"{Binding DisplayName}\"", xamlSource);
+        Assert.Contains("ToolTip=\"{Binding DetailsText}\"", xamlSource);
+    }
+
+    [Fact]
+    public void EventsEditor_CanAddRemoveAndResetCommonEvents()
+    {
+        var editorSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorViewModel.cs"));
+        var dataSource = File.ReadAllText(ProjectPath("Data", "EventsData.cs"));
+        var xamlSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "EventsEditor", "EventsEditorWindow.xaml"));
+
+        Assert.Contains("AddAbnormalityEventCommand", editorSource);
+        Assert.Contains("RemoveEventCommand", editorSource);
+        Assert.Contains("ResetToDefaultCommand", editorSource);
+        Assert.Contains("new AbnormalityEvent(", editorSource);
+        Assert.Contains("new NotifyAction(null, null)", editorSource);
+        Assert.Contains("public void AddCommonEvent(Event ev, List<Action> actions)", dataSource);
+        Assert.Contains("public void RemoveCommonEvent(Event ev)", dataSource);
+        Assert.Contains("public void ResetCommonToDefault()", dataSource);
+        Assert.Contains("LP.events_common", dataSource);
+        Assert.Contains("Command=\"{Binding AddAbnormalityEventCommand}\"", xamlSource);
+        Assert.Contains("Command=\"{Binding DataContext.RemoveEventCommand", xamlSource);
+        Assert.Contains("Command=\"{Binding ResetToDefaultCommand}\"", xamlSource);
+    }
+
+    [Fact]
     public void TtsSettingsTab_OpensPerAlertTtsEditor()
     {
         var settingsSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindow.xaml"));

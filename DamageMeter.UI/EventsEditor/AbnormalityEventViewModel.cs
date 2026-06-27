@@ -2,6 +2,7 @@ using Data;
 using Data.Actions;
 using Data.Events.Abnormality;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Threading;
 
 namespace DamageMeter.UI
@@ -9,7 +10,7 @@ namespace DamageMeter.UI
     public class AbnormalityEventViewModel : BaseEventViewModel
     {
         private readonly AbnormalityEvent _event;
-        private readonly List<string> _eventNames;
+        private List<string> _eventNames;
 
         public SynchronizedObservableCollection<AbnormalityVM> Abnormalities { get; }
 
@@ -88,15 +89,37 @@ namespace DamageMeter.UI
 
             foreach (var (abId, stacks) in ev.Ids)
             {
-                Abnormalities.Add(new AbnormalityVM(abId, stacks));
+                AddAbnormality(new AbnormalityVM(abId, stacks));
             }
 
             foreach (var type in ev.Types)
             {
-                Abnormalities.Add(new AbnormalityVM(type));
+                AddAbnormality(new AbnormalityVM(type));
             }
 
             _eventNames = new List<string>(EventNames());
+            RefreshSearchText();
+        }
+
+        private void AddAbnormality(AbnormalityVM item)
+        {
+            item.PropertyChanged += (_, _) => SyncAbnormalitiesFromEditor();
+            Abnormalities.Add(item);
+        }
+
+        private void SyncAbnormalitiesFromEditor()
+        {
+            _event.Ids = Abnormalities
+                .Where(a => !a.IsCategory && a.AbnormalityId > 0)
+                .GroupBy(a => a.AbnormalityId)
+                .ToDictionary(g => g.Key, g => g.Last().Stacks);
+            _event.Types = Abnormalities
+                .Where(a => a.IsCategory)
+                .Select(a => a.Category)
+                .Distinct()
+                .ToList();
+            _eventNames = new List<string>(EventNames());
+            NotifyPropertyChanged(nameof(Summary));
             RefreshSearchText();
         }
 

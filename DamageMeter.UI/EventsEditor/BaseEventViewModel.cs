@@ -89,6 +89,7 @@ namespace DamageMeter.UI
         public string StatusText => $"{(Active ? "Enabled" : "Off")} / {(InGame ? "In game" : "Out of game")}{(OutOfCombat ? " / OOC" : "")}";
         public string DeliverySummary => Actions.Count == 0 ? "No actions" : string.Join(", ", Actions.Select(a => a.DeliverySummary));
         public string SearchText => _searchText;
+        public Event SourceEvent => Event;
 
         public SynchronizedObservableCollection<BlackListItemVM> BlacklistedBosses { get; }
         public SynchronizedObservableCollection<PlayerClass> BlacklistedClasses { get; }

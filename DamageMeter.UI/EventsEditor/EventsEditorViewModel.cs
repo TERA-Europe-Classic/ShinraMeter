@@ -1,4 +1,5 @@
 using Data;
+using Data.Actions.Notify;
 using Data.Actions.Notify.SoundElements;
 using Data.Events;
 using Data.Events.Abnormality;
@@ -68,9 +69,14 @@ namespace DamageMeter.UI
         private string _searchText = string.Empty;
         private bool _showActiveOnly;
         private int _visibleEventCount;
+        private string _newAbnormalityId = string.Empty;
+        private int _newAbnormalityStacks;
 
         public ICommand LoadCommand { get; }
         public ICommand ApplyCommand { get; }
+        public ICommand AddAbnormalityEventCommand { get; }
+        public ICommand RemoveEventCommand { get; }
+        public ICommand ResetToDefaultCommand { get; }
 
         public SynchronizedObservableCollection<BaseEventViewModel> CommonEvents { get; }
         public SynchronizedObservableCollection<BaseEventViewModel> VisibleEvents { get; }
@@ -129,6 +135,28 @@ namespace DamageMeter.UI
             }
         }
 
+        public string NewAbnormalityId
+        {
+            get => _newAbnormalityId;
+            set
+            {
+                if (_newAbnormalityId == value) return;
+                _newAbnormalityId = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int NewAbnormalityStacks
+        {
+            get => _newAbnormalityStacks;
+            set
+            {
+                if (_newAbnormalityStacks == value) return;
+                _newAbnormalityStacks = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public EventsEditorViewModel() : base(Dispatcher.CurrentDispatcher)
         {
             _dispatcher = Dispatcher.CurrentDispatcher;
@@ -140,6 +168,9 @@ namespace DamageMeter.UI
 
             LoadCommand = new RelayCommand(_ => Load());
             ApplyCommand = new RelayCommand(_ => Apply());
+            AddAbnormalityEventCommand = new RelayCommand(_ => AddAbnormalityEvent());
+            RemoveEventCommand = new RelayCommand(ev => RemoveEvent(ev as BaseEventViewModel));
+            ResetToDefaultCommand = new RelayCommand(_ => ResetToDefault());
 
             Load();
         }
@@ -168,6 +199,54 @@ namespace DamageMeter.UI
             }
 
             RefreshEventsView();
+        }
+
+        private void AddAbnormalityEvent()
+        {
+            if (!int.TryParse(NewAbnormalityId, NumberStyles.Integer, CultureInfo.InvariantCulture, out var id) || id <= 0)
+            {
+                return;
+            }
+
+            var abnormalityEvent = new AbnormalityEvent(
+                true,
+                false,
+                5,
+                new List<BlackListItem>(),
+                new Dictionary<int, int> { { id, Math.Max(0, NewAbnormalityStacks) } },
+                new List<HotDot.Types>(),
+                AbnormalityTargetType.Self,
+                AbnormalityTriggerType.Added,
+                0,
+                0,
+                false,
+                new List<PlayerClass>());
+            var actions = new List<Data.Actions.Action> { new NotifyAction(null, null) };
+
+            _data.AddCommonEvent(abnormalityEvent, actions);
+            var vm = new AbnormalityEventViewModel(abnormalityEvent, actions) { IsExpanded = true };
+            AddEvent(vm);
+
+            NewAbnormalityId = string.Empty;
+            NewAbnormalityStacks = 0;
+            RefreshEventsView();
+        }
+
+        private void RemoveEvent(BaseEventViewModel ev)
+        {
+            if (ev == null) { return; }
+
+            _data.RemoveCommonEvent(ev.SourceEvent);
+            _allEvents.Remove(ev);
+            CommonEvents.Remove(ev);
+            VisibleEvents.Remove(ev);
+            RefreshEventCounts();
+        }
+
+        private void ResetToDefault()
+        {
+            _data.ResetCommonToDefault();
+            Load();
         }
 
         private void AddEvent(BaseEventViewModel ev)

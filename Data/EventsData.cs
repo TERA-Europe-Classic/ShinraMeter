@@ -172,6 +172,49 @@ namespace Data
             File.WriteAllText(file, xml.Declaration + Environment.NewLine + xml, Encoding.UTF8);
         }
 
+        public void AddCommonEvent(Event ev, List<Action> actions)
+        {
+            EventsCommon.Add(ev, actions);
+            if (ev.Active)
+            {
+                AssociateEvent(new Dictionary<Event, List<Action>> { { ev, actions } });
+            }
+        }
+
+        public void RemoveCommonEvent(Event ev)
+        {
+            if (!EventsCommon.Remove(ev)) { return; }
+            Events.Remove(ev);
+            Cooldown.Remove(ev);
+            if (ev is AbnormalityEvent abnormality)
+            {
+                MissingAbnormalities.Remove(abnormality);
+                AddedRemovedAbnormalities.Remove(abnormality);
+            }
+            if (AFK?.Item1 == ev) { AFK = null; }
+        }
+
+        public void ResetCommonToDefault()
+        {
+            var eventsDir = Path.Combine(_basicData.ResourceDirectory, "config/events");
+            Directory.CreateDirectory(eventsDir);
+            var file = Path.Combine(eventsDir, "events-common.xml");
+            File.WriteAllText(file, LP.events_common, Encoding.UTF8);
+
+            EventsCommon.Clear();
+            MissingAbnormalities = new Dictionary<AbnormalityEvent, List<Action>>();
+            AddedRemovedAbnormalities = new Dictionary<AbnormalityEvent, List<Action>>();
+            Cooldown = new Dictionary<Event, List<Action>>();
+            Events = new Dictionary<Event, List<Action>>();
+            AFK = null;
+
+            var xml = XDocument.Parse(LP.events_common);
+            ParseAbnormalities(EventsCommon, xml);
+            ParseCooldown(EventsCommon, xml);
+            ParseCommonAFK(EventsCommon, xml);
+            AssociateEvent(EventsCommon);
+        }
+
         private XElement SerializeEvent(Event ev, List<Action> actions)
         {
             if (ev is CommonAFKEvent)
