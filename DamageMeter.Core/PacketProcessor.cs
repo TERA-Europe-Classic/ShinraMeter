@@ -405,14 +405,7 @@ namespace DamageMeter
                 var packetsWaiting = /*TeraSniffer.Instance*/Sniffer.Packets.Count;
                 if (packetsWaiting > 5000)
                 {
-                    if (!BasicTeraData.Instance.WindowData.IgnorePacketsThreshold)
-                    {
-                        Pause();
-                        RaisePause(true);
-                    }
-
                     Overloaded = true;
-
                 }
                 else
                 {

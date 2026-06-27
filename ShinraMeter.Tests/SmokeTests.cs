@@ -290,6 +290,24 @@ public class SmokeTests
         Assert.Contains("BasicTeraData.Instance.HotkeysData.Save()", appExitBody);
     }
 
+    [Fact]
+    public void PacketBacklog_DoesNotForceTooSlowPause()
+    {
+        var source = File.ReadAllText(ProjectPath("DamageMeter.Core", "PacketProcessor.cs"));
+        var overloadStart = source.IndexOf("if (packetsWaiting > 5000)", StringComparison.Ordinal);
+        var needPauseStart = source.IndexOf("if (NeedPause)", StringComparison.Ordinal);
+        Assert.True(overloadStart >= 0, "Packet backlog guard was not found.");
+        Assert.True(needPauseStart > overloadStart, "NeedPause guard should follow the packet backlog guard.");
+
+        var overloadBlock = source.Substring(
+            overloadStart,
+            needPauseStart - overloadStart
+        );
+
+        Assert.DoesNotContain("Pause();", overloadBlock);
+        Assert.DoesNotContain("RaisePause(true);", overloadBlock);
+    }
+
     private static string ProjectPath(params string[] parts)
     {
         var pathParts = new List<string>
