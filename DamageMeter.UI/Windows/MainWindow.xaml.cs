@@ -43,6 +43,7 @@ namespace DamageMeter.UI
             App.HudContainer.MainWindow = this;
 
             InitializeComponent();
+            App.InstallLauncherCloseMessageReceiver(this);
 
             Topmost = BasicTeraData.Instance.WindowData.Topmost;
             ShowInTaskbar = !BasicTeraData.Instance.WindowData.Topmost;

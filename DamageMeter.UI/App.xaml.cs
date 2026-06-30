@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,9 +25,19 @@ namespace DamageMeter.UI
     {
         private static Mutex _unique;
         private static bool _isNewInstance;
+        private const string LauncherCloseMessageName = "ShinraMeter.ClassicPlus.RequestClose";
+        private const uint MsgfltAdd = 1;
+        private static int _launcherCloseMessage;
+        private static bool _launcherCloseHookInstalled;
         public static SplashScreen SplashScreen;
         public static HudContainer HudContainer;
         public static Dispatcher MainDispatcher { get; private set; }
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern uint RegisterWindowMessage(string lpString);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool ChangeWindowMessageFilter(uint message, uint dwFlag);
 
         private static void GlobalUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
@@ -159,6 +170,34 @@ namespace DamageMeter.UI
             // UI control doing it before Excel exporter does it via analysis thread
             _ = ClassIcons.Instance;
 
+        }
+
+        internal static void InstallLauncherCloseMessageReceiver(Window window)
+        {
+            if (_launcherCloseHookInstalled) { return; }
+
+            var message = RegisterWindowMessage(LauncherCloseMessageName);
+            if (message == 0) { return; }
+
+            _launcherCloseMessage = unchecked((int)message);
+            ChangeWindowMessageFilter(message, MsgfltAdd);
+
+            var handle = new WindowInteropHelper(window).EnsureHandle();
+            var source = HwndSource.FromHwnd(handle);
+            if (source == null) { return; }
+
+            source.AddHook(LauncherCloseMessageHook);
+            _launcherCloseHookInstalled = true;
+        }
+
+        private static IntPtr LauncherCloseMessageHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg != _launcherCloseMessage) { return IntPtr.Zero; }
+            if (wParam != IntPtr.Zero && wParam.ToInt64() != Process.GetCurrentProcess().Id) { return IntPtr.Zero; }
+
+            handled = true;
+            MainDispatcher?.BeginInvoke(new Action(() => VerifyClose(true)));
+            return IntPtr.Zero;
         }
 
         private static void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)

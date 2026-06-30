@@ -390,6 +390,17 @@ public class SmokeTests
     }
 
     [Fact]
+    public void LauncherCloseMessageClosesShinraWithoutConfirmDialog()
+    {
+        var appSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "App.xaml.cs"));
+
+        Assert.Contains("ShinraMeter.ClassicPlus.RequestClose", appSource);
+        Assert.Contains("RegisterWindowMessage", appSource);
+        Assert.Contains("ChangeWindowMessageFilter", appSource);
+        Assert.Contains("VerifyClose(true)", appSource);
+    }
+
+    [Fact]
     public void PacketBacklog_DoesNotForceTooSlowPause()
     {
         var source = File.ReadAllText(ProjectPath("DamageMeter.Core", "PacketProcessor.cs"));
