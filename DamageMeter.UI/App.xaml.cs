@@ -27,8 +27,11 @@ namespace DamageMeter.UI
         private static bool _isNewInstance;
         private const string LauncherCloseMessageName = "ShinraMeter.ClassicPlus.RequestClose";
         private const uint MsgfltAdd = 1;
+        private const uint MsgfltAllow = 1;
+        private const int WsPopup = unchecked((int)0x80000000);
         private static int _launcherCloseMessage;
         private static bool _launcherCloseHookInstalled;
+        private static HwndSource _launcherCloseSource;
         public static SplashScreen SplashScreen;
         public static HudContainer HudContainer;
         public static Dispatcher MainDispatcher { get; private set; }
@@ -38,6 +41,9 @@ namespace DamageMeter.UI
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool ChangeWindowMessageFilter(uint message, uint dwFlag);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool ChangeWindowMessageFilterEx(IntPtr hWnd, uint message, uint action, IntPtr changeInfo);
 
         private static void GlobalUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
@@ -170,24 +176,48 @@ namespace DamageMeter.UI
             // UI control doing it before Excel exporter does it via analysis thread
             _ = ClassIcons.Instance;
 
+            InstallLauncherCloseMessageReceiver();
+
         }
 
-        internal static void InstallLauncherCloseMessageReceiver(Window window)
+        internal static void InstallLauncherCloseMessageReceiver()
         {
             if (_launcherCloseHookInstalled) { return; }
 
             var message = RegisterWindowMessage(LauncherCloseMessageName);
-            if (message == 0) { return; }
+            if (message == 0)
+            {
+                BasicTeraData.LogError("Classic+ launcher close receiver failed to register window message.", false, true);
+                return;
+            }
 
             _launcherCloseMessage = unchecked((int)message);
             ChangeWindowMessageFilter(message, MsgfltAdd);
 
-            var handle = new WindowInteropHelper(window).EnsureHandle();
-            var source = HwndSource.FromHwnd(handle);
-            if (source == null) { return; }
+            var parameters = new HwndSourceParameters("ShinraMeterClassicPlusCloseReceiver")
+            {
+                Width = 0,
+                Height = 0,
+                PositionX = -32000,
+                PositionY = -32000,
+                WindowStyle = WsPopup
+            };
+            _launcherCloseSource = new HwndSource(parameters);
+            if (_launcherCloseSource.Handle == IntPtr.Zero)
+            {
+                BasicTeraData.LogError("Classic+ launcher close receiver failed to create hidden message window.", false, true);
+                _launcherCloseSource.Dispose();
+                _launcherCloseSource = null;
+                return;
+            }
 
-            source.AddHook(LauncherCloseMessageHook);
+            ChangeWindowMessageFilterEx(_launcherCloseSource.Handle, message, MsgfltAllow, IntPtr.Zero);
+            _launcherCloseSource.AddHook(LauncherCloseMessageHook);
             _launcherCloseHookInstalled = true;
+            BasicTeraData.LogError(
+                $"Classic+ launcher close receiver installed. hwnd={_launcherCloseSource.Handle}, message={message}, pid={Process.GetCurrentProcess().Id}",
+                false,
+                true);
         }
 
         private static IntPtr LauncherCloseMessageHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -196,8 +226,30 @@ namespace DamageMeter.UI
             if (wParam != IntPtr.Zero && wParam.ToInt64() != Process.GetCurrentProcess().Id) { return IntPtr.Zero; }
 
             handled = true;
-            MainDispatcher?.BeginInvoke(new Action(() => VerifyClose(true)));
+            BasicTeraData.LogError($"Classic+ launcher close receiver fired. hwnd={hwnd}, pid={Process.GetCurrentProcess().Id}", false, true);
+            MainDispatcher?.BeginInvoke(new Action(CloseFromLauncher));
             return IntPtr.Zero;
+        }
+
+        private static void CloseFromLauncher()
+        {
+            try
+            {
+                if (HudContainer?.MainWindow != null)
+                {
+                    VerifyClose(true);
+                    return;
+                }
+
+                PersistSettingsOnExit();
+                Current.Shutdown();
+            }
+            catch (Exception ex)
+            {
+                BasicTeraData.LogError("Classic+ launcher close failed: " + ex, false, true);
+                try { Terminate(); }
+                finally { Current.Shutdown(); }
+            }
         }
 
         private static void SystemEvents_SessionEnding(object sender, SessionEndingEventArgs e)

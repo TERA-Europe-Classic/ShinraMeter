@@ -397,7 +397,13 @@ public class SmokeTests
         Assert.Contains("ShinraMeter.ClassicPlus.RequestClose", appSource);
         Assert.Contains("RegisterWindowMessage", appSource);
         Assert.Contains("ChangeWindowMessageFilter", appSource);
+        Assert.Contains("ChangeWindowMessageFilterEx", appSource);
+        Assert.Contains("new HwndSourceParameters(\"ShinraMeterClassicPlusCloseReceiver\")", appSource);
+        Assert.Contains("InstallLauncherCloseMessageReceiver();", appSource);
         Assert.Contains("VerifyClose(true)", appSource);
+
+        var mainWindowSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "MainWindow.xaml.cs"));
+        Assert.DoesNotContain("InstallLauncherCloseMessageReceiver(this)", mainWindowSource);
     }
 
     [Fact]
