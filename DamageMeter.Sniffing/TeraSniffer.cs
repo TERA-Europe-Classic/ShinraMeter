@@ -219,7 +219,29 @@ namespace DamageMeter.Sniffing
                 _socketCts?.Cancel();
             }
             catch { }
-            base.CleanupForcefully();
+            Connected = false;
+        }
+
+        private void AttachSession(Server server)
+        {
+            if (_decrypter != null)
+            {
+                _decrypter.ClientToServerDecrypted -= HandleClientToServerDecrypted;
+                _decrypter.ServerToClientDecrypted -= HandleServerToClientDecrypted;
+            }
+            if (_messageSplitter != null)
+            {
+                _messageSplitter.MessageReceived -= HandleMessageReceived;
+                _messageSplitter.Resync -= OnResync;
+            }
+
+            _decrypter = new ConnectionDecrypter(server.Region);
+            _decrypter.ClientToServerDecrypted += HandleClientToServerDecrypted;
+            _decrypter.ServerToClientDecrypted += HandleServerToClientDecrypted;
+
+            _messageSplitter = new MessageSplitter();
+            _messageSplitter.MessageReceived += HandleMessageReceived;
+            _messageSplitter.Resync += OnResync;
         }
 
         private void OnResync(MessageDirection direction, int skipped, int size)
@@ -261,13 +283,7 @@ namespace DamageMeter.Sniffing
                     // Public Shinra only knows the existing mirror contract: EUC region,
                     // decrypted locally from framed bytes coming from the mirror.
                     var server = new Server("Classic+", "EUC", _socketHost);
-                    _decrypter = new ConnectionDecrypter(server.Region);
-                    _decrypter.ClientToServerDecrypted += HandleClientToServerDecrypted;
-                    _decrypter.ServerToClientDecrypted += HandleServerToClientDecrypted;
-
-                    _messageSplitter = new MessageSplitter();
-                    _messageSplitter.MessageReceived += HandleMessageReceived;
-                    _messageSplitter.Resync += OnResync;
+                    AttachSession(server);
                     OnNewConnection(server);
 
                     var lenBuf = new byte[2];
@@ -289,6 +305,17 @@ namespace DamageMeter.Sniffing
                         var payload = new byte[payloadLen];
                         if (payloadLen > 0 && !ReadExact(stream, payload, payloadLen))
                             break;
+
+                        // Game DC to server select does not close the mirror socket.
+                        // Next world-server connect is a fresh unencrypted hello.
+                        if (direction == 2
+                            && _decrypter.Initialized
+                            && ConnectionDecrypter.IsUnencryptedServerHello(payload))
+                        {
+                            OnEndConnection();
+                            AttachSession(server);
+                            OnNewConnection(server);
+                        }
 
                         if (direction == 1)
                         {
@@ -315,11 +342,7 @@ namespace DamageMeter.Sniffing
                         client?.Close();
                     }
                     catch { }
-                    if (Connected)
-                    {
-                        Connected = false;
-                        OnEndConnection();
-                    }
+                    Connected = false;
                 }
                 if (!token.IsCancellationRequested)
                 {

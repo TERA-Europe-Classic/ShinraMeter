@@ -6,6 +6,7 @@ using Data.Actions.Notify.SoundElements;
 using Tera;
 using Tera.Game;
 using Tera.Game.Messages;
+using Tera.Sniffing;
 
 namespace ShinraMeter.Tests;
 
@@ -120,7 +121,44 @@ public class SmokeTests
         Assert.Contains("Task.WhenAny(connectTask, Task.Delay(MirrorConnectTimeoutMs, token))", source);
         Assert.Contains("if (direction == 1)", source);
         Assert.Contains("else if (direction == 2)", source);
+        Assert.Contains("ConnectionDecrypter.IsUnencryptedServerHello(payload)", source);
+        Assert.Contains("AttachSession(server)", source);
         Assert.DoesNotContain("new TcpSniffer(_ipSniffer)", source);
+    }
+
+    [Fact]
+    public void UnencryptedServerHello_IsTheFourByteTeraMagic()
+    {
+        Assert.True(ConnectionDecrypter.IsUnencryptedServerHello(new byte[] { 1, 0, 0, 0, 5, 6 }));
+        Assert.False(ConnectionDecrypter.IsUnencryptedServerHello(new byte[] { 1, 0, 0 }));
+        Assert.False(ConnectionDecrypter.IsUnencryptedServerHello(new byte[] { 2, 0, 0, 0 }));
+        Assert.False(ConnectionDecrypter.IsUnencryptedServerHello(null));
+    }
+
+    [Fact]
+    public void CheckVersion_ForcesNeedInitOnEveryHandshake()
+    {
+        var source = File.ReadAllText(ProjectPath("DamageMeter.Core", "Processing", "C_CHECK_VERSION.cs"));
+
+        Assert.Contains("PacketProcessor.Instance.NeedInit = true", source);
+    }
+
+    [Fact]
+    public void ReturnToLobby_IsAlwaysProcessed()
+    {
+        var factorySource = File.ReadAllText(ProjectPath("TeraCommon", "Game", "Services", "MessageFactory.cs"));
+        var processingSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "PacketProcessingFactory.cs"));
+        var processorSource = File.ReadAllText(ProjectPath("DamageMeter.Core", "PacketProcessor.cs"));
+
+        var coreStart = factorySource.IndexOf("CoreServices", StringComparison.Ordinal);
+        var chatStart = factorySource.IndexOf("ChatServices", StringComparison.Ordinal);
+        var coreBlock = factorySource.Substring(coreStart, chatStart - coreStart);
+        var chatBlock = factorySource.Substring(chatStart);
+
+        Assert.Contains("S_RETURN_TO_LOBBY", coreBlock);
+        Assert.DoesNotContain("S_RETURN_TO_LOBBY", chatBlock);
+        Assert.Contains("HandleReturnToLobby()", processingSource);
+        Assert.Contains("NeedInit = true", processorSource.Substring(processorSource.IndexOf("HandleReturnToLobby", StringComparison.Ordinal)));
     }
 
     [Fact]
