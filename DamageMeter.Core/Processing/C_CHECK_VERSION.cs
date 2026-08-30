@@ -32,6 +32,9 @@ namespace DamageMeter.Processing
             /*TeraSniffer.Instance*/
             PacketProcessor.Instance.Sniffer.Connected = true;
 
+            // Mirror stays connected across server select. This packet is the
+            // real session boundary so S_LOGIN re-runs tracker init.
+            PacketProcessor.Instance.NeedInit = true;
             PacketProcessor.Instance.MessageFactory = new MessageFactory(opCodeNamer, PacketProcessor.Instance.Server.Region, message.Versions[0], false, sysMsgNamer);
         }
     }

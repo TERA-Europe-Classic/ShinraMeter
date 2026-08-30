@@ -181,6 +181,13 @@ namespace DamageMeter
             OnGuildIconAction(null);
         }
 
+        internal void HandleReturnToLobby()
+        {
+            NeedInit = true;
+            NotifyProcessor.Instance.S_LOAD_TOPO(null);
+            RichPresence.Instance.ReturnToLobby();
+        }
+
         protected virtual void HandleNewConnection(Server server)
         {
             Server = server;
