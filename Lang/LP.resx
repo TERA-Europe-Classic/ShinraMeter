@@ -892,4 +892,118 @@ Reset and paused until map change or relog.</value>
   <data name="SystemTray_SnapToBorders" xml:space="preserve">
     <value>Snap windows to borders</value>
   </data>
+  <data name="NotificationsSection" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationsDescription" xml:space="preserve">
+    <value>Choose which on-screen popup notifications you want to receive.</value>
+  </data>
+  <data name="TestNotification" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="TestNotificationTitle" xml:space="preserve">
+    <value>Test notification</value>
+  </data>
+  <data name="TestNotificationBody" xml:space="preserve">
+    <value>This is how notifications look</value>
+  </data>
+  <data name="NotifyWhisper" xml:space="preserve">
+    <value>Whisper</value>
+  </data>
+  <data name="NotifyMention" xml:space="preserve">
+    <value>Chat mention (@name)</value>
+  </data>
+  <data name="NotifyWakeUp" xml:space="preserve">
+    <value>Wake up (@@)</value>
+  </data>
+  <data name="NotifyMatchingSuccess" xml:space="preserve">
+    <value>Dungeon/BG matching success</value>
+  </data>
+  <data name="NotifyReadyCheck" xml:space="preserve">
+    <value>Party ready check</value>
+  </data>
+  <data name="NotifyOtherUserApply" xml:space="preserve">
+    <value>Player applied to your party</value>
+  </data>
+  <data name="NotifyBroker" xml:space="preserve">
+    <value>Broker offer</value>
+  </data>
+  <data name="NotifyPartyInvite" xml:space="preserve">
+    <value>Party invite</value>
+  </data>
+  <data name="NotifyTrade" xml:space="preserve">
+    <value>Trade request</value>
+  </data>
+  <data name="NotifyGenericContract" xml:space="preserve">
+    <value>Other contract request</value>
+  </data>
+  <data name="NotifyVanguardCredits" xml:space="preserve">
+    <value>Vanguard credits near cap</value>
+  </data>
+  <data name="CombatNotificationsSection" xml:space="preserve">
+    <value>Combat notifications</value>
+  </data>
+  <data name="CombatNotificationsDescription" xml:space="preserve">
+    <value>Choose which in-combat alerts you want to receive (missing buffs, cooldown resets, Enrage...). Their text, sound and triggers stay configurable in the events editor.</value>
+  </data>
+  <data name="CombatNotificationsClassHint" xml:space="preserve">
+    <value>Class-specific events appear after you log in.</value>
+  </data>
+  <data name="CombatNotificationsEmpty" xml:space="preserve">
+    <value>No combat events are loaded.</value>
+  </data>
+  <data name="CombatNotifyMissing" xml:space="preserve">
+    <value>Missing</value>
+  </data>
+  <data name="CombatNotifyExpiring" xml:space="preserve">
+    <value>Expiring</value>
+  </data>
+  <data name="CombatNotifyApplied" xml:space="preserve">
+    <value>Applied</value>
+  </data>
+  <data name="CombatNotifyRemoved" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="CombatNotifyCooldown" xml:space="preserve">
+    <value>Cooldown</value>
+  </data>
+  <data name="CombatNotifyCooldownReset" xml:space="preserve">
+    <value>Cooldown reset</value>
+  </data>
+  <data name="CombatNotifyAnySkill" xml:space="preserve">
+    <value>Any skill</value>
+  </data>
+  <data name="CombatNotifyNoAbnormality" xml:space="preserve">
+    <value>Any effect</value>
+  </data>
+  <data name="CombatNotifyPriority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="CombatNotifyInGame" xml:space="preserve">
+    <value>Only while TERA is focused</value>
+  </data>
+  <data name="CombatNotifyOutOfGame" xml:space="preserve">
+    <value>Only while TERA is not focused</value>
+  </data>
+  <data name="CombatNotifyOutOfCombat" xml:space="preserve">
+    <value>Also out of combat</value>
+  </data>
+  <data name="CombatNotifyTarget" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="CombatNotifyTestPlayer" xml:space="preserve">
+    <value>You</value>
+  </data>
+  <data name="CombatNotificationsGroupCommon" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="CombatNotifyCategory" xml:space="preserve">
+    <value>Effect category</value>
+  </data>
+  <data name="CombatNotifyCategoryCrystalBind" xml:space="preserve">
+    <value>Crystal bind</value>
+  </data>
+  <data name="CombatNotifyCategoryCombatCrystalBind" xml:space="preserve">
+    <value>Combat crystal bind</value>
+  </data>
 </root>

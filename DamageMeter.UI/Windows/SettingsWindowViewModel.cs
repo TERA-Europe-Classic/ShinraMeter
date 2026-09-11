@@ -5,16 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using DamageMeter.UI.EventsEditor;
+using Data.Actions.Notify;
+using Data.Actions.Notify.SoundElements;
+using Data.Events;
 using Lang;
 using Tera.Game;
 using Tera.RichPresence;
 using Action = System.Action;
 using CaptureMode = Data.CaptureMode;
+using EventType = Data.EventType;
 
 namespace DamageMeter.UI.Windows
 {
@@ -397,6 +402,29 @@ namespace DamageMeter.UI.Windows
                 if (Data.PlayerColor == value) return;
                 Data.PlayerColor = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SelfBrush));
+            }
+        }
+
+        /// <summary>
+        /// <see cref="SelfColor"/> as a brush, for styles that hand the accent colour to a control.
+        /// <para>
+        /// A &lt;SolidColorBrush Color="{Binding SelfColor}"/&gt; written inside a Setter.Value can only
+        /// reach the colour through the DataContext of the element the style lands on. That is this
+        /// view model for a control sitting directly in the window, but it is the row's own item view
+        /// model for a control inside an ItemsControl DataTemplate - the binding fails there and the
+        /// brush keeps SolidColorBrush's default, which is fully transparent. Binding the setter to
+        /// this property from the element instead (RelativeSource AncestorType=Window) works the same
+        /// everywhere, because it does not depend on the local DataContext.
+        /// </para>
+        /// </summary>
+        public Brush SelfBrush
+        {
+            get
+            {
+                var brush = new SolidColorBrush(SelfColor);
+                brush.Freeze();
+                return brush;
             }
         }
         public Color DpsColor
@@ -762,6 +790,118 @@ namespace DamageMeter.UI.Windows
             }
         }
 
+        // per-kind popup notifications
+        public bool NotifyWhisper
+        {
+            get => Data.IsNotificationEnabled(EventType.Whisper);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.Whisper) == value) return;
+                Data.SetNotificationEnabled(EventType.Whisper, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyMention
+        {
+            get => Data.IsNotificationEnabled(EventType.Mention);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.Mention) == value) return;
+                Data.SetNotificationEnabled(EventType.Mention, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyWakeUp
+        {
+            get => Data.IsNotificationEnabled(EventType.WakeUp);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.WakeUp) == value) return;
+                Data.SetNotificationEnabled(EventType.WakeUp, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyMatchingSuccess
+        {
+            get => Data.IsNotificationEnabled(EventType.MatchingSuccess);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.MatchingSuccess) == value) return;
+                Data.SetNotificationEnabled(EventType.MatchingSuccess, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyReadyCheck
+        {
+            get => Data.IsNotificationEnabled(EventType.ReadyCheck);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.ReadyCheck) == value) return;
+                Data.SetNotificationEnabled(EventType.ReadyCheck, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyOtherUserApply
+        {
+            get => Data.IsNotificationEnabled(EventType.OtherUserApply);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.OtherUserApply) == value) return;
+                Data.SetNotificationEnabled(EventType.OtherUserApply, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyBroker
+        {
+            get => Data.IsNotificationEnabled(EventType.Broker);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.Broker) == value) return;
+                Data.SetNotificationEnabled(EventType.Broker, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyPartyInvite
+        {
+            get => Data.IsNotificationEnabled(EventType.PartyInvite);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.PartyInvite) == value) return;
+                Data.SetNotificationEnabled(EventType.PartyInvite, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyTrade
+        {
+            get => Data.IsNotificationEnabled(EventType.Trade);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.Trade) == value) return;
+                Data.SetNotificationEnabled(EventType.Trade, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyGenericContract
+        {
+            get => Data.IsNotificationEnabled(EventType.GenericContract);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.GenericContract) == value) return;
+                Data.SetNotificationEnabled(EventType.GenericContract, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public bool NotifyVanguardCredits
+        {
+            get => Data.IsNotificationEnabled(EventType.VanguardCredits);
+            set
+            {
+                if (Data.IsNotificationEnabled(EventType.VanguardCredits) == value) return;
+                Data.SetNotificationEnabled(EventType.VanguardCredits, value);
+                NotifyPropertyChanged();
+            }
+        }
+
         // rich presence
         public bool RichPresenceEnable
         {
@@ -960,6 +1100,7 @@ namespace DamageMeter.UI.Windows
         public ICommand OpenUploadHistoryCommand { get; }
         public ICommand ResetColorCommand { get; }
         public ICommand OpenEventEditorCommand { get; }
+        public ICommand TestNotificationCommand { get; }
         public List<MockPlayerViewModel> MockParty { get; }
 
         private int _selectedIndex;
@@ -979,6 +1120,157 @@ namespace DamageMeter.UI.Windows
 
         public ToastViewModel ToastData { get; }
 
+        /// <summary>
+        /// The "Combat notifications" opt-out list in the Events tab: one
+        /// <see cref="CombatNotificationGroupVM"/> sub-header per event file (common, then the
+        /// player's class) followed by one <see cref="CombatNotificationVM"/> row per abnormality or
+        /// skill id of the events currently loaded (events-common.xml + events-&lt;class&gt;.xml).
+        /// Mixed on purpose: the ItemsControl picks a template per item type.
+        /// </summary>
+        public SynchronizedObservableCollection<object> CombatNotifications { get; } =
+            new SynchronizedObservableCollection<object>();
+
+        /// <summary>True once a combat toggle was flipped, so the settings window only rewrites the
+        /// events files when something actually changed.</summary>
+        public bool CombatNotificationsChanged { get; private set; }
+
+        public Visibility ClassEventsHintVisibility =>
+            BasicTeraData.Instance.EventsData.CurrentClass == PlayerClass.Common ? Visibility.Visible : Visibility.Collapsed;
+
+        public Visibility NoCombatNotificationsVisibility =>
+            CombatNotifications.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+
+        /// <summary>
+        /// Rebuilds the combat notification rows. Called when the settings window is shown, since the
+        /// events editor may have changed them and logging in swaps the class specific event set.
+        /// </summary>
+        public void RefreshCombatNotifications()
+        {
+            var eventsData = BasicTeraData.Instance.EventsData;
+            var items = new List<object>();
+
+            AddCombatNotificationGroup(items, LP.CombatNotificationsGroupCommon, eventsData.EventsCommon);
+            AddCombatNotificationGroup(items, ClassDisplayName(eventsData.CurrentClass), eventsData.EventsClass);
+
+            CombatNotifications.ReplaceWith(items);
+            NotifyPropertyChanged(nameof(CombatNotifications));
+            NotifyPropertyChanged(nameof(ClassEventsHintVisibility));
+            NotifyPropertyChanged(nameof(NoCombatNotificationsVisibility));
+        }
+
+        private void AddCombatNotificationGroup(List<object> items, string title, Dictionary<Data.Events.Event, List<Data.Actions.Action>> source)
+        {
+            if (source == null) { return; }
+
+            // EventsClass is swapped wholesale on login, so snapshot before enumerating.
+            List<KeyValuePair<Data.Events.Event, List<Data.Actions.Action>>> snapshot;
+            try { snapshot = source.ToList(); }
+            catch (InvalidOperationException) { return; }
+
+            // An event is one alert the user thinks about as a whole ("Food", "Kaia's Shield"), so its
+            // ids stay together instead of being scattered through one flat alphabetical list; the
+            // events themselves are ordered by their first id, and the ids inside one by name.
+            var events = new List<List<CombatNotificationVM>>();
+            foreach (var entry in snapshot)
+            {
+                // The AFK template is already covered by the per-kind checkboxes above.
+                if (entry.Key is CommonAFKEvent) { continue; }
+                var rows = CombatNotificationRows.Build(entry.Key, entry.Value, OnCombatNotificationToggled)
+                    .OrderBy(x => x.Name, StringComparer.CurrentCultureIgnoreCase)
+                    .ToList();
+                if (rows.Count > 0) { events.Add(rows); }
+            }
+
+            if (events.Count == 0) { return; }
+
+            items.Add(new CombatNotificationGroupVM(title));
+            foreach (var rows in events.OrderBy(x => x[0].Name, StringComparer.CurrentCultureIgnoreCase))
+            {
+                items.AddRange(rows);
+            }
+        }
+
+        /// <summary>Localized class name when there is one, otherwise the enum name.</summary>
+        private static string ClassDisplayName(PlayerClass playerClass)
+        {
+            try
+            {
+                var localized = LP.ResourceManager.GetString(playerClass.ToString(), LP.Culture);
+                if (!string.IsNullOrWhiteSpace(localized)) { return localized; }
+            }
+            catch { /* no resource for this class */ }
+
+            return playerClass.ToString();
+        }
+
+        /// <summary>
+        /// The notify processor iterates collections that were filtered by Active at load time, so
+        /// they have to be rebuilt for a toggle to take effect without a restart.
+        /// </summary>
+        private void OnCombatNotificationToggled()
+        {
+            CombatNotificationsChanged = true;
+            try { BasicTeraData.Instance.EventsData.RefreshActiveEvents(); }
+            catch (Exception ex) { Debug.WriteLine($"Failed to refresh Shinra combat events: {ex}"); }
+        }
+
+        /// <summary>
+        /// Persists combat toggles through the events files, so the events editor stays consistent.
+        /// </summary>
+        public void SaveCombatNotifications()
+        {
+            if (!CombatNotificationsChanged) { return; }
+            try
+            {
+                BasicTeraData.Instance.EventsData.Save();
+                CombatNotificationsChanged = false;
+            }
+            catch (Exception ex) { Debug.WriteLine($"Failed to persist Shinra combat events: {ex}"); }
+        }
+
+
+        /// <summary>
+        /// Shows a sample popup through the real notification pipeline so the user can see what
+        /// notifications look like. Falls back to the shipped defaults when the common_afk template
+        /// is missing or inactive, otherwise nothing would ever be displayed.
+        /// </summary>
+        private static void ShowTestNotification()
+        {
+            var title = LP.TestNotificationTitle;
+            var body = LP.TestNotificationBody;
+
+            Balloon? balloon = null;
+            SoundInterface? sound = null;
+            var priority = 0;
+
+            var ev = BasicTeraData.Instance.EventsData.AFK;
+            var notifyAction = ev?.Item2?.OfType<NotifyAction>().FirstOrDefault()?.Clone();
+            if (ev != null && notifyAction != null)
+            {
+                priority = ev.Item1.Priority;
+                if (notifyAction.Balloon != null)
+                {
+                    notifyAction.Balloon.TitleText = title;
+                    notifyAction.Balloon.BodyText = body;
+                    notifyAction.Balloon.EventType = EventType.AFK;
+                    balloon = notifyAction.Balloon;
+                }
+                if (notifyAction.Sound is TextToSpeech tts) { tts.Text = body; }
+                sound = notifyAction.Sound;
+            }
+
+            if (balloon == null) { balloon = new Balloon(title, body, 3000, EventType.AFK); }
+            if (sound == null)
+            {
+                // UILanguage is "Auto" by default, which is not a culture name: TextToSpeech.Play()
+                // would throw while building the CultureInfo. Resolved like BasicTeraData does.
+                var ttsCulture = Data.UILanguage != "Auto" ? Data.UILanguage : CultureInfo.CurrentUICulture.Name;
+                sound = new TextToSpeech(body, VoiceGender.Female, VoiceAge.Adult, 0, ttsCulture, 30, 0);
+            }
+
+            // AddNotification already honours MuteSound.
+            App.HudContainer.Notifications.AddNotification(new NotifyFlashMessage(sound, balloon, priority));
+        }
 
         public SettingsWindowViewModel()
         {
@@ -1058,6 +1350,7 @@ namespace DamageMeter.UI.Windows
                 }
             });
             OpenEventEditorCommand = new RelayCommand(_ => EventsEditorService.Show());
+            TestNotificationCommand = new RelayCommand(_ => ShowTestNotification());
 
             var count = 0;
             Hotkeys.Copy.ForEach(h => CopyKeys.Add(new CopyKeyVM($"DPS paste {++count}", h)));
@@ -1067,6 +1360,11 @@ namespace DamageMeter.UI.Windows
                 new MockPlayerViewModel("No.Broler", PlayerClass.Lancer),
                 new MockPlayerViewModel("Priest.Kek", PlayerClass.Mystic)
             };
+
+            // The combat rows are (re)built every time the window is shown, so there is nothing to do
+            // here beyond warming the name databases on a background thread: reading them costs a few
+            // MB of tsv and this constructor runs while the meter is still starting up.
+            GameNames.Preload();
         }
 
 

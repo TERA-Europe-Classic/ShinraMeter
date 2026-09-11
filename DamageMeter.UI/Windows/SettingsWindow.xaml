@@ -41,11 +41,14 @@
         <Style TargetType="settings:CheckboxSetting" BasedOn="{StaticResource {x:Type settings:CheckboxSetting}}">
             <Setter Property="CheckboxSize" Value="14" />
             <Setter Property="Margin" Value="32 0 0 0" />
-            <Setter Property="CheckBoxColor">
-                <Setter.Value>
-                    <SolidColorBrush x:Name="cb" Color="{Binding SelfColor}" />
-                </Setter.Value>
-            </Setter>
+            <!-- Bound from the element, not as a <SolidColorBrush Color="{Binding SelfColor}"/> inside
+                 the setter: a brush in a Setter.Value resolves its binding against the DataContext of
+                 the control the style lands on, which is the row item - not this window's view model -
+                 for the checkboxes inside the combat-notification ItemsControl. There the binding
+                 failed and the brush stayed transparent, and since the whole checked look (outline,
+                 fill and check mark) is painted with this brush, those rows rendered nothing at all. -->
+            <Setter Property="CheckBoxColor"
+                    Value="{Binding DataContext.SelfBrush, RelativeSource={RelativeSource AncestorType=Window}}" />
         </Style>
         <Style TargetType="settings:ValueSetting">
             <Setter Property="Height" Value="32" />
@@ -540,30 +543,192 @@
                 </TabItem>
                 <!--Events-->
                 <TabItem>
-                    <StackPanel MaxWidth="500">
-                        <settings:CheckboxSetting IsOn="{Binding EnableChatAndNotif, Mode=TwoWay}"
-                                                  SettingName="{x:Static lang:LP.EnableChat}" />
-                        <settings:CheckboxSetting IsOn="{Binding AutoDisableChatWhenOverloaded, Mode=TwoWay}"
-                                                  SettingName="{x:Static lang:LP.AutoDisableChatWhenOverloaded}"
-                                                  IsEnabled="{Binding EnableChatAndNotif}" />
-                        <settings:CheckboxSetting IsOn="{Binding MuteSound, Mode=TwoWay}"
-                                                  SettingName="{x:Static lang:LP.MuteSound}"
-                                                  IsEnabled="{Binding EnableChatAndNotif}" />
-                        <settings:CheckboxSetting IsOn="{Binding CopyInspectOnApply, Mode=TwoWay}"
-                                                  IsEnabled="{Binding EnableChatAndNotif}"
-                                                  SettingName="{x:Static lang:LP.CopyInspect}" />
-                        <settings:CheckboxSetting IsOn="{Binding DisablePartyEvents, Mode=TwoWay}"
-                                                  IsEnabled="{Binding EnableChatAndNotif}"
-                                                  SettingName="{x:Static lang:LP.DisablePartyEvents}" />
-                        <settings:CheckboxSetting IsOn="{Binding ShowAfkEventsIngame, Mode=TwoWay}"
-                                                  IsEnabled="{Binding EnableChatAndNotif}"
-                                                  SettingName="{x:Static lang:LP.ShowAfkEventsIngame}" />
-                        <!--<Button Content="Edit events..." VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                Padding="10 0" Command="{Binding OpenEventEditorCommand}"/>-->
-                    </StackPanel>
+                    <ScrollViewer MaxWidth="500"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  PanningMode="VerticalOnly">
+                        <StackPanel>
+                            <settings:CheckboxSetting IsOn="{Binding EnableChatAndNotif, Mode=TwoWay}"
+                                                      SettingName="{x:Static lang:LP.EnableChat}" />
+                            <settings:CheckboxSetting IsOn="{Binding AutoDisableChatWhenOverloaded, Mode=TwoWay}"
+                                                      SettingName="{x:Static lang:LP.AutoDisableChatWhenOverloaded}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}" />
+                            <settings:CheckboxSetting IsOn="{Binding MuteSound, Mode=TwoWay}"
+                                                      SettingName="{x:Static lang:LP.MuteSound}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}" />
+                            <settings:CheckboxSetting IsOn="{Binding CopyInspectOnApply, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.CopyInspect}" />
+                            <settings:CheckboxSetting IsOn="{Binding DisablePartyEvents, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.DisablePartyEvents}" />
+                            <settings:CheckboxSetting IsOn="{Binding ShowAfkEventsIngame, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.ShowAfkEventsIngame}" />
+                            <Separator Opacity=".2" Margin="0 8" />
+                            <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                       Text="{x:Static lang:LP.NotificationsSection}"
+                                       FontWeight="Bold"
+                                       Margin="32 0 0 4" />
+                            <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                       Text="{x:Static lang:LP.NotificationsDescription}"
+                                       TextWrapping="Wrap"
+                                       Margin="32 0 0 8" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyWhisper, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyWhisper}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyMention, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyMention}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyWakeUp, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyWakeUp}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyMatchingSuccess, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyMatchingSuccess}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyReadyCheck, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyReadyCheck}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyOtherUserApply, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyOtherUserApply}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyBroker, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyBroker}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyPartyInvite, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyPartyInvite}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyTrade, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyTrade}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyGenericContract, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyGenericContract}" />
+                            <settings:CheckboxSetting IsOn="{Binding NotifyVanguardCredits, Mode=TwoWay}"
+                                                      IsEnabled="{Binding EnableChatAndNotif}"
+                                                      SettingName="{x:Static lang:LP.NotifyVanguardCredits}" />
+                            <Button Command="{Binding TestNotificationCommand}"
+                                    IsEnabled="{Binding EnableChatAndNotif}"
+                                    HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Center"
+                                    Padding="10 0"
+                                    Margin="32 8 0 0">
+                                <TextBlock Text="{x:Static lang:LP.TestNotification}" VerticalAlignment="Center" />
+                            </Button>
+                            <Separator Opacity=".2" Margin="0 8" />
+                            <!--Combat notifications-->
+                            <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                       Text="{x:Static lang:LP.CombatNotificationsSection}"
+                                       FontWeight="Bold"
+                                       Margin="32 0 0 4" />
+                            <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                       Text="{x:Static lang:LP.CombatNotificationsDescription}"
+                                       TextWrapping="Wrap"
+                                       Margin="32 0 0 8" />
+                            <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                       Text="{x:Static lang:LP.CombatNotificationsClassHint}"
+                                       TextWrapping="Wrap"
+                                       Opacity=".7"
+                                       Visibility="{Binding ClassEventsHintVisibility}"
+                                       Margin="32 0 0 8" />
+                            <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                       Text="{x:Static lang:LP.CombatNotificationsEmpty}"
+                                       TextWrapping="Wrap"
+                                       Opacity=".7"
+                                       Visibility="{Binding NoCombatNotificationsVisibility}"
+                                       Margin="32 0 0 8" />
+                            <!-- Mixed list: sub-headers and id rows pick their template by item type. -->
+                            <ItemsControl ItemsSource="{Binding CombatNotifications}"
+                                          IsEnabled="{Binding EnableChatAndNotif}">
+                                <ItemsControl.Resources>
+                                    <DataTemplate DataType="{x:Type local:CombatNotificationGroupVM}">
+                                        <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                                   Text="{Binding Title}"
+                                                   FontWeight="Bold"
+                                                   Opacity=".75"
+                                                   Margin="32 10 0 2" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type local:CombatNotificationVM}">
+                                        <Grid Height="38"
+                                              Background="Transparent"
+                                              ToolTip="{Binding Tooltip}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <!-- Effect-category rows have no game icon; the dark plate
+                                                 with the empty 1x1 bitmap read as a black square, so
+                                                 they get a neutral glyph in the same 26px slot. -->
+                                            <Border Grid.Column="0"
+                                                    Width="26" Height="26"
+                                                    Margin="32 0 0 0"
+                                                    CornerRadius="3"
+                                                    VerticalAlignment="Center">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="{StaticResource DarkCardColor}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding HasIcon}" Value="False">
+                                                                <Setter Property="Background" Value="Transparent" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <Grid>
+                                                    <Image Source="{Binding Icon}"
+                                                           Visibility="{Binding IconVisibility}"
+                                                           Width="24" Height="24"
+                                                           RenderOptions.BitmapScalingMode="HighQuality" />
+                                                    <Path Data="{StaticResource Svg.Info}"
+                                                          Visibility="{Binding IconPlaceholderVisibility}"
+                                                          Style="{StaticResource PathBaseStyle}"
+                                                          Margin="5"
+                                                          Opacity=".35" />
+                                                </Grid>
+                                            </Border>
+                                            <StackPanel Grid.Column="1"
+                                                        VerticalAlignment="Center"
+                                                        Margin="8 0 6 0">
+                                                <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                                           Text="{Binding Name}"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Opacity=".95" />
+                                                <TextBlock Style="{StaticResource DefaultTextStyle}"
+                                                           Text="{Binding Details}"
+                                                           FontSize="10"
+                                                           Opacity=".5"
+                                                           TextTrimming="CharacterEllipsis" />
+                                            </StackPanel>
+                                            <Button Grid.Column="2"
+                                                    Command="{Binding TestCommand}"
+                                                    IsEnabled="{Binding CanTest}"
+                                                    Height="24"
+                                                    MinWidth="52"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Padding="8 0"
+                                                    Margin="0 0 4 0">
+                                                <TextBlock Text="{x:Static lang:LP.TestNotification}"
+                                                           FontSize="11"
+                                                           VerticalAlignment="Center" />
+                                            </Button>
+                                            <!-- Checkbox last, so it lines up with the CheckboxSettings above. -->
+                                            <settings:CheckboxSetting Grid.Column="3"
+                                                                      VerticalAlignment="Center"
+                                                                      IsOn="{Binding IsOn, Mode=TwoWay}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.Resources>
+                            </ItemsControl>
+                            <!--<Button Content="Edit events..." VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    Padding="10 0" Command="{Binding OpenEventEditorCommand}"/>-->
+                        </StackPanel>
+                    </ScrollViewer>
                 </TabItem>
                 <!--Rich presence-->
                 <TabItem>

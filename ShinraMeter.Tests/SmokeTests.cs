@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
+using Data;
 using Data.Actions.Notify.SoundElements;
+using Data.Events;
+using Data.Events.Abnormality;
 using Tera;
 using Tera.Game;
 using Tera.Game.Messages;
@@ -101,17 +105,7 @@ public class SmokeTests
     [Fact]
     public void TeraSniffer_UsesMirrorSocketPath_NotPacketSnifferPath()
     {
-        var source = File.ReadAllText(
-            Path.Combine(
-                AppContext.BaseDirectory,
-                "..",
-                "..",
-                "..",
-                "..",
-                "DamageMeter.Sniffing",
-                "TeraSniffer.cs"
-            )
-        );
+        var source = File.ReadAllText(ProjectPath("DamageMeter.Sniffing", "TeraSniffer.cs"));
 
         Assert.Contains("_socketHost = \"127.0.0.1\"", source);
         Assert.Contains("ConnectToMirrorAsync(CancellationToken token)", source);
@@ -464,16 +458,364 @@ public class SmokeTests
         Assert.DoesNotContain("RaisePause(true);", overloadBlock);
     }
 
-    private static string ProjectPath(params string[] parts)
+    [Fact]
+    public void NotificationSettings_RoundTripThroughWindowXml()
     {
-        var pathParts = new List<string>
+        var settings = new Dictionary<EventType, bool>
         {
-            AppContext.BaseDirectory,
-            "..",
-            "..",
-            "..",
-            "..",
+            { EventType.Whisper, false },
+            { EventType.VanguardCredits, false },
         };
+
+        var serialized = WindowData.SerializeNotifications(settings);
+        var reloaded = WindowData.ParseNotifications(new XElement("window", serialized));
+
+        Assert.Equal("notifications", serialized.Name.LocalName);
+        Assert.Equal(WindowData.ConfigurableNotifications.Count, serialized.Elements().Count());
+        Assert.Equal("false", serialized.Element("whisper")!.Value.ToLowerInvariant());
+        Assert.Equal("false", serialized.Element("vanguard_credits")!.Value.ToLowerInvariant());
+        Assert.Equal("true", serialized.Element("party_invite")!.Value.ToLowerInvariant());
+
+        Assert.False(reloaded[EventType.Whisper]);
+        Assert.False(reloaded[EventType.VanguardCredits]);
+        Assert.True(reloaded[EventType.PartyInvite]);
+    }
+
+    [Fact]
+    public void NotificationSettings_DefaultToEnabledWhenTheConfigHasNoEntry()
+    {
+        var missingSection = WindowData.ParseNotifications(new XElement("window"));
+        Assert.Empty(missingSection);
+
+        var partialSection = WindowData.ParseNotifications(
+            new XElement("window", new XElement("notifications", new XElement("trade", false))));
+
+        Assert.False(partialSection[EventType.Trade]);
+        Assert.DoesNotContain(EventType.Broker, partialSection.Keys);
+    }
+
+    [Fact]
+    public void NotificationSettings_AreGatedInTheNotifyPipelineAndExposedInTheEventsTab()
+    {
+        var notifySource = File.ReadAllText(ProjectPath("DamageMeter.Core", "Processing", "NotifyProcessor.cs"));
+        var settingsSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindow.xaml"));
+        var vmSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindowViewModel.cs"));
+
+        Assert.Contains(
+            "if (!BasicTeraData.Instance.WindowData.IsNotificationEnabled(evType)) { return null; }",
+            notifySource);
+
+        var eventsTabStart = settingsSource.IndexOf("<!--Events-->", StringComparison.Ordinal);
+        var richPresenceTabStart = settingsSource.IndexOf("<!--Rich presence-->", StringComparison.Ordinal);
+        Assert.True(eventsTabStart >= 0, "Events tab marker was not found.");
+        Assert.True(richPresenceTabStart > eventsTabStart, "Rich presence tab should follow the events tab.");
+
+        var eventsTab = settingsSource.Substring(eventsTabStart, richPresenceTabStart - eventsTabStart);
+
+        Assert.Contains("lang:LP.NotificationsSection", eventsTab);
+        Assert.Contains("Command=\"{Binding TestNotificationCommand}\"", eventsTab);
+        Assert.Contains("{Binding NotifyWhisper, Mode=TwoWay}", eventsTab);
+        Assert.Contains("{Binding NotifyVanguardCredits, Mode=TwoWay}", eventsTab);
+
+        Assert.Contains("App.HudContainer.Notifications.AddNotification(", vmSource);
+    }
+
+    [Fact]
+    public void CombatNotifications_AreListedWithPerIdTogglesInTheEventsTab()
+    {
+        var settingsSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindow.xaml"));
+        var vmSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindowViewModel.cs"));
+        var rowSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "CombatNotificationVM.cs"));
+
+        var eventsTabStart = settingsSource.IndexOf("<!--Events-->", StringComparison.Ordinal);
+        var richPresenceTabStart = settingsSource.IndexOf("<!--Rich presence-->", StringComparison.Ordinal);
+        Assert.True(eventsTabStart >= 0, "Events tab marker was not found.");
+        Assert.True(richPresenceTabStart > eventsTabStart, "Rich presence tab should follow the events tab.");
+
+        var eventsTab = settingsSource.Substring(eventsTabStart, richPresenceTabStart - eventsTabStart);
+
+        // The combat section lives below the per-kind AFK checkboxes, inside the same scroller.
+        var afkSectionStart = eventsTab.IndexOf("lang:LP.NotificationsSection", StringComparison.Ordinal);
+        var combatSectionStart = eventsTab.IndexOf("lang:LP.CombatNotificationsSection", StringComparison.Ordinal);
+        Assert.True(combatSectionStart > afkSectionStart, "Combat notifications should follow the AFK notification checkboxes.");
+
+        Assert.Contains("lang:LP.CombatNotificationsDescription", eventsTab);
+        Assert.Contains("lang:LP.CombatNotificationsClassHint", eventsTab);
+        Assert.Contains("ItemsSource=\"{Binding CombatNotifications}\"", eventsTab);
+        Assert.Contains("IsOn=\"{Binding IsOn, Mode=TwoWay}\"", eventsTab);
+        Assert.Contains("Command=\"{Binding TestCommand}\"", eventsTab);
+
+        // A row is an icon, the readable name, and a dim second line with the trigger and the raw id,
+        // grouped under a sub-header per event file.
+        Assert.Contains("DataType=\"{x:Type local:CombatNotificationGroupVM}\"", eventsTab);
+        Assert.Contains("DataType=\"{x:Type local:CombatNotificationVM}\"", eventsTab);
+        Assert.Contains("Source=\"{Binding Icon}\"", eventsTab);
+        Assert.Contains("Text=\"{Binding Name}\"", eventsTab);
+        Assert.Contains("Text=\"{Binding Details}\"", eventsTab);
+
+        // Rows come from the loaded event sets, minus the AFK template already covered above.
+        Assert.Contains("public void RefreshCombatNotifications()", vmSource);
+        Assert.Contains("AddCombatNotificationGroup(items, LP.CombatNotificationsGroupCommon, eventsData.EventsCommon);", vmSource);
+        Assert.Contains("AddCombatNotificationGroup(items, ClassDisplayName(eventsData.CurrentClass), eventsData.EventsClass);", vmSource);
+        Assert.Contains("if (entry.Key is CommonAFKEvent) { continue; }", vmSource);
+
+        // One row per id, named from the databases and replaying the event's own notify action.
+        Assert.Contains("LP.CombatNotifyCooldownReset", rowSource);
+        Assert.Contains("LP.CombatNotifyMissing", rowSource);
+        Assert.Contains("GameNames.AbnormalityName(id)", rowSource);
+        Assert.Contains("foreach (var id in ev.Ids.Keys)", rowSource);
+        Assert.Contains("App.HudContainer.Notifications.AddNotification(", rowSource);
+    }
+
+    [Fact]
+    public void CombatNotificationNames_ResolveBeforeLoginFromTheConfiguredLanguage()
+    {
+        var namesSource = File.ReadAllText(ProjectPath("Data", "GameNames.cs"));
+
+        // BasicTeraData only fills these from TeraData once the region is known, i.e. on login.
+        Assert.Contains("var live = BasicTeraData.Instance.HotDotDatabase;", namesSource);
+        Assert.Contains("var live = BasicTeraData.Instance.SkillDatabase;", namesSource);
+        Assert.Contains("if (live != null) { return live; }", namesSource);
+
+        // Same loader classes, same data folder, resolved language with an EU-EN fallback.
+        Assert.Contains("new HotDotDatabase(DataDirectory, language)", namesSource);
+        Assert.Contains("new SkillDatabase(DataDirectory, language)", namesSource);
+        Assert.Contains("yield return \"EU-EN\";", namesSource);
+
+        // The resolver only ever picks a language whose file is actually installed.
+        Assert.Contains("if (Exists(folder, fileNamePattern, candidate))", namesSource);
+
+        // The folder the app resolves when it runs from bin has to carry that data.
+        var dataRoot = ProjectPath("DamageMeter.UI", "Resources", "data");
+        Assert.True(File.Exists(Path.Combine(dataRoot, "hotdot", "hotdot-EU-EN.tsv")), "Fallback abnormality names are missing from the runtime resources.");
+        Assert.True(File.Exists(Path.Combine(dataRoot, "skills", "skills-EU-EN.tsv")), "Fallback skill names are missing from the runtime resources.");
+        Assert.True(File.Exists(Path.Combine(dataRoot, "icons.zip")), "Row icons come from icons.zip in the runtime resources.");
+    }
+
+    [Fact]
+    public void FallbackNameDatabases_LoadFromTheRuntimeResourcesTheAppUsesWhenRunFromBin()
+    {
+        // What GameNames does before login: the same loader classes, the same folder the running exe
+        // resolves (DamageMeter.UI\Resources), the fallback language.
+        var dataRoot = ProjectPath("DamageMeter.UI", "Resources", "data") + Path.DirectorySeparatorChar;
+
+        var hotDots = new HotDotDatabase(dataRoot, "EU-EN");
+        Assert.Equal("Struthio Breast Salad", hotDots.Get(70221).Name);
+        Assert.Equal("icon_items.fallfestival_salad_tex", hotDots.Get(70221).EffectIcon);
+
+        var skills = new SkillDatabase(dataRoot, "EU-EN");
+        var archer = new RaceGenderClass(Race.Common, Gender.Common, PlayerClass.Archer);
+        Assert.False(string.IsNullOrWhiteSpace(skills.GetOrNull(archer, 80101)?.Name));
+    }
+
+    [Fact]
+    public void CombatNotificationCategoryRows_AreNamedInWordsNotInEnumIdentifiers()
+    {
+        // The two categories the shipped events-common.xml really uses are translated, so they are
+        // checked against the resource rather than against an English string.
+        Assert.Equal(Lang.LP.CombatNotifyCategoryCrystalBind,
+            DamageMeter.UI.Windows.CombatNotificationRows.CategoryName(Tera.Game.HotDot.Types.CrystalBind));
+        Assert.Equal(Lang.LP.CombatNotifyCategoryCombatCrystalBind,
+            DamageMeter.UI.Windows.CombatNotificationRows.CategoryName(Tera.Game.HotDot.Types.CCrystalBind));
+        Assert.False(string.IsNullOrWhiteSpace(Lang.LP.CombatNotifyCategoryCrystalBind));
+        Assert.DoesNotContain("CrystalBind",
+            DamageMeter.UI.Windows.CombatNotificationRows.CategoryName(Tera.Game.HotDot.Types.CCrystalBind));
+
+        // Anything a user puts in their own events file at least stops being one run-together word.
+        Assert.Equal("Mov spd in combat", DamageMeter.UI.Windows.CombatNotificationRows.CategoryName(Tera.Game.HotDot.Types.MovSpdInCombat));
+        Assert.Equal("Max HP", DamageMeter.UI.Windows.CombatNotificationRows.CategoryName(Tera.Game.HotDot.Types.MaxHP));
+        Assert.Equal("PVP atk", DamageMeter.UI.Windows.CombatNotificationRows.CategoryName(Tera.Game.HotDot.Types.PVPAtk));
+    }
+
+    [Fact]
+    public void CombatNotificationCheckbox_KeepsItsCheckedStateInTriggerSetters()
+    {
+        var checkboxSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Controls", "CheckboxSetting.xaml"));
+
+        // The checked look must come from setters, because the EnterActions storyboard next to them
+        // only runs on a false -> true transition, which never happens for a control that is built
+        // already checked - as every row of an ItemsControl is.
+        Assert.Contains("<Setter Property=\"Opacity\" TargetName=\"optionMark\" Value=\"1\" />", checkboxSource);
+        Assert.DoesNotContain("<!--<Setter Property=\"Opacity\" TargetName=\"optionMark\" Value=\"1\" />-->", checkboxSource);
+
+        // A long label must not grow over the checkbox either.
+        Assert.Contains("TextTrimming=\"CharacterEllipsis\"", checkboxSource);
+
+        // Whether the thing is actually painted is a question for CheckboxSettingRenderTests: this
+        // assertion held while every checked row in the Events tab rendered nothing at all.
+    }
+
+    [Fact]
+    public void DisabledIds_RoundTripThroughTheEventsSerializer()
+    {
+        var ev = NewAbnormalityEvent(70221, 70211, 70222);
+
+        // Nothing unchecked: no attribute at all, and the notify processor sees the very instance.
+        Assert.Null(EventsData.SerializeDisabledIds(ev, EventsData.AbnormalityTokens(ev)));
+        Assert.Same(ev, EventsData.WithoutDisabledIds(ev));
+
+        ev.DisabledIds.Add("70211");
+        ev.DisabledIds.Add("999999"); // deleted from the event since it was unchecked
+        var serialized = EventsData.SerializeDisabledIds(ev, EventsData.AbnormalityTokens(ev));
+        Assert.Equal("70211", serialized);
+
+        var reloaded = NewAbnormalityEvent(70221, 70211, 70222);
+        EventsData.ParseDisabledIds(reloaded, serialized);
+
+        Assert.True(reloaded.IsIdDisabled(70211));
+        Assert.False(reloaded.IsIdDisabled(70221));
+
+        // The runtime view drops the unchecked id and nothing else.
+        var published = (AbnormalityEvent)EventsData.WithoutDisabledIds(reloaded)!;
+        Assert.NotSame(reloaded, published);
+        Assert.Equal(new[] { 70221, 70222 }, published.Ids.Keys.OrderBy(x => x).ToArray());
+        Assert.Same(reloaded.NextChecks, published.NextChecks);
+    }
+
+    [Fact]
+    public void DisabledIds_HideTheEventEntirelyWhenEveryIdIsUnchecked()
+    {
+        var ev = NewAbnormalityEvent(6001, 6003);
+        ev.DisabledIds.Add("6001");
+        ev.DisabledIds.Add("6003");
+
+        // Same thing as active="false" for the notify processor.
+        Assert.Null(EventsData.WithoutDisabledIds(ev));
+
+        var cooldown = new CooldownEvent(true, true, 5, 100200, true);
+        Assert.Same(cooldown, EventsData.WithoutDisabledIds(cooldown));
+        cooldown.DisabledIds.Add("100200");
+        Assert.Null(EventsData.WithoutDisabledIds(cooldown));
+    }
+
+    [Fact]
+    public void DisabledIds_SurviveTheEventsXmlAttributeAndItsComment()
+    {
+        var xml = XDocument.Parse(File.ReadAllText(ProjectPath("Lang", "Resources", "en", "events-common.xml")));
+        var target = xml.Root!.Elements("abnormality").First();
+        var ids = target.Element("abnormalities")!.Elements("abnormality").Select(x => x.Value).ToList();
+        Assert.True(ids.Count > 1, "Expected a shipped event with more than one abnormality id.");
+
+        target.SetAttributeValue("disabled_ids", ids[0]);
+        var reloaded = XDocument.Parse(xml.ToString());
+        var reloadedTarget = reloaded.Root!.Elements("abnormality").First();
+
+        Assert.Equal(ids[0], reloadedTarget.Attribute("disabled_ids")!.Value);
+
+        // The comment above an event is its fallback name, so the serializer writes it back out.
+        var eventsDataSource = File.ReadAllText(ProjectPath("Data", "EventsData.cs"));
+        Assert.Contains("var comment = SerializeComment(eventActions.Key.Comment);", eventsDataSource);
+        Assert.Contains("Comment = PrecedingComment(abnormality)", eventsDataSource);
+    }
+
+    private static AbnormalityEvent NewAbnormalityEvent(params int[] ids)
+    {
+        return new AbnormalityEvent(
+            true, true, 5, new List<BlackListItem>(),
+            ids.ToDictionary(x => x, _ => 0),
+            new List<HotDot.Types>(),
+            AbnormalityTargetType.Self,
+            AbnormalityTriggerType.Added,
+            0, 0, false, new List<PlayerClass>());
+    }
+
+    [Fact]
+    public void CombatNotificationToggles_RefreshLiveCollectionsAndPersistThroughEventsData()
+    {
+        var eventsDataSource = File.ReadAllText(ProjectPath("Data", "EventsData.cs"));
+        var vmSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindowViewModel.cs"));
+        var windowSource = File.ReadAllText(ProjectPath("DamageMeter.UI", "Windows", "SettingsWindow.xaml.cs"));
+
+        // The notify processor iterates collections filtered by Active at load time, so a toggle has
+        // to rebuild them instead of waiting for a restart.
+        Assert.Contains("public void RefreshActiveEvents()", eventsDataSource);
+        Assert.Contains("public PlayerClass CurrentClass { get; private set; }", eventsDataSource);
+        Assert.Contains("BasicTeraData.Instance.EventsData.RefreshActiveEvents();", vmSource);
+
+        // Class events have their own file, otherwise their toggles would be lost on the next Load().
+        Assert.Contains("SaveEvents(EventsCommon, \"events-common.xml\");", eventsDataSource);
+        Assert.Contains("SaveEvents(EventsClass, \"events-\" + CurrentClass.ToString().ToLowerInvariant() + \".xml\");", eventsDataSource);
+
+        // Saved on settings close, and the list is rebuilt every time the window is shown.
+        Assert.Contains("SaveCombatNotifications();", windowSource);
+        Assert.Contains("RefreshCombatNotifications();", windowSource);
+        Assert.Contains("BasicTeraData.Instance.EventsData.Save();", vmSource);
+    }
+
+    [Fact]
+    public void ClassEventsFile_IsOnlyRewrittenWhenAToggleActuallyChanged()
+    {
+        var eventsDataSource = File.ReadAllText(ProjectPath("Data", "EventsData.cs"));
+
+        // Save() runs on every exit, so the file is only rewritten when a toggle - the Active flag or
+        // one of the per-id checkboxes - really moved.
+        Assert.Contains("&& ClassToggleStateChanged()", eventsDataSource);
+        Assert.Contains("_classStateOnDisk = SnapshotState(classEvents);", eventsDataSource);
+        Assert.Contains("_classStateOnDisk = SnapshotState(EventsClass);", eventsDataSource);
+        Assert.Contains("return ev.Active + \"|\" + string.Join(\",\", ev.DisabledIds", eventsDataSource);
+
+        // Those comments are what the guard protects.
+        var commented = Directory
+            .EnumerateFiles(ProjectPath("Lang", "Resources", "en"), "events-*.xml")
+            .Where(x => !Path.GetFileName(x).Equals("events-common.xml", StringComparison.OrdinalIgnoreCase))
+            .Count(x => File.ReadAllText(x).Contains("<!--", StringComparison.Ordinal));
+        Assert.True(commented > 0, "Class event files are expected to document their events with comments.");
+    }
+
+    [Fact]
+    public void ClassEvents_ArePublishedOnlyAfterTheWholeFileParsed()
+    {
+        var eventsDataSource = File.ReadAllText(ProjectPath("Data", "EventsData.cs"));
+
+        // Parsing straight into the published EventsClass would let a mid-file parse error leave a
+        // half filled set under the previous class, which Save() would then write over its file.
+        Assert.Contains("var classEvents = new Dictionary<Event, List<Action>>();", eventsDataSource);
+        Assert.Contains("ParseAbnormalities(classEvents, xml);", eventsDataSource);
+        Assert.Contains("ParseCooldown(classEvents, xml);", eventsDataSource);
+        Assert.DoesNotContain("ParseAbnormalities(EventsClass, xml);", eventsDataSource);
+
+        // Load() runs on the packet thread while Save()/RefreshActiveEvents() run on the UI thread.
+        Assert.Contains("private readonly object _sync = new object();", eventsDataSource);
+        Assert.Contains("lock (_sync) { RefreshActiveEventsCore(); }", eventsDataSource);
+    }
+
+    [Fact]
+    public void CombatEventDefaults_StoreTheToggleAsAnActiveAttributePerEvent()
+    {
+        var xml = XDocument.Parse(File.ReadAllText(ProjectPath("Lang", "Resources", "en", "events-common.xml")));
+
+        var combatEvents = xml.Root!.Elements()
+            .Where(x => x.Name.LocalName is "abnormality" or "cooldown")
+            .ToList();
+
+        Assert.NotEmpty(combatEvents);
+
+        var target = combatEvents[0];
+        target.SetAttributeValue("active", false);
+
+        var reloaded = XDocument.Parse(xml.ToString());
+        var reloadedTarget = reloaded.Root!.Elements()
+            .First(x => x.Name.LocalName is "abnormality" or "cooldown");
+
+        Assert.False(bool.Parse(reloadedTarget.Attribute("active")!.Value));
+    }
+
+    /// <summary>
+    /// A path inside the repository. Found by walking up to the folder that holds Tera.sln rather
+    /// than by counting ".." segments, because how deep the test binaries sit changes with the
+    /// project's target framework and runtime identifier.
+    /// </summary>
+    internal static string ProjectPath(params string[] parts)
+    {
+        var root = AppContext.BaseDirectory;
+        while (root != null && !File.Exists(Path.Combine(root, "Tera.sln")))
+        {
+            root = Path.GetDirectoryName(root.TrimEnd(Path.DirectorySeparatorChar));
+        }
+
+        Assert.True(root != null, $"No Tera.sln above {AppContext.BaseDirectory}.");
+
+        var pathParts = new List<string> { root! };
         pathParts.AddRange(parts);
 
         return Path.GetFullPath(Path.Combine(pathParts.ToArray()));

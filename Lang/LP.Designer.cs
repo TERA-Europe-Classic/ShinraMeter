@@ -2475,5 +2475,347 @@ namespace Lang {
                 return ResourceManager.GetString("Your_hotkeys_xml_file_is_invalid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        public static string NotificationsSection {
+            get {
+                return ResourceManager.GetString("NotificationsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which on-screen popup notifications you want to receive..
+        /// </summary>
+        public static string NotificationsDescription {
+            get {
+                return ResourceManager.GetString("NotificationsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string TestNotification {
+            get {
+                return ResourceManager.GetString("TestNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test notification.
+        /// </summary>
+        public static string TestNotificationTitle {
+            get {
+                return ResourceManager.GetString("TestNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is how notifications look.
+        /// </summary>
+        public static string TestNotificationBody {
+            get {
+                return ResourceManager.GetString("TestNotificationBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whisper.
+        /// </summary>
+        public static string NotifyWhisper {
+            get {
+                return ResourceManager.GetString("NotifyWhisper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat mention (@name).
+        /// </summary>
+        public static string NotifyMention {
+            get {
+                return ResourceManager.GetString("NotifyMention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wake up (@@).
+        /// </summary>
+        public static string NotifyWakeUp {
+            get {
+                return ResourceManager.GetString("NotifyWakeUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dungeon/BG matching success.
+        /// </summary>
+        public static string NotifyMatchingSuccess {
+            get {
+                return ResourceManager.GetString("NotifyMatchingSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Party ready check.
+        /// </summary>
+        public static string NotifyReadyCheck {
+            get {
+                return ResourceManager.GetString("NotifyReadyCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player applied to your party.
+        /// </summary>
+        public static string NotifyOtherUserApply {
+            get {
+                return ResourceManager.GetString("NotifyOtherUserApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broker offer.
+        /// </summary>
+        public static string NotifyBroker {
+            get {
+                return ResourceManager.GetString("NotifyBroker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Party invite.
+        /// </summary>
+        public static string NotifyPartyInvite {
+            get {
+                return ResourceManager.GetString("NotifyPartyInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trade request.
+        /// </summary>
+        public static string NotifyTrade {
+            get {
+                return ResourceManager.GetString("NotifyTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other contract request.
+        /// </summary>
+        public static string NotifyGenericContract {
+            get {
+                return ResourceManager.GetString("NotifyGenericContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vanguard credits near cap.
+        /// </summary>
+        public static string NotifyVanguardCredits {
+            get {
+                return ResourceManager.GetString("NotifyVanguardCredits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combat notifications.
+        /// </summary>
+        public static string CombatNotificationsSection {
+            get {
+                return ResourceManager.GetString("CombatNotificationsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which in-combat alerts you want to receive (missing buffs, cooldown resets, Enrage...). Their text, sound and triggers stay configurable in the events editor..
+        /// </summary>
+        public static string CombatNotificationsDescription {
+            get {
+                return ResourceManager.GetString("CombatNotificationsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class-specific events appear after you log in..
+        /// </summary>
+        public static string CombatNotificationsClassHint {
+            get {
+                return ResourceManager.GetString("CombatNotificationsClassHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No combat events are loaded..
+        /// </summary>
+        public static string CombatNotificationsEmpty {
+            get {
+                return ResourceManager.GetString("CombatNotificationsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing.
+        /// </summary>
+        public static string CombatNotifyMissing {
+            get {
+                return ResourceManager.GetString("CombatNotifyMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiring.
+        /// </summary>
+        public static string CombatNotifyExpiring {
+            get {
+                return ResourceManager.GetString("CombatNotifyExpiring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applied.
+        /// </summary>
+        public static string CombatNotifyApplied {
+            get {
+                return ResourceManager.GetString("CombatNotifyApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed.
+        /// </summary>
+        public static string CombatNotifyRemoved {
+            get {
+                return ResourceManager.GetString("CombatNotifyRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cooldown.
+        /// </summary>
+        public static string CombatNotifyCooldown {
+            get {
+                return ResourceManager.GetString("CombatNotifyCooldown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cooldown reset.
+        /// </summary>
+        public static string CombatNotifyCooldownReset {
+            get {
+                return ResourceManager.GetString("CombatNotifyCooldownReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any skill.
+        /// </summary>
+        public static string CombatNotifyAnySkill {
+            get {
+                return ResourceManager.GetString("CombatNotifyAnySkill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any effect.
+        /// </summary>
+        public static string CombatNotifyNoAbnormality {
+            get {
+                return ResourceManager.GetString("CombatNotifyNoAbnormality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Priority.
+        /// </summary>
+        public static string CombatNotifyPriority {
+            get {
+                return ResourceManager.GetString("CombatNotifyPriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only while TERA is focused.
+        /// </summary>
+        public static string CombatNotifyInGame {
+            get {
+                return ResourceManager.GetString("CombatNotifyInGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only while TERA is not focused.
+        /// </summary>
+        public static string CombatNotifyOutOfGame {
+            get {
+                return ResourceManager.GetString("CombatNotifyOutOfGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Also out of combat.
+        /// </summary>
+        public static string CombatNotifyOutOfCombat {
+            get {
+                return ResourceManager.GetString("CombatNotifyOutOfCombat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target.
+        /// </summary>
+        public static string CombatNotifyTarget {
+            get {
+                return ResourceManager.GetString("CombatNotifyTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You.
+        /// </summary>
+        public static string CombatNotifyTestPlayer {
+            get {
+                return ResourceManager.GetString("CombatNotifyTestPlayer", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Common.
+        /// </summary>
+        public static string CombatNotificationsGroupCommon {
+            get {
+                return ResourceManager.GetString("CombatNotificationsGroupCommon", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Effect category.
+        /// </summary>
+        public static string CombatNotifyCategory {
+            get {
+                return ResourceManager.GetString("CombatNotifyCategory", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Crystal bind.
+        /// </summary>
+        public static string CombatNotifyCategoryCrystalBind {
+            get {
+                return ResourceManager.GetString("CombatNotifyCategoryCrystalBind", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Combat crystal bind.
+        /// </summary>
+        public static string CombatNotifyCategoryCombatCrystalBind {
+            get {
+                return ResourceManager.GetString("CombatNotifyCategoryCombatCrystalBind", resourceCulture);
+            }
+        }
     }
 }

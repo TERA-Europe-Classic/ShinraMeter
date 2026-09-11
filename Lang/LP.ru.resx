@@ -836,4 +836,118 @@
   <data name="CloseNoConfirm" xml:space="preserve">
     <value>Закрыть (без подтверждения)</value>
   </data>
+  <data name="NotificationsSection" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="NotificationsDescription" xml:space="preserve">
+    <value>Выберите, какие всплывающие уведомления вы хотите получать.</value>
+  </data>
+  <data name="TestNotification" xml:space="preserve">
+    <value>Проверить</value>
+  </data>
+  <data name="TestNotificationTitle" xml:space="preserve">
+    <value>Тестовое уведомление</value>
+  </data>
+  <data name="TestNotificationBody" xml:space="preserve">
+    <value>Так выглядят уведомления</value>
+  </data>
+  <data name="NotifyWhisper" xml:space="preserve">
+    <value>Шёпот</value>
+  </data>
+  <data name="NotifyMention" xml:space="preserve">
+    <value>Упоминание в чате (@имя)</value>
+  </data>
+  <data name="NotifyWakeUp" xml:space="preserve">
+    <value>Подъём (@@)</value>
+  </data>
+  <data name="NotifyMatchingSuccess" xml:space="preserve">
+    <value>Успешный подбор в подземелье/ПБ</value>
+  </data>
+  <data name="NotifyReadyCheck" xml:space="preserve">
+    <value>Проверка готовности группы</value>
+  </data>
+  <data name="NotifyOtherUserApply" xml:space="preserve">
+    <value>Заявка игрока в вашу группу</value>
+  </data>
+  <data name="NotifyBroker" xml:space="preserve">
+    <value>Предложение на бирже</value>
+  </data>
+  <data name="NotifyPartyInvite" xml:space="preserve">
+    <value>Приглашение в группу</value>
+  </data>
+  <data name="NotifyTrade" xml:space="preserve">
+    <value>Запрос на обмен</value>
+  </data>
+  <data name="NotifyGenericContract" xml:space="preserve">
+    <value>Другой запрос</value>
+  </data>
+  <data name="NotifyVanguardCredits" xml:space="preserve">
+    <value>Кредиты Авангарда близки к лимиту</value>
+  </data>
+  <data name="CombatNotificationsSection" xml:space="preserve">
+    <value>Боевые уведомления</value>
+  </data>
+  <data name="CombatNotificationsDescription" xml:space="preserve">
+    <value>Выберите, какие боевые уведомления вы хотите получать (отсутствующие баффы, сброс отката, Ярость и т.д.). Текст, звук и условия срабатывания настраиваются в редакторе событий.</value>
+  </data>
+  <data name="CombatNotificationsClassHint" xml:space="preserve">
+    <value>События вашего класса появятся после входа в игру.</value>
+  </data>
+  <data name="CombatNotificationsEmpty" xml:space="preserve">
+    <value>Боевые события не загружены.</value>
+  </data>
+  <data name="CombatNotifyMissing" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="CombatNotifyExpiring" xml:space="preserve">
+    <value>Заканчивается</value>
+  </data>
+  <data name="CombatNotifyApplied" xml:space="preserve">
+    <value>Наложено</value>
+  </data>
+  <data name="CombatNotifyRemoved" xml:space="preserve">
+    <value>Снято</value>
+  </data>
+  <data name="CombatNotifyCooldown" xml:space="preserve">
+    <value>Откат</value>
+  </data>
+  <data name="CombatNotifyCooldownReset" xml:space="preserve">
+    <value>Сброс отката</value>
+  </data>
+  <data name="CombatNotifyAnySkill" xml:space="preserve">
+    <value>Любой навык</value>
+  </data>
+  <data name="CombatNotifyNoAbnormality" xml:space="preserve">
+    <value>Любой эффект</value>
+  </data>
+  <data name="CombatNotifyPriority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="CombatNotifyInGame" xml:space="preserve">
+    <value>Только когда TERA в фокусе</value>
+  </data>
+  <data name="CombatNotifyOutOfGame" xml:space="preserve">
+    <value>Только когда TERA не в фокусе</value>
+  </data>
+  <data name="CombatNotifyOutOfCombat" xml:space="preserve">
+    <value>Также вне боя</value>
+  </data>
+  <data name="CombatNotifyTarget" xml:space="preserve">
+    <value>Цель</value>
+  </data>
+  <data name="CombatNotifyTestPlayer" xml:space="preserve">
+    <value>Вы</value>
+  </data>
+  <data name="CombatNotificationsGroupCommon" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="CombatNotifyCategory" xml:space="preserve">
+    <value>Категория эффектов</value>
+  </data>
+  <data name="CombatNotifyCategoryCrystalBind" xml:space="preserve">
+    <value>Бинд кристаллов</value>
+  </data>
+  <data name="CombatNotifyCategoryCombatCrystalBind" xml:space="preserve">
+    <value>Бинд боевых кристаллов</value>
+  </data>
 </root>
